@@ -41,4 +41,20 @@ export class PurchaseController {
       return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
   }
+
+  async list(req: NextRequest) {
+    try {
+        // Auth check
+        const session = await getAuthSession();
+        if (!session) {
+          return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        const purchases = await this.purchaseService.getAllPurchases();
+        return NextResponse.json(purchases, { status: 200 });
+    } catch (error) {
+        console.error("List Purchases Error:", error);
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+  }
 }

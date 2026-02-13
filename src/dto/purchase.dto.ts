@@ -14,3 +14,15 @@ export const PurchaseResponseSchema = z.object({
 });
 
 export type PurchaseResponseDTO = z.infer<typeof PurchaseResponseSchema>;
+
+export const PurchaseListResponseSchema = z.object({
+    id: z.string(),
+    githubLogin: z.string(),
+    createdAt: z.date(),
+    item: z.object({
+        name: z.string(),
+        price: z.number(),
+    })
+});
+
+export type PurchaseListResponseDTO = z.infer<typeof PurchaseListResponseSchema>;

@@ -15,4 +15,20 @@ export class PurchaseRepository {
       },
     });
   }
+
+  async findAll() {
+    return await prisma.purchase.findMany({
+      include: {
+        item: {
+          select: {
+            name: true,
+            price: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 }

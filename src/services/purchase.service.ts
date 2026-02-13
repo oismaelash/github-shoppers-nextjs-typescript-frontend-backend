@@ -3,7 +3,7 @@ import { ItemRepository } from "@/repositories/item.repository";
 import { PurchaseRepository } from "@/repositories/purchase.repository";
 import { GitHubUserAdapter } from "@/adapters/github-user.adapter";
 import { ResendAdapter } from "@/adapters/resend.adapter";
-import { CreatePurchaseDTO, PurchaseResponseDTO } from "@/dto/purchase.dto";
+import { CreatePurchaseDTO, PurchaseResponseDTO, PurchaseListResponseDTO } from "@/dto/purchase.dto";
 import { getAuthSession } from "@/lib/auth/utils";
 
 export class PurchaseService {
@@ -65,6 +65,19 @@ export class PurchaseService {
     this.sendConfirmationEmail(purchaseResult.dto.githubLogin, purchaseResult.itemName);
 
     return purchaseResult.dto;
+  }
+
+  async getAllPurchases(): Promise<PurchaseListResponseDTO[]> {
+    const purchases = await this.purchaseRepository.findAll();
+    return purchases.map(p => ({
+      id: p.id,
+      githubLogin: p.githubLogin,
+      createdAt: p.createdAt,
+      item: {
+        name: p.item.name,
+        price: Number(p.item.price)
+      }
+    }));
   }
 
   private async sendConfirmationEmail(githubLogin: string, itemName: string) {
