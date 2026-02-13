@@ -2,22 +2,26 @@ import prisma from "@/lib/prisma";
 import { ItemRepository } from "@/repositories/item.repository";
 import { PurchaseRepository } from "@/repositories/purchase.repository";
 import { GitHubUserAdapter } from "@/adapters/github-user.adapter";
+import { ResendAdapter } from "@/adapters/resend.adapter";
 import { CreatePurchaseDTO, PurchaseResponseDTO } from "@/dto/purchase.dto";
+import { getAuthSession } from "@/lib/auth/utils";
 
 export class PurchaseService {
   private itemRepository: ItemRepository;
   private purchaseRepository: PurchaseRepository;
   private githubUserAdapter: GitHubUserAdapter;
+  private resendAdapter: ResendAdapter;
 
   constructor() {
     this.itemRepository = new ItemRepository();
     this.purchaseRepository = new PurchaseRepository();
     this.githubUserAdapter = new GitHubUserAdapter();
+    this.resendAdapter = new ResendAdapter();
   }
 
   async createPurchase(data: CreatePurchaseDTO): Promise<PurchaseResponseDTO> {
     // 1. Start Transaction
-    return await prisma.$transaction(async (tx) => {
+    const purchaseResult = await prisma.$transaction(async (tx) => {
       // 2. Lock item row (SELECT FOR UPDATE)
       // Using queryRaw in repository to ensure row locking
       const item = await this.itemRepository.findByIdWithLock(data.itemId, tx);
@@ -44,12 +48,40 @@ export class PurchaseService {
         githubLogin: githubUser.login,
       }, tx);
 
+      // Return both purchase and item name for email
       return {
-        id: purchase.id,
-        itemId: purchase.itemId,
-        githubLogin: purchase.githubLogin,
-        createdAt: purchase.createdAt
+        dto: {
+            id: purchase.id,
+            itemId: purchase.itemId,
+            githubLogin: purchase.githubLogin,
+            createdAt: purchase.createdAt
+        },
+        itemName: item.name
       };
     });
+
+    // 7. Send Email Confirmation (Post-Transaction)
+    // We do this outside the transaction so email failures don't rollback the purchase
+    this.sendConfirmationEmail(purchaseResult.dto.githubLogin, purchaseResult.itemName);
+
+    return purchaseResult.dto;
+  }
+
+  private async sendConfirmationEmail(githubLogin: string, itemName: string) {
+      try {
+          const session = await getAuthSession();
+          const userEmail = session?.user?.email;
+
+          if (userEmail) {
+              await this.resendAdapter.sendPurchaseConfirmation({
+                  to: userEmail,
+                  itemName: itemName,
+                  githubLogin: githubLogin
+              });
+          }
+      } catch (error) {
+          console.error("Failed to send confirmation email:", error);
+          // Suppress error so we don't affect the HTTP response
+      }
   }
 }
