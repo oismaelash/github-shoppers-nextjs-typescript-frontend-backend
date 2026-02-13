@@ -15,7 +15,7 @@ export class ResendAdapter {
   private resend: Resend;
 
   constructor() {
-    this.resend = new Resend(process.env.RESEND_API_KEY);
+    this.resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_for_build');
   }
 
   async sendPurchaseConfirmation(payload: EmailPayload): Promise<EmailResponse> {
