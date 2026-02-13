@@ -9,9 +9,21 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/client": "^7.4.0",
+    "antd": "^6.3.0",
+    "axios": "^1.13.5",
+    "bullmq": "^5.69.1",
+    "ioredis": "^5.9.3",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
+    "next-intl": "^4.8.2",
+    "next-swagger-doc": "^0.4.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "resend": "^6.9.2",
+    "swagger-client": "^3.36.1",
+    "swagger-ui-react": "^5.31.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -19,6 +31,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "prisma": "^7.4.0",
     "typescript": "^5"
   }
 }
