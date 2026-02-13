@@ -40,3 +40,5 @@
 * Umami: Analytics
 - https://umami.is/docs
 
+* DeepSeek API: AI Enhancement
+- https://api-docs.deepseek.com/

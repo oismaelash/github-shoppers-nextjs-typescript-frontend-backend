@@ -76,4 +76,14 @@ export class ItemRepository {
       data: { quantity },
     });
   }
+
+  async updateDetails(id: string, name: string, description: string): Promise<void> {
+    await prisma.item.update({
+      where: { id },
+      data: {
+        name,
+        description,
+      },
+    });
+  }
 }

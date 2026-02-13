@@ -1,5 +1,6 @@
 import { ItemRepository } from "@/repositories/item.repository";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
+import { aiEnhancementQueue } from "@/queues/ai-enhancement.queue";
 
 export class ItemService {
   private itemRepository: ItemRepository;
@@ -9,8 +10,21 @@ export class ItemService {
   }
 
   async createItem(data: CreateItemDTO): Promise<ItemResponseDTO> {
-    // Business logic can be added here (e.g., validation beyond types, triggering events)
-    return await this.itemRepository.create(data);
+    const item = await this.itemRepository.create(data);
+
+    // Enqueue job for AI enhancement
+    try {
+        await aiEnhancementQueue.add('enhance-item', {
+            itemId: item.id,
+            name: item.name,
+            description: item.description
+        });
+    } catch (error) {
+        console.error("Failed to enqueue AI enhancement job:", error);
+        // We don't block the response if queue fails
+    }
+
+    return item;
   }
 
   async getAllItems(): Promise<ItemResponseDTO[]> {
