@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Shoppers | Developer-Powered Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#09090b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(13, 166, 242, 0.15) 0%, transparent 50%);
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="bg-primary p-1.5 rounded-lg">
+<svg class="w-5 h-5 text-white" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="font-bold text-lg tracking-tight">GitHub Shoppers</span>
+</div>
+<div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Marketplace</a>
+<a class="hover:text-primary transition-colors" href="#">Features</a>
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-semibold transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">login</span>
+                    Continue with GitHub
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-20 pb-32 overflow-hidden grid-pattern">
+<div class="absolute inset-0 hero-glow pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8 relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                    Now in Private Beta
+                </div>
+<h1 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-white">
+                    Buy and Sell Products Using Your <span class="text-primary">GitHub Identity</span>.
+                </h1>
+<p class="text-xl text-slate-400 leading-relaxed max-w-xl">
+                    A developer-powered marketplace where every purchase is tied to a real GitHub account and stock is enforced atomically.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="flex items-center justify-center gap-3 px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-xl text-lg font-bold transition-all shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined">account_circle</span>
+                        Continue with GitHub
+                    </button>
+</div>
+<div class="flex items-center gap-6 text-sm text-slate-500 font-medium italic">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary">code</span> No emails</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary">key</span> No passwords</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary">check_circle</span> Only code</span>
+</div>
+</div>
+<!-- Product Mockup Grid -->
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl opacity-20 rounded-full group-hover:opacity-30 transition-opacity"></div>
+<div class="grid grid-cols-2 gap-4 relative">
+<!-- Product Card 1 -->
+<div class="glass-card p-4 rounded-xl space-y-4 transform hover:-translate-y-1 transition-transform">
+<div class="aspect-video bg-gradient-to-br from-primary/20 to-blue-600/20 rounded-lg flex items-center justify-center border border-white/5 overflow-hidden">
+<div class="text-primary text-4xl material-symbols-outlined">terminal</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-bold text-white text-sm">React Component Pro</h3>
+<span class="text-primary font-mono text-xs font-bold">$49.00</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-700 border border-white/10" data-alt="GitHub user avatar profile circle"></div>
+<span class="text-xs text-slate-400">@dev_master</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<span>Stock: 12 Units</span>
+<span class="text-green-500 flex items-center gap-1">● Atomic</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="glass-card p-4 rounded-xl space-y-4 translate-y-8 transform hover:-translate-y-1 transition-transform">
+<div class="aspect-video bg-gradient-to-br from-purple-500/20 to-primary/20 rounded-lg flex items-center justify-center border border-white/5">
+<div class="text-purple-400 text-4xl material-symbols-outlined">database</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-bold text-white text-sm">Auth Logic Kit</h3>
+<span class="text-primary font-mono text-xs font-bold">$25.00</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-700 border border-white/10" data-alt="GitHub user avatar profile circle"></div>
+<span class="text-xs text-slate-400">@security_guru</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<span>Stock: 5 Units</span>
+<span class="text-green-500 flex items-center gap-1">● Atomic</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="glass-card p-4 rounded-xl space-y-4 transform hover:-translate-y-1 transition-transform">
+<div class="aspect-video bg-gradient-to-br from-green-500/20 to-primary/20 rounded-lg flex items-center justify-center border border-white/5">
+<div class="text-green-400 text-4xl material-symbols-outlined">verified_user</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-bold text-white text-sm">Deployment Script</h3>
+<span class="text-primary font-mono text-xs font-bold">$12.00</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-700 border border-white/10" data-alt="GitHub user avatar profile circle"></div>
+<span class="text-xs text-slate-400">@ops_ninja</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<span>Stock: 89 Units</span>
+<span class="text-green-500 flex items-center gap-1">● Atomic</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="glass-card p-4 rounded-xl space-y-4 translate-y-8 transform hover:-translate-y-1 transition-transform">
+<div class="aspect-video bg-gradient-to-br from-orange-500/20 to-primary/20 rounded-lg flex items-center justify-center border border-white/5">
+<div class="text-orange-400 text-4xl material-symbols-outlined">api</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<h3 class="font-bold text-white text-sm">API Credits (1k)</h3>
+<span class="text-primary font-mono text-xs font-bold">$19.99</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-700 border border-white/10" data-alt="GitHub user avatar profile circle"></div>
+<span class="text-xs text-slate-400">@api_provider</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<span>Stock: 500+</span>
+<span class="text-green-500 flex items-center gap-1">● Atomic</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof Bar -->
+<div class="border-y border-white/5 bg-white/[0.02] py-8">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-around items-center gap-8 md:gap-4">
+<div class="flex items-center gap-4">
+<span class="text-3xl font-black text-white">1,000+</span>
+<span class="text-slate-400 text-sm font-medium">GitHub users<br/>selling inventory</span>
+</div>
+<div class="h-10 w-px bg-white/10 hidden md:block"></div>
+<div class="flex items-center gap-4">
+<span class="text-3xl font-black text-white">10,000+</span>
+<span class="text-slate-400 text-sm font-medium">Purchases<br/>executed atomically</span>
+</div>
+<div class="h-10 w-px bg-white/10 hidden md:block"></div>
+<div class="flex items-center gap-4">
+<span class="text-3xl font-black text-white">99.9%</span>
+<span class="text-slate-400 text-sm font-medium">Verified identity<br/>accuracy rate</span>
+</div>
+</div>
+</div>
+<!-- How It Works -->
+<section class="py-24 bg-background-dark">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-20 space-y-4">
+<h2 class="text-4xl font-black text-white tracking-tight">How It Works</h2>
+<p class="text-slate-400 max-w-2xl mx-auto">Trading inventory on GitHub Shoppers is as easy as pushing a commit. Built for developers, by developers.</p>
+</div>
+<div class="grid md:grid-cols-4 gap-8 relative">
+<!-- Connector Line -->
+<div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+<!-- Step 1 -->
+<div class="relative flex flex-col items-center text-center space-y-6">
+<div class="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary relative z-10 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-3xl">login</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg mb-2">Login with OAuth</h3>
+<p class="text-sm text-slate-500">Securely connect your GitHub account in one click. No registration required.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex flex-col items-center text-center space-y-6">
+<div class="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary relative z-10 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-3xl">add_box</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg mb-2">List Products</h3>
+<p class="text-sm text-slate-500">Set your price and quantity. Our engine handles inventory updates automatically.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex flex-col items-center text-center space-y-6">
+<div class="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary relative z-10 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-3xl">shopping_cart</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg mb-2">Buy &amp; Link</h3>
+<p class="text-sm text-slate-500">Every transaction is permanently linked to your verified GitHub identity.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex flex-col items-center text-center space-y-6">
+<div class="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary relative z-10 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-3xl">history</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-lg mb-2">Track History</h3>
+<p class="text-sm text-slate-500">Access a complete audit trail of your purchases and sales via your dashboard.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Features Grid -->
+<section class="py-24 border-t border-white/5">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-16">
+<h2 class="text-3xl font-black text-white mb-4">Core Infrastructure</h2>
+<p class="text-slate-400">Everything you need to trade digital assets with confidence.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="glass-card p-8 rounded-2xl border-l-2 border-l-primary/50 group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">fingerprint</span>
+<h4 class="text-white font-bold text-xl mb-3">GitHub Identity</h4>
+<p class="text-slate-400 leading-relaxed">Identity verification built into every trade. See the public profile and commit history of every seller.</p>
+</div>
+<!-- Feature 2 -->
+<div class="glass-card p-8 rounded-2xl group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">layers</span>
+<h4 class="text-white font-bold text-xl mb-3">Atomic Stock Control</h4>
+<p class="text-slate-400 leading-relaxed">Our engine ensures inventory is locked during checkout. Zero overselling, zero manual updates.</p>
+</div>
+<!-- Feature 3 -->
+<div class="glass-card p-8 rounded-2xl group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">auto_awesome</span>
+<h4 class="text-white font-bold text-xl mb-3">AI Descriptions</h4>
+<p class="text-slate-400 leading-relaxed">Paste your repo URL and let our AI generate professional, technical product descriptions automatically.</p>
+</div>
+<!-- Feature 4 -->
+<div class="glass-card p-8 rounded-2xl group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">public</span>
+<h4 class="text-white font-bold text-xl mb-3">Public History</h4>
+<p class="text-slate-400 leading-relaxed">Transparency is key. Each purchase creates a cryptographic proof linked to your GitHub profile.</p>
+</div>
+<!-- Feature 5 -->
+<div class="glass-card p-8 rounded-2xl group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">link</span>
+<h4 class="text-white font-bold text-xl mb-3">Shareable Links</h4>
+<p class="text-slate-400 leading-relaxed">Embed product cards directly into your README.md or share clean checkout links on social media.</p>
+</div>
+<!-- Feature 6 -->
+<div class="glass-card p-8 rounded-2xl group">
+<span class="material-symbols-outlined text-primary mb-6 block text-3xl">translate</span>
+<h4 class="text-white font-bold text-xl mb-3">Multilingual</h4>
+<p class="text-slate-400 leading-relaxed">Global trade simplified with automatic interface translation for developers worldwide.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Use Cases Section -->
+<section class="py-24 bg-white/[0.02]">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-3xl font-black text-white">Infinite Use Cases</h2>
+<p class="text-slate-400">If it lives on GitHub, you can sell it here.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">folder_special</span>
+<span class="block text-white font-bold text-sm">Repo Access</span>
+</div>
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">groups</span>
+<span class="block text-white font-bold text-sm">Mentorship</span>
+</div>
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">token</span>
+<span class="block text-white font-bold text-sm">Digital Assets</span>
+</div>
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">cloud_done</span>
+<span class="block text-white font-bold text-sm">API Credits</span>
+</div>
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">key_visualizer</span>
+<span class="block text-white font-bold text-sm">SaaS Licenses</span>
+</div>
+<div class="glass-card p-6 rounded-xl text-center space-y-4 hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl">school</span>
+<span class="block text-white font-bold text-sm">Course Seats</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-32 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 blur-3xl rounded-full translate-y-1/2"></div>
+<div class="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-10">
+<h2 class="text-4xl lg:text-6xl font-black text-white leading-tight">
+                Start selling inventory tied to your <span class="text-primary underline decoration-primary/30">GitHub identity</span>.
+            </h2>
+<p class="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">
+                Join thousands of developers monetizing their code, time, and digital assets in the most secure way possible.
+            </p>
+<div class="flex flex-col items-center gap-6">
+<button class="flex items-center gap-3 px-10 py-5 bg-primary hover:bg-primary/90 text-white rounded-2xl text-xl font-bold transition-all shadow-2xl shadow-primary/30 transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+                    Continue with GitHub
+                </button>
+<p class="text-slate-500 text-sm font-mono">No credit card required to browse.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 bg-background-dark text-slate-500 text-sm">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="bg-primary/10 p-1 rounded-md">
+<svg class="w-4 h-4 text-primary" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="font-bold text-white">GitHub Shoppers</span>
+</div>
+<div class="flex gap-8">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Security</a>
+<a class="hover:text-primary transition-colors" href="#">GitHub Repo</a>
+</div>
+<p>© 2024 GitHub Shoppers. Not affiliated with GitHub, Inc.</p>
+</div>
+</footer>
+</body></html>

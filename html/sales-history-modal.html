@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Shoppers - Sales History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white overflow-hidden">
+<!-- Background: Management Screen (Blurred/Inactive) -->
+<div class="relative flex h-screen w-full flex-col bg-[#101d23] overflow-hidden filter blur-sm grayscale-[20%] pointer-events-none">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-solid border-[#223c49] px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-4">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path></svg>
+</div>
+<h2 class="text-white text-lg font-bold">GitHub Shoppers</h2>
+</div>
+<div class="flex items-center gap-9 opacity-50">
+<span class="text-sm font-medium">Marketplace</span>
+<span class="text-sm font-medium text-primary border-b-2 border-primary pb-1">My Products</span>
+<span class="text-sm font-medium">Orders</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="px-40 py-10">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-3xl font-bold mb-2">My Products</h1>
+<p class="text-[#90b7cb]">Manage your inventory and track sales performance.</p>
+</div>
+<button class="bg-[#223c49] px-4 py-2 rounded-lg text-sm font-bold">Add New Product</button>
+</div>
+<!-- Product Table Mockup -->
+<div class="rounded-lg border border-[#315668] bg-[#101d23] overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-[#182b34] text-[#90b7cb] text-xs uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Product</th>
+<th class="px-6 py-4">Stock</th>
+<th class="px-6 py-4">Price</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#315668]">
+<tr>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">apparel</span>
+</div>
+<span class="font-medium">GitHub Octocat Hoodie</span>
+</td>
+<td class="px-6 py-4 text-[#90b7cb]">45 in stock</td>
+<td class="px-6 py-4 text-[#90b7cb] font-mono">$55.00</td>
+<td class="px-6 py-4">
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">Active</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+<!-- Modal Container -->
+<div class="relative w-full max-w-3xl bg-[#182b34] rounded-xl shadow-2xl border border-[#315668] flex flex-col max-h-[85vh]">
+<!-- Close Button Top Right -->
+<button class="absolute top-4 right-4 text-[#90b7cb] hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Header Section -->
+<div class="p-6 border-b border-[#315668]">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary text-3xl">history</span>
+<h2 class="text-2xl font-bold tracking-tight">Sales History: GitHub Octocat Hoodie</h2>
+</div>
+<div class="flex gap-6 text-sm">
+<div class="flex items-center gap-2">
+<span class="text-[#90b7cb]">Total sales:</span>
+<span class="font-bold text-white">124 units</span>
+</div>
+<div class="w-px h-4 bg-[#315668] self-center"></div>
+<div class="flex items-center gap-2">
+<span class="text-[#90b7cb]">Revenue:</span>
+<span class="font-bold text-primary font-mono">$6,820.00</span>
+</div>
+</div>
+</div>
+<!-- Table Section (Scrollable) -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-[#1c323d] z-10 shadow-sm">
+<tr class="text-[#90b7cb] text-xs font-semibold uppercase tracking-wider">
+<th class="px-6 py-4">Buyer</th>
+<th class="px-6 py-4">Price Paid</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#315668]/50">
+<!-- Row 1 -->
+<tr class="hover:bg-[#223c49]/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#101c22] border border-[#315668] overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="User avatar of developer defunkt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlx5qgfYYe03v3KzNB26u8UyZ80YIahk0OG0zGVDnilYk_BXD-FvvGqAQjFhV6vMeQxR3v7PL2KOrPikAdrGRwliPOEOEJYahFz6iSlUWxHqEYtgpg56AiR6t0m7XgmrZwpJGqjn48ypPawP5L40djrmVa2jdAeMFjwSRAZZnX2GAiwmuqFYw7bzb_xnAWk4trhR4Rtfh9peO-CmPsBBPD7Yz0aOXhYHF-J5AUrOYL5ABQpf6Npklw8fiAjAMtg359K1m8HwAeq-g"/>
+</div>
+<span class="font-medium text-primary hover:underline cursor-pointer">defunkt</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-sm">$55.00</td>
+<td class="px-6 py-4 text-[#90b7cb] text-sm">2023-10-24 14:30</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Confirmed
+                                </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#223c49]/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#101c22] border border-[#315668] overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="User avatar of developer mojombo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCHOb0iTzaIK-GCv4j95EWcEBR3k8TbH1uBMaJIU1eHGpcq2r131tENMgyg0-3FdvPHr3MxJCmhEu-GvsxjgV0N24qaAaqFGxXaqbv3xUPjI5i3Oedxjajr-OXwqrvNvVhL_7uLnagUZSW3w7adXZtwif8mxseCqqi9BEJN_kWhSPb95up0AA52Cb9Ka6jRm7BxNKfWn6Cexga-dNZzB5XwdWkR_tfR1tcrahCyC20-v0-cTbLJ1yXhxhtU4B-ao729obmy8W0Wfk"/>
+</div>
+<span class="font-medium text-primary hover:underline cursor-pointer">mojombo</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-sm">$55.00</td>
+<td class="px-6 py-4 text-[#90b7cb] text-sm">2023-10-24 12:15</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Confirmed
+                                </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#223c49]/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#101c22] border border-[#315668] overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="User avatar of developer pjhyett" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzpD041T_mb_VqRXmcuWkYc3PDZhTIt-U4mZvoTMmchDFhpUJ-L1CTKw2SmJXuaR9Qj22A6UOndSxAmmXILaoplQgcDZKm8-aJAfAMRh7n3jRHFz44R0PJkbpayU8PgUfnG5IaV77QXjiaICrNEuS7BhSr5sU1BAJMDDsqA9JSsBKvbYlzAOxAKApAEztHSi3tqedvpS6ZbebofXlcvYL7eODiy_iUqgVpmweXpnjelqnMmIw8Wl7zm97-g_91IPYp-DseUdGBric"/>
+</div>
+<span class="font-medium text-primary hover:underline cursor-pointer">pjhyett</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-sm">$55.00</td>
+<td class="px-6 py-4 text-[#90b7cb] text-sm">2023-10-23 09:45</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Confirmed
+                                </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-[#223c49]/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#101c22] border border-[#315668] overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="User avatar of developer wycats" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2NyyMGP2VNH-gIr1uNFj0J2D23YouNn7ZWaIexzDfKiw5jYa0zDGuEKL2--ZS9MFYutmSm2P8SUpMWvBKCvTnnc4PH33V3PCcE06um5V4sc8oFNWELo_5FEXpH_CiUM2i_Mo15G5i8oQBWbSsrifVbt2R5L3Y8bBlZ1tSYGHYysVQAyVZsg7MTj5RBeJwHAuApwOuwxSMVId0ol9qOVR0j-uiDO8yRryzAi-7HMATNG-ZvWzwIrg1A4XGB1EAMSL70Rv_nS7i5vk"/>
+</div>
+<span class="font-medium text-primary hover:underline cursor-pointer">wycats</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-sm">$55.00</td>
+<td class="px-6 py-4 text-[#90b7cb] text-sm">2023-10-23 08:20</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Confirmed
+                                </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-[#223c49]/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#101c22] border border-[#315668] overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="User avatar of developer ezmobius" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApnGHEOBn6ibzgoa2gk6Tthv4ReCoRRQ94ZC4VWE5GXgGnPTuKdAcbX-tTcASWUned1v5GPSVE8cyL4wOZ6HzXEz4cBJqhvSnggWG69doIucbtiFpIfYqBKTuam6YH6pnTXUwCoN_d0Bdx_7MSIT50-uxrN4u6GR7E31ey4kXEdvvNBSQT2iEKughQ4rIFrjoECXWcDb7XZKnzpxI5MYAknYqDifJHk94NNA_-1WF66ZEAnVbeKCrZ7-kd9WommJkV-bldJAQpkjY"/>
+</div>
+<span class="font-medium text-primary hover:underline cursor-pointer">ezmobius</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-sm">$55.00</td>
+<td class="px-6 py-4 text-[#90b7cb] text-sm">2023-10-22 18:10</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Confirmed
+                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Section -->
+<div class="p-6 border-t border-[#315668] bg-[#1c323d] rounded-b-xl flex justify-between items-center">
+<p class="text-[#90b7cb] text-xs">Viewing latest 100 transactions</p>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-semibold text-[#90b7cb] hover:text-white">Export CSV</button>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg text-sm font-bold shadow-lg transition-all">Close</button>
+</div>
+</div>
+</div>
+</div>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #182b34;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #315668;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #416b7f;
+        }
+    </style>
+</body></html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Shoppers - Create Product</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-item-active {
+            background-color: rgba(13, 166, 242, 0.15);
+            border-left: 3px solid #0da6f2;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-60 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0d161a] flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">shopping_bag</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">GH Shoppers</h2>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-primary bg-primary/10" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">inventory_2</span>
+                My Products
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">storefront</span>
+                Marketplace
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+                Purchase History
+            </a>
+</nav>
+<!-- User Profile (Bottom of Sidebar) -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 mt-auto">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-BS8rJhpuiJ1cZTgjLbNSRgs_AZ0aNZTV84zfG8OngaUsxL0p5wEQmH2MPJGR0822H8XVQnnYAxMkjh_OAR8hccElgdvDB1_aaTUe1Vhoundih_rTCMqKCIowJrhzQfzuJ1HVt3BkgFoBv5Pi83v9_-ATXH-MkB2W1acC3ZGmzSrLUm4yIodSWdelMuzNZFbGvH7R5TpxmBk56JWBV_45LFQO8luPML6Oi7wAhyzypL9_E2lzHAhOu5eKA9iqOQt3gV0Xtnkh3s0"/>
+</div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-semibold truncate">Octocat_Dev</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">View Profile</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="h-16 flex-shrink-0 border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-[#0d161a]/50 backdrop-blur-md flex items-center justify-between px-8">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 text-sm bg-slate-100 dark:bg-slate-800/50 border-none rounded-lg focus:ring-1 focus:ring-primary placeholder-slate-500" placeholder="Search marketplace..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="max-w-4xl mx-auto w-full px-8 py-10">
+<div class="mb-8">
+<h1 class="text-3xl font-bold tracking-tight mb-2">Create Product</h1>
+<p class="text-slate-500 dark:text-slate-400">Add a new item to the GitHub Shoppers marketplace using your GitHub identity.</p>
+</div>
+<!-- Form Card -->
+<div class="bg-white dark:bg-[#16252c] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 space-y-6">
+<!-- Product Name -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Product Name</label>
+<button class="flex items-center gap-1.5 text-xs font-semibold text-primary hover:bg-primary/10 px-2 py-1 rounded transition-colors group">
+<span class="material-symbols-outlined text-sm group-hover:rotate-12 transition-transform">auto_awesome</span>
+                                Enhance with AI
+                            </button>
+</div>
+<input class="w-full bg-slate-50 dark:bg-[#0d161a] border border-slate-200 dark:border-slate-800 rounded-lg py-2.5 px-4 focus:border-primary focus:ring-primary/20 transition-all placeholder-slate-500" placeholder="e.g., Ultra Soft Developer Hoodie" type="text"/>
+</div>
+<!-- Price and Quantity Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Price (USD)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+<input class="w-full bg-slate-50 dark:bg-[#0d161a] border border-slate-200 dark:border-slate-800 rounded-lg py-2.5 pl-8 pr-4 focus:border-primary focus:ring-primary/20 transition-all" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Quantity</label>
+<input class="w-full bg-slate-50 dark:bg-[#0d161a] border border-slate-200 dark:border-slate-800 rounded-lg py-2.5 px-4 focus:border-primary focus:ring-primary/20 transition-all" placeholder="1" type="number"/>
+</div>
+</div>
+<!-- Description -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
+<button class="flex items-center gap-1.5 text-xs font-semibold text-primary hover:bg-primary/10 px-2 py-1 rounded transition-colors group">
+<span class="material-symbols-outlined text-sm group-hover:rotate-12 transition-transform">auto_awesome</span>
+                                Enhance with AI
+                            </button>
+</div>
+<textarea class="w-full bg-slate-50 dark:bg-[#0d161a] border border-slate-200 dark:border-slate-800 rounded-lg py-2.5 px-4 focus:border-primary focus:ring-primary/20 transition-all placeholder-slate-500 resize-none" placeholder="Describe your product in detail. Markdown is supported." rows="6"></textarea>
+</div>
+<!-- AI Toggle Card -->
+<div class="p-4 bg-primary/5 border border-primary/20 rounded-lg flex items-center justify-between">
+<div class="flex gap-3 items-center">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">google_my_business</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-100">[ Enhance with AI ] SEO Optimization</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Automatically optimize title and description for search visibility.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-slate-50 dark:bg-[#0d161a]/30 border-t border-slate-200 dark:border-slate-800 p-6 flex items-center justify-end gap-3">
+<button class="px-6 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                        Cancel
+                    </button>
+<button class="px-8 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-bold tracking-wide shadow-lg shadow-primary/20 transition-all transform active:scale-95">
+                        Create Product
+                    </button>
+</div>
+</div>
+<!-- Information Footer -->
+<div class="mt-8 flex items-start gap-3 p-4 bg-slate-100/50 dark:bg-slate-800/30 rounded-lg border border-slate-200 dark:border-slate-800">
+<span class="material-symbols-outlined text-slate-400">info</span>
+<p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    By creating a product, you agree to GitHub Shoppers' Terms of Service. Your GitHub profile identity will be linked to this listing as the verified seller. All transactions are securely processed via verified payment gateways.
+                </p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

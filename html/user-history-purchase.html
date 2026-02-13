@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Purchase History - GitHub Shoppers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                        "muted-foreground": "#90b7cb",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active {
+            background-color: rgba(13, 166, 242, 0.15);
+            border-left: 3px solid #0da6f2;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display min-h-screen flex overflow-hidden">
+<!-- Sidebar (240px) -->
+<aside class="w-[240px] flex-shrink-0 border-r border-white/10 flex flex-col justify-between bg-background-dark h-screen">
+<div class="flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">shopping_cart_checkout</span>
+<span class="font-bold text-lg tracking-tight">GH Shoppers</span>
+</div>
+</div>
+<nav class="mt-4 flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-white transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-white transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-white transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span class="text-sm font-medium">Create Product</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-white transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-sm font-medium">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white sidebar-active rounded-lg" href="#">
+<span class="material-symbols-outlined text-primary">history</span>
+<span class="text-sm font-medium">Purchase History</span>
+</a>
+</nav>
+</div>
+<!-- User Profile -->
+<div class="p-4 border-t border-white/10">
+<div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<div class="size-10 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center border border-primary/30">
+<img alt="User avatar" class="size-full object-cover" data-alt="GitHub user profile avatar for Octocat_Dev" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2CEK7NTyTE9atqfpMkPQzLUXshlhaqGJhYNTE27Cspl8nAVPb00DR-qyMiqpbwLRW-MMjLmztSOQlkud5CLlBbifYemXRFxFK-Wuxlbd-ZggdK5K_EmpbHi_cGJWuIJntwqFf5Ow_ngnXH7y95tsN8wZsc_VNaaSkWaxMfxAbMgbIs5YN1nSt5MrQb_OGoz_2PLzUhgQB2KbY66Gul0fqamGCEgEAkxwaH4TLtHNERAavWd6lRgs87LFG0_aXFGby_tPLCfcrjq0"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-white">Octocat_Dev</span>
+<span class="text-xs text-muted-foreground">Developer</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header (64px) -->
+<header class="h-16 flex-shrink-0 border-b border-white/10 flex items-center justify-between px-8 bg-background-dark/50 backdrop-blur-sm">
+<div class="max-w-md w-full">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-muted-foreground/60 transition-all" placeholder="Search purchases..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-muted-foreground hover:text-white hover:bg-white/5 rounded-lg transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+<button class="p-2 text-muted-foreground hover:text-white hover:bg-white/5 rounded-lg transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-white/10 mx-1"></div>
+<div class="size-8 rounded-full bg-white/10 border border-white/20">
+<img alt="Small profile" class="rounded-full size-full" data-alt="Small circular GitHub user profile image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgaCxB_v4J5P5YFs2UqQcwvqhP9y2ZDeY_F1wxdgueaRtASqcMbFG7dY-mzm3CFjnwuOtJGBCJpqM2RMKdKhkbEVh-LQZkoHF1LNC0_3MmqGMhbtY3iSREuPr-lqsg4xgaxfkp8nkyCbkIWp4YCGYqfBVbZ9qY_lj4GiGm5Xc85bJ-p4RciHITenQ1BloDnco9rW6q3wXtJpn3fii2L9t79fMmELG1-3ZVwBY8cxuCylHklOPLF6pLvIFJ5pcSOgxix2nT0TapYDQ"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto p-8 max-w-[1280px] mx-auto w-full">
+<div class="mb-8">
+<h1 class="text-2xl font-semibold text-white tracking-tight">Purchase History</h1>
+<p class="text-sm text-muted-foreground mt-1 max-w-2xl">
+                    Manage and track your official GitHub merchandise orders. Your digital and physical purchases are listed below with association status.
+                </p>
+</div>
+<!-- Table Container -->
+<div class="bg-background-dark/40 border border-white/10 rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5 text-[11px] uppercase tracking-wider font-semibold text-muted-foreground">
+<th class="px-6 py-4">Item Name</th>
+<th class="px-6 py-4">Seller GitHub Login</th>
+<th class="px-6 py-4">Price</th>
+<th class="px-6 py-4">Purchase Date</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/10">
+<!-- Row 1 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
+<img alt="Product thumbnail" class="size-full object-cover" data-alt="Small thumbnail of Octocat Plush toy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFGRn8vIn8jnV7XYxSorUJeF46IalIAelfyXSpYhLOr-aj7wt_a3hRMMTb-ZoVY4d3HFL9-MD0UzBrE1zwG8zp1i6REUf4QpPPPm20XllktpNq-xZHSAN01QlwZOuEZgBKzhSM2jx-Sz2bysmGhw_4h-zMO1dPQUAoNiD_ZxWOfXw2PZU32fiip1EjRUug3KNNj7cmtYUTCjpbfghIqxzYjgg1w9KH1Wdwa4z45xAwsoP8BVV9IeGO9zgaXleV-4tjHSaBerpzsrA"/>
+</div>
+<span class="text-sm font-medium text-white group-hover:text-primary transition-colors">Octocat Plush 8"</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Seller avatar" class="size-6 rounded-full border border-white/10" data-alt="Circular avatar for GitHub user monalisa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZycIs5F0w6wAA6TnI2UfcROu7q0O7unetGDQNl-7jEuWNO7JcLz-nodNmzadEVIf3NV7110gjkXLTsO8dh6tB-JZBcLB5YoFjfUZ_MAP5CoDFS_sQHvaT4cw8hJHBj8Cm7A4H6vjJT-JACXDH7qjCr7Omm2qCLHbEVC9M1LTnE72KGoz1zpZrxhaKCqVs18PQBPTT3oR-HkbqLSuV5C5beuP8uAu_HWxZP8jqkNzxR5tvgH3M04p47cJidj2C0c58IUEzF_67fvw"/>
+<span class="text-sm text-muted-foreground hover:text-white cursor-pointer transition-colors">@monalisa</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium text-white">$25.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-muted-foreground">Oct 24, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-xs font-semibold text-primary hover:text-primary/80 transition-colors uppercase tracking-wide">View Invoice</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
+<img alt="Product thumbnail" class="size-full object-cover" data-alt="Small thumbnail of GitHub sticker pack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0uqpTyiuPSoJE69yfZNv0TaoaJFy-h_kWoMh6h4T8iZzFlgEWtu6iLE8R2JX8OpdmeEdoAQcwCvTCfRx6TGZr7YbFd7p1lmqCnCIm0Rr13wpfllYwCIgy1vRCmH1N1oXnxJoRkCLNsmo-WdOONk1dhyleiZWUas8jfOyVNa68rN1QCKfR9TADzEOPoKNWWDqk9O6_aavSKL9RIBtctIFKUBlamaa0LWe-U_aXJMXI8jQPvnGIM2vUh0MGaLfIL7nM66RkJs2jspo"/>
+</div>
+<span class="text-sm font-medium text-white group-hover:text-primary transition-colors">GitHub Sticker Pack</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Seller avatar" class="size-6 rounded-full border border-white/10" data-alt="Circular avatar for GitHub user defunkt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ9FDPLsGmRHoNUvp500d8c63vFrbpBoIqnUE1qBuT2FlXNjjsUeGOGPNOYY_0aiGPVeYa1xbpbA5hpICO8Pyxg_6QifKqGTa82rhQgG6cSYTahYvnnLU67QkYZSKBdlE_YkKIvMoykXgWzdGXnHY7lBjvuaLOLRs9A9A5Gsr9ZgeOhjjdf2GI7HoodEJtHYnLlUNpMFwejWoTYpTtqsti4IlINhqSL4B5G9HcfMYapWIAK1iQz2Pijie9mDzZ8khE_zq007CSsv4"/>
+<span class="text-sm text-muted-foreground hover:text-white cursor-pointer transition-colors">@defunkt</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium text-white">$12.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-muted-foreground">Oct 22, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-xs font-semibold text-primary hover:text-primary/80 transition-colors uppercase tracking-wide">View Invoice</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
+<img alt="Product thumbnail" class="size-full object-cover" data-alt="Small thumbnail of Mona Black Hoodie" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB45wBAtTDDr729WuuGxxFGRn8a7bHCANJ4OTVWebbhCUNO3SFJmWtbQmB9vlE55XYVJBRuaLu9VPa2cM4mLUbJYk-PswKDKMR5LHlctgORwSvYpJxrC4BZKDUNJZZP5N-2m-Xf0EuDyxlHdBKsJ1_YBJjzz4K67rjWXqdfWNmeENpsFOQRBdxAWLPTsH2scRXCVKGXNlB4rmgmxnN993uHEf66Ls4yYg8Ne5D5BEfG0h0mXwZDLY90siMkxXbOkSk6gVEXZQR3kWs"/>
+</div>
+<span class="text-sm font-medium text-white group-hover:text-primary transition-colors">Mona Hoodie (Black)</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Seller avatar" class="size-6 rounded-full border border-white/10" data-alt="Circular avatar for GitHub user tpope" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg2LvBiZm8zPxjABAmhG2ZKsfjCCAcGReMQa65qWiFNsRsm5Ml71GbTMrFfcoXYxC6yngmUB3qxBlMEzArhLTT0wZK0FIUdrv1yB-1EVv1NVGFn7qcDe6B_2TwvTyhPGqT0v1_Xp6aF4xucHb-xPrKo47FthgivD-_Aw2S_lUgO1Bmz5NJycPoaXafflUOSjTiKgjUKHS5wcSQ1JJCRepUsydedV6yKgRGmrHb4SK0dmyU9M8N2m65KHRObQYAPJJF_7kKTnnv6Lw"/>
+<span class="text-sm text-muted-foreground hover:text-white cursor-pointer transition-colors">@tpope</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium text-white">$55.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-muted-foreground">Oct 15, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-xs font-semibold text-primary hover:text-primary/80 transition-colors uppercase tracking-wide">View Invoice</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-white/[0.02] transition-colors group border-b border-transparent">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden">
+<img alt="Product thumbnail" class="size-full object-cover" data-alt="Small thumbnail of Invertocat T-Shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnbdJTu53GLG8mmhuMf9gI9rZpGYvUYxXDWYC-Cx_lzh0m3rLYFCdCAPH-S5DVv86WWRqRMCulDriqcxfD415_j268QhV7WcVP0T7GzXh4lmSlUe5GJdOykcDFbERIRpojo-2fBUEui-Su3w8GeM89_Qxk7kRxvRsvML__PEwyhKLREPmBUzZl_f9gymCv4ePjH9zv00VlwHH7c1pecytBjl_hxvErt5_oEqCVbmDJlZLFd6rnwnQqb6A7gAaSErx8VFEaPFmwtKU"/>
+</div>
+<span class="text-sm font-medium text-white group-hover:text-primary transition-colors">Invertocat T-Shirt</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Seller avatar" class="size-6 rounded-full border border-white/10" data-alt="Circular avatar for GitHub user schacon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXxCLT-whyJN40an90c4FRZpRvLJGsSbt8mNIVE6eY2utMd-eXjrKNVXU1qJiZhbsRHu6gwsKvOmtu-k6bxLLYmWecNcIPQmdlrBktdUYsPHdLfTcbO-a1yR6pzkGgtcfeTi-CpiFImlyoXAj3E0HUaP28IYjszZP4QOh7tMQmpDeGQQak_XZ485IYV4hH7caW4EsDrE_QlhSbksZknFYryOxxTWQ-PIPu75YdTniMjBqAJanOglWILaeuEVXWTznizcCG9HWPPUc"/>
+<span class="text-sm text-muted-foreground hover:text-white cursor-pointer transition-colors">@schacon</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium text-white">$28.00</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-muted-foreground">Oct 10, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-xs font-semibold text-primary hover:text-primary/80 transition-colors uppercase tracking-wide">View Invoice</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="mt-6 flex items-center justify-between">
+<p class="text-sm text-muted-foreground">Showing <span class="text-white font-medium">4</span> of <span class="text-white font-medium">24</span> results</p>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 border border-white/10 rounded-lg text-sm font-medium text-white hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                        Previous
+                    </button>
+<button class="px-4 py-2 border border-primary/50 bg-primary/10 rounded-lg text-sm font-medium text-primary hover:bg-primary/20 transition-colors">
+                        Next
+                    </button>
+</div>
+</div>
+</main>
+<!-- Toast Notification -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
+<div class="bg-zinc-900 border border-emerald-500/50 rounded-xl px-4 py-3 shadow-2xl flex items-center gap-3 animate-bounce shadow-emerald-500/10">
+<div class="size-6 bg-emerald-500 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-base">check</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-semibold text-white">Purchase Success</p>
+<p class="text-xs text-muted-foreground">Purchase successfully associated to a GitHub user</p>
+</div>
+<button class="ml-4 text-muted-foreground hover:text-white">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

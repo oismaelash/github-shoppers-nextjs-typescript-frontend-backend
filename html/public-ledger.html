@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Public Ledger | GitHub Shoppers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Navigation Header -->
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-xl">shopping_cart</span>
+</div>
+<span class="font-bold text-lg tracking-tight">GitHub Shoppers</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Marketplace</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">Sign In</button>
+<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                        Get Started
+                    </button>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- Hero Section -->
+<div class="text-center mb-12">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                LIVE UPDATES
+            </div>
+<h1 class="text-2xl md:text-4xl font-bold mb-4">Public Ledger</h1>
+<p class="text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                Real-time transparency for every transaction on the GitHub Shoppers marketplace. Tracking global commerce and developer activity across the ecosystem.
+            </p>
+</div>
+<!-- Ledger Container -->
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-xl">
+<!-- Filter Bar -->
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-50/50 dark:bg-slate-800/30">
+<div class="relative w-full md:w-96">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-white dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="Search product, buyer, or seller..." type="text"/>
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-icons text-sm">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-icons text-sm">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Product</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Seller</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Buyer</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Price</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Date/Time</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-primary">terminal</span>
+</div>
+<div class="text-sm">
+<div class="font-semibold">Advanced CI/CD Pipeline Template</div>
+<div class="text-xs text-slate-500">Infrastructure</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="GitHub user avatar portrait of developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt7dLgDpTzhGoPhVGhf16L0gU4g4lY2SobyWlPxL2JEJvRSwGMoDMs7SQ91yXjIxpv0qzciLb5axMkMglVrgmZ_eOgr3lbGXyuZtcEkG6JcWfjoKLStjaWH9vijceHNsbOtzTGXXn_UfwiSLfrV5OUbjTahEfmw6BjhAjv0CXMYvdJlPibJNfENClaYB1_3p-fBIGmZX_9KprFPRq6KikuBZbzhmh-lz7ZdyMSssF_L2rpWxhKhYpQg5gLpdWxeTuOqd7P89JY6Pk"/>
+<span class="text-sm font-medium">@octocat</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Avatar of a male software engineer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvOXCIN6wgmthrUQY_WBBBB2DgPk0MF5XGVePk_1PW_SQnoo-unU0coS3rNbi_-ZYyGc5Rmm3gsii7gTaGMqIFiD0B4lEKzwk7W4dGgScdjRVupe5Rf4U-mwhwdBt5nHQn0Pvbw5MS4kAyMt9s2SCgSRHZns3V0Hc05bvl3DrDjOAXr9dJK0RBC-XzGWbeRxnJkon4ZJ0G33FMTkSA4r8NSfz92fzIrGvePaw-sxDJ3L6o3FYPU4cqJ2w3MkVQOtEPOz4t7L_j2nU"/>
+<span class="text-sm font-medium">@dev_expert</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">$49.00</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-mono text-slate-500">2023-10-24 14:32:01</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded">VERIFIED</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-primary">auto_fix_high</span>
+</div>
+<div class="text-sm">
+<div class="font-semibold">React Dashboard Kit Pro</div>
+<div class="text-xs text-slate-500">UI Components</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="User avatar for GitHub seller profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl6emxnSdY5v2BEol4FWEABnf0zJtECLg1Py9uQgKuZW-AbaqTG_O0QMavjSUjRVk0rMoIRSDANwctYeFx_T2viHV-2hi1mVGLmAKNhL6WjE28mAn130ECK7c6-uKI_XpcooA9Dh5XwmqvPeJbR0LGjXoLHUqEpT0x5eKCqUDQhEEz2cGxDHKI7kTgobd_P02U9tUZh7tlon2VbIuUFVgGt9D32BKjjbSYKgOpqgdBcGZfMUWpQkKAclbw-Xdu7XeXoEXzD22pRN4"/>
+<span class="text-sm font-medium">@ui_wizard</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Female developer avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh-RhwiWiqtRjl19mgxCfQLrH8jucy46kndh0NXHsAicq7MfDPBwm8n8T0fU10_P7jD67OMhFZpDOGyXnxCGC15JTLfkkARxH1PcHZbJwN7QOIDuglQCr71jaJLjFAt7FuQ9UkQEdKZ9X6A_fIfZs5nTFrMBlNMfaG7sEkyTOu1SFZ9WZOykxS6-_oeOTWZ_uG5xllXRhFeCs5-1HmAa5nOr_B5hMSLpGguFXVMGmvJIuCLjd8RdSFCPWiopsnOls_qeLsADEMzf0"/>
+<span class="text-sm font-medium">@code_queen</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">$129.00</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-mono text-slate-500">2023-10-24 14:15:22</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded">VERIFIED</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-primary">security</span>
+</div>
+<div class="text-sm">
+<div class="font-semibold">OAuth2 Integration Module</div>
+<div class="text-xs text-slate-500">Security</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Profile icon for a security expert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3OnuoOUC8rQ7ZMr7Xc2S6tXgJI6aqg9KwHPq8Or12mtsrut06VdaipatBvkTmSTnFJ49VEEkUpfmRIKqSfaynNcwe2MtlI52LmxMneaKYXHzuQdQIDaBbZzHm-PHcU8U784LPTVlTXuUL-1sebzLnUB4NrjwuNf3IWliCZu72IDm6y6GNw-PpqlTBa4MGOoOrcOUEjRj804pyhaG10JJ-7m7FC4zj_guXcEFaJw2LVJgJq8JcjzI9_LxM_ojngrRUA3eZSepi9S8"/>
+<span class="text-sm font-medium">@security_guru</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Portrait avatar of a startup founder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrQNcay2DPUXicnaLCWSRSQgRBSOmVuH-xf3GN_8dSoFaYdQltXc1stOqlDLVWbsRkvuS2TuA2IUS39Uqsse4FnEGRkXVNSAu8zqg-s1-v1c1l8hKoBq0kg3vfjEjtkpwk6RCtM5DJmlnM9qOuOotz0bRWGSfc3QfH7QNpl15rDabWkaLfj8GANfdCff9IwXmym3RTmi5BuHTDzwJQJP1A9LgFeS80l_58UiXcIuhxA-i-u6CngCvmu0Db7-tglAqjkj8b0HQ0mRw"/>
+<span class="text-sm font-medium">@startup_mike</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">$15.00</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-mono text-slate-500">2023-10-24 13:58:47</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded">VERIFIED</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-primary">data_object</span>
+</div>
+<div class="text-sm">
+<div class="font-semibold">Vector Database Connector</div>
+<div class="text-xs text-slate-500">AI / ML</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Professional avatar for software developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTALotl5cPUrAi7Z0HYMpjJQyp9jsMDm6N7rGIcPDJbt6XV4CKPffGJCa17We1UgOfTR307JIDPY-5qITnQOOcg32xyNkZJMUqhVuMSFFpBGMFZiRo2TF35rOxn-FTBkPH4Tu-pCBCcxokaRyVREYkDpnhKc84SDyDFiXBaK2yplzFgJXTbQddhCIBUT6_XrSzyFPnaE99C3OnpjUx9005hHUq1yCmUA1M3u5FOAgxjquvCtvwDiygb9uh8gIPLp3OY6u4krZmePk"/>
+<span class="text-sm font-medium">@ai_pioneer</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Headshot of a modern web developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbnBUzSN1aQQosAxL0LnSgdV9-susha6mIXQBKO-ZeomRAeAVQd7S6IU6X6lgPrwv19MIeUKdgYJseo3U3gCHk1M0QFlkqN2mT1swHZk9M6LFKedYWhDBbdJOZdJe_qKSeYdrszI5HYgI1Cuv-AmGDMrnIOTG527vsYyrt5TpPJWpWLicxywDIwzx5g-R1T9axiK9XgaYdS-bo57pi8kUW677pQ5n8vGcbiDgSgfkSlajuZei5yRoQMZeu1AUduWsiOA8FOLb08L8"/>
+<span class="text-sm font-medium">@data_nerd</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">$89.00</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-mono text-slate-500">2023-10-24 13:42:10</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded">VERIFIED</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-primary">api</span>
+</div>
+<div class="text-sm">
+<div class="font-semibold">Weather API Wrapper</div>
+<div class="text-xs text-slate-500">Utilities</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Avatar image for user handle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOPZhWVljq1BCu6z2yhscmNlMNtbeKuyoSsMcmKFldwBHqB6Q5valvLncAREFLOFtOui4sBpSxPbwEyGMCgQaH_CUWKG-4H_orcHXV11EQlpA_pNgAQKFQyZJarfac5OpYpSnUeA2i27lABJvH4PGHLXYGrw_2Yyb0dO1Fc_s1RiDPiBPZusYsiWA51I3uFeifHmn6UKPyjZ7UzrsUZiaadNPvjq3JHg4cmuz51_H_kxDdriNG3-0Sdnc9bdvmMVMEIgwCUfhJnNc"/>
+<span class="text-sm font-medium">@sky_code</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700" data-alt="Female tech user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdxnVYURnBEG3pCNXQVjDKPG7CoXsXzyaJTAaF61_1xl3__UEED-FvT24l_AweOOwqtYQ8-w5TO8RJHdRx-ytB_fZ91fRGB9ZgRzv2yhbAml_g9oKQIMrbxv-9jYlleVw_rJ8Pk1XcWIhFy0CkLFntkGBcMYlZE4gzKnmX3negNCDYekN7ldJXzcSliWHR6GZ4NlqixMk6PXJred9tG60-HInbYbUZzGoiBBrYh7alc11dRmMj8lwtBFPCxFBxB40eDoN3bv_1k1o"/>
+<span class="text-sm font-medium">@weather_app_builder</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">$12.00</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-xs font-mono text-slate-500">2023-10-24 13:30:55</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 py-1 text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded">PENDING</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Pagination -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-sm text-slate-500">
+<div>Showing 1-10 of 2,842 transactions</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-800 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-800 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Transparency Note -->
+<div class="mt-8 flex flex-col md:flex-row gap-6 items-start">
+<div class="flex-1 p-6 bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 rounded-xl">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-icons text-primary">verified_user</span>
+<h3 class="font-bold text-sm uppercase tracking-wider">Proof of Stake</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    Every transaction recorded here is verified against GitHub's internal ledger and signed by the repository's cryptographic keys. This ensures zero double-spending and absolute trust between developers.
+                </p>
+</div>
+<div class="flex-1 p-6 bg-slate-50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 rounded-xl">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-icons text-primary">visibility</span>
+<h3 class="font-bold text-sm uppercase tracking-wider">Public Access</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    This ledger is accessible to everyone. We believe that transparency in the digital marketplace fosters better competition and fair pricing for software artifacts.
+                </p>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 mt-12 bg-slate-50 dark:bg-background-dark/50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 opacity-50 grayscale">
+<div class="w-6 h-6 bg-slate-400 rounded flex items-center justify-center">
+<span class="material-icons text-white text-xs">shopping_cart</span>
+</div>
+<span class="font-bold text-sm">GitHub Shoppers</span>
+</div>
+<div class="flex gap-6 text-sm text-slate-500">
+<a class="hover:text-primary" href="#">Privacy</a>
+<a class="hover:text-primary" href="#">Terms</a>
+<a class="hover:text-primary" href="#">API</a>
+<a class="hover:text-primary" href="#">Support</a>
+</div>
+<div class="text-xs text-slate-400">
+                    © 2023 GitHub Shoppers. Built for developers.
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

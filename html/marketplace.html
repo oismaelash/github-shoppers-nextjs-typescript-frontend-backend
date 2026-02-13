@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketplace - GitHub Shoppers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+<!-- Left Sidebar -->
+<aside class="fixed left-0 top-0 h-screen w-[240px] bg-[#101d23] border-r border-primary/10 flex flex-col z-20">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary rounded-lg p-1.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl">shopping_cart</span>
+</div>
+<div>
+<h1 class="text-white text-sm font-bold leading-tight">GitHub Shoppers</h1>
+<p class="text-primary text-[10px] font-semibold tracking-wider uppercase">Marketplace</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#90b7cb] hover:bg-primary/10 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#90b7cb] hover:bg-primary/10 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px]">package_2</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#90b7cb] hover:bg-primary/10 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px]">add_box</span>
+<span class="text-sm font-medium">Create Product</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-white group" href="#">
+<span class="material-symbols-outlined text-[22px] text-primary">storefront</span>
+<span class="text-sm font-medium">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#90b7cb] hover:bg-primary/10 hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px]">history</span>
+<span class="text-sm font-medium">Purchase History</span>
+</a>
+</nav>
+<div class="p-4 border-t border-primary/5 mt-auto">
+<div class="flex items-center gap-3 p-2 bg-primary/5 rounded-xl border border-primary/10">
+<div class="size-9 rounded-full bg-slate-700 bg-cover bg-center" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfybbNO1kMCJ9FjkiNofKYhLjxMZbmlWA12IQMctn9UIEMNPqnhbcKdc7Uvgo7vLMVW0gqR2btmEfxBien6mAnq9blufZUBgt_ZrBblIN65-ftW6L5i09SwSNDN716u8UEzfixW8IgQa3tVkinN-exRdSIzFzUwIlLQF1ZHgdMLUqvFXgEDQ_Q4YLBMVHLssQfnUii_M1PUoYnf2scJG7oidTuitN7EPp_5WH1SqE4cZfkPT92N01BNVxHVxpfSuhNLFuXMybKp5E')"></div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold text-white truncate">octocat</p>
+<p class="text-[10px] text-[#90b7cb] truncate">Authenticated</p>
+</div>
+<span class="material-symbols-outlined text-[#90b7cb] text-sm">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 ml-[240px] flex flex-col h-screen">
+<!-- Header -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-light dark:bg-background-dark sticky top-0 z-10">
+<div class="w-full max-w-xl">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#90b7cb] group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-10 pl-11 pr-4 bg-slate-100 dark:bg-slate-800/50 border-none rounded-lg text-sm focus:ring-1 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-[#90b7cb]" placeholder="Search marketplace..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-primary/10 text-slate-600 dark:text-[#90b7cb] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-primary/10 text-slate-600 dark:text-[#90b7cb] transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-6 w-px bg-primary/10 mx-1"></div>
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto p-8">
+<!-- Page Heading -->
+<div class="mb-8">
+<h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Marketplace</h2>
+<p class="text-sm text-slate-500 dark:text-[#90b7cb] mt-1 max-w-2xl">Browse products listed by other GitHub users and purchase using your developer identity.</p>
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-wrap items-center gap-4 mb-8 bg-slate-50 dark:bg-slate-800/20 p-4 rounded-xl border border-primary/5">
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold text-[#90b7cb] uppercase tracking-wider ml-1">Filters</span>
+</div>
+<div class="relative min-w-[160px]">
+<select class="w-full h-9 pl-3 pr-10 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-primary/10 rounded-lg appearance-none focus:ring-primary focus:border-primary">
+<option>Status: All</option>
+<option>Status: In Stock</option>
+<option>Status: Out of Stock</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+<div class="relative min-w-[180px]">
+<select class="w-full h-9 pl-3 pr-10 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-primary/10 rounded-lg appearance-none focus:ring-primary focus:border-primary">
+<option>Sort: Newest First</option>
+<option>Sort: Price: Low to High</option>
+<option>Sort: Price: High to Low</option>
+<option>Sort: Quantity Left</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-xs text-[#90b7cb]">Showing 1-5 of 12 products</span>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 p-6 flex flex-col hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-lg font-medium text-slate-900 dark:text-white group-hover:text-primary transition-colors">Neo Tokyo VS Code Theme</h3>
+<span class="text-xl font-bold text-primary">$15.00</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="GitHub user monalisa avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFuuoZWmkXq_gLE_Aof-oSMXsuHk0Dk6f4lgryxBSYjJHGK4pmr6fVyL22qwNeeW5leMt6GYvCXlOrmBgQJwN6fx61C5vE5kEFgX8D0xo-2_1V-OiUPQQmYMfeGgwrt2xqhzR6WZWFvdqouVQWPlsxwwKs7VK9jYHQUYS2mkx9D-jAS7DmRXuLi_snsOqJvemTksOSTJ4bdXS-wVrniThu5MsWDOBsQD79IYfv6eCH-h5TgwlPpzyRRJ66lqkxzvxIRIi2hm-1fw8')"></div>
+<div>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] uppercase tracking-tighter leading-none">Sold by</p>
+<p class="text-xs font-medium text-slate-700 dark:text-slate-200">@monalisa</p>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase rounded border border-emerald-500/20">In Stock</span>
+<span class="text-xs text-slate-400 dark:text-[#90b7cb]">42 left</span>
+</div>
+</div>
+<button class="w-full py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-bold tracking-wide transition-all mt-auto flex items-center justify-center gap-2">
+                        Buy Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] mt-4 text-center">Listed Oct 20, 2023</p>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 p-6 flex flex-col hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-lg font-medium text-slate-900 dark:text-white group-hover:text-primary transition-colors">React Component Kit</h3>
+<span class="text-xl font-bold text-primary">$49.00</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="GitHub user gaearon avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTDRWsk4j_noYOB2VE2IMosbeiJu7ZCppRD7c-C3nH8P1qrHheQgxwXsp9kgULJRcHYnt0yC4PM8c0KxjepXgoheuqvHU_htF2jlv8Y-W5ExdJVFY0uOq9cdWDNVxGHzdXgUJ1vNDY5af_7VG194ls1zg52KmraSzlW6PPifRZvmqT1ZJHp6I_3qRN6FhLpNmgt2QlcuyYw2HoxjOpKUFnxQ7IpeoCtX6RqDsDt0h9kD1vPYSbMcS0nXKNJce7cyWgis7YQhOvc8Q')"></div>
+<div>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] uppercase tracking-tighter leading-none">Sold by</p>
+<p class="text-xs font-medium text-slate-700 dark:text-slate-200">@gaearon</p>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase rounded border border-emerald-500/20">In Stock</span>
+<span class="text-xs text-slate-400 dark:text-[#90b7cb]">5 left</span>
+</div>
+</div>
+<button class="w-full py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-bold tracking-wide transition-all mt-auto flex items-center justify-center gap-2">
+                        Buy Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] mt-4 text-center">Listed Oct 20, 2023</p>
+</div>
+<!-- Product Card 3 (Out of Stock) -->
+<div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 p-6 flex flex-col opacity-75 grayscale-[0.5]">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-lg font-medium text-slate-900 dark:text-white">Go Microservices Boilerplate</h3>
+<span class="text-xl font-bold text-slate-400 dark:text-slate-500">$120.00</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="GitHub user robpike avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTC5cPtMQKTU-ujS4zcd5xwJjU_prRYApF-YXLgqP3VTQW3bGje6E5iSRWOBVn6Exi-DVS3Mj1dwZ69-3akp4lPnvyj7k4DJTBNqQVpNKhdeInELK9ypUvoyGjQOVHUsK0jvNMjEMQayqF1oOUUeCuoxofoUSKE-Tc0U9XhBaqcsWtNnMVExRGyKopAi8AF79fiN3dBrgk5SFjt5sjQCuEypQrGCUunnyUCEMkOCid212MmVhhkCj3oFcb7NfDpyzzr4sE9gyY86w')"></div>
+<div>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] uppercase tracking-tighter leading-none">Sold by</p>
+<p class="text-xs font-medium text-slate-700 dark:text-slate-200">@robpike</p>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold uppercase rounded border border-red-500/20">Out of Stock</span>
+<span class="text-xs text-slate-400 dark:text-slate-500">0 left</span>
+</div>
+</div>
+<button class="w-full py-2.5 bg-slate-100 dark:bg-slate-700/50 text-slate-400 dark:text-slate-500 rounded-lg text-sm font-bold tracking-wide mt-auto cursor-not-allowed" disabled="">
+                        Out of Stock
+                    </button>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] mt-4 text-center">Listed Oct 20, 2023</p>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 p-6 flex flex-col hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-lg font-medium text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pixel Art Assets</h3>
+<span class="text-xl font-bold text-primary">$10.00</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="GitHub user hjorthjort avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBUFE4a1PAW8C695rn-NTurljQI6mKwYJGNmfkHGxUlZg11IssBsrKaV3K9ROmWvrqZcNCK4w7U3bGKQMUGTdfiI4no-c66DGCAPg3EpRE2eIkj2jgYfLtJn5G9o41abwZGd6lQRRBFEELfjMIz3iLrC0i3lRtA3dCUXclEVmXngKloKxQbw6khIUMkO57ETMo2t-_ln8J1q9mNLY2hTuMxwhunjWmO6wg2GStovdAR5w5phwfvPBTL30mIXNEYXS8iBZqvOS3LpOs')"></div>
+<div>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] uppercase tracking-tighter leading-none">Sold by</p>
+<p class="text-xs font-medium text-slate-700 dark:text-slate-200">@hjorthjort</p>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase rounded border border-emerald-500/20">In Stock</span>
+<span class="text-xs text-slate-400 dark:text-[#90b7cb]">150 left</span>
+</div>
+</div>
+<button class="w-full py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-bold tracking-wide transition-all mt-auto flex items-center justify-center gap-2">
+                        Buy Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] mt-4 text-center">Listed Oct 20, 2023</p>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 p-6 flex flex-col hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-lg font-medium text-slate-900 dark:text-white group-hover:text-primary transition-colors">Rust CLI Template</h3>
+<span class="text-xl font-bold text-primary">$25.00</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="GitHub user burntsushi avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCN31JkYmrLIw-cCQ_l70vgjOcRQ2YDYrzjCG-X1Hz6guIeyBXLiJUTQEC42j92Ie2BX0PiU6SVxUyPgtNdFhdTMm9t3eCc3Uum6S1U-KCPsNtuYCfPovrPuASYYkZv89GwrBG0aREQlJ6HsPdcK6WXkAmwo5gQ0HgLbcXbWpOUXRdGzEYJAHYiiVDLk90gLV05LqCwKjYrixWAio0y0nRpxiaa7EpC4nx5jBhYnZAPeFpgjW7mJ9QeO_iGInFn0TmYBKOe87iYTbk')"></div>
+<div>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] uppercase tracking-tighter leading-none">Sold by</p>
+<p class="text-xs font-medium text-slate-700 dark:text-slate-200">@burntsushi</p>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase rounded border border-emerald-500/20">In Stock</span>
+<span class="text-xs text-slate-400 dark:text-[#90b7cb]">8 left</span>
+</div>
+</div>
+<button class="w-full py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-bold tracking-wide transition-all mt-auto flex items-center justify-center gap-2">
+                        Buy Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<p class="text-[10px] text-slate-400 dark:text-[#90b7cb] mt-4 text-center">Listed Oct 20, 2023</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

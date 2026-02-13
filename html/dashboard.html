@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Shopper - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-fixed {
+            width: 240px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 50;
+        }
+        .main-content {
+            margin-left: 240px;
+        }
+        .header-height {
+            height: 64px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<!-- Fixed Sidebar -->
+<aside class="sidebar-fixed bg-white dark:bg-[#0b1419] border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+<div>
+<div class="px-6 mb-8 flex items-center gap-2">
+<div class="bg-primary size-8 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl">shopping_cart</span>
+</div>
+<span class="text-lg font-bold tracking-tight">GitHub Shopper</span>
+</div>
+<nav class="flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium group transition-colors" href="#">
+<span class="material-symbols-outlined transition-colors">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span>Create Product</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span>Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>Purchase History</span>
+</a>
+</nav>
+</div>
+<!-- User Profile Bottom -->
+<div class="px-6 border-t border-slate-200 dark:border-slate-800 pt-6">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center overflow-hidden border border-slate-300 dark:border-slate-700" data-alt="User github avatar octocat profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAog9aUYWUQnrepWZNy_R5aRznYVfDF1tjR4dVf6OWP05LJH6xLfrwIRdPd36RKi3LshcXERwJFsLVjyvJyDb2XsEHxV7UqWvcWbX_GijkyR88cPVwDC-hZteDlTK5YPnIrDyspPtWMopgmyITZZy_OWtuVAqQJq318c7dPUUXJE-ZxdETTrtNBQsCTGW6zzrT_iMSTyrVXaXKYa0mIUH06ctmsz7kL0DzbXGFVL5leZgwXQOE6ZsqIAFhmPg-1DEqcCP5MKR5nNbs')">
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold truncate max-w-[120px]">octocat_dev</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Pro Member</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="main-content min-h-screen flex flex-col">
+<!-- Header -->
+<header class="header-height bg-white/80 dark:bg-[#101c22]/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-40">
+<h1 class="text-2xl font-semibold">Dashboard</h1>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Search orders..." type="text"/>
+</div>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Content Container -->
+<div class="flex-1 p-8 max-w-[1280px] mx-auto w-full">
+<!-- Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+<!-- Total Products Card -->
+<div class="bg-white dark:bg-[#18262e] p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center justify-between mb-4">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+</div>
+<span class="text-emerald-500 text-sm font-medium bg-emerald-500/10 px-2 py-0.5 rounded">+12.5%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Products</p>
+<h3 class="text-3xl font-bold mt-1 tracking-tight">1,284</h3>
+</div>
+</div>
+<!-- Total Purchases Card -->
+<div class="bg-white dark:bg-[#18262e] p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center justify-between mb-4">
+<div class="size-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-purple-500">payments</span>
+</div>
+<span class="text-emerald-500 text-sm font-medium bg-emerald-500/10 px-2 py-0.5 rounded">+5.2%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Purchases</p>
+<h3 class="text-3xl font-bold mt-1 tracking-tight">856</h3>
+</div>
+</div>
+<!-- Low Stock Card -->
+<div class="bg-white dark:bg-[#18262e] p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md">
+<div class="flex items-center justify-between mb-4">
+<div class="size-12 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-rose-500">warning</span>
+</div>
+<span class="text-rose-500 text-sm font-medium bg-rose-500/10 px-2 py-0.5 rounded">-2 items</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Low Stock</p>
+<h3 class="text-3xl font-bold mt-1 tracking-tight">12</h3>
+</div>
+</div>
+</div>
+<!-- Recent Purchases Section -->
+<div class="mt-8">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold tracking-tight">Recent Purchases</h2>
+<button class="text-sm font-medium text-primary hover:underline">View All</button>
+</div>
+<!-- Table Container -->
+<div class="bg-white dark:bg-[#18262e] rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Item Name</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Buyer</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Price</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Date</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">inventory</span>
+</div>
+<span class="font-medium">Octocat Sticker Pack</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Buyer avatar tiny" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKCM6jVIm1g-HEdL-fHaPszg3ImJ2swuCLnZPfsTMtm_vm1VtAdxdlcw3HlaPBG37-y1YY7Az1C69wJk7KPwFd41itrbU92VjG1Eq9CNrIgCOW79ifN0FrhbgyVugQS2amzGjFnbmTmlpawU1xER9_Hvf6P_gVZ6rv9Ck4lxvwbVFd_zHN3_5rfuB0C0AizgYTb2cU-NH8iyEa-1zJYqRZayuWa-zyubYYMGqSvObiElvX1Mcil0Eqtsh8h3ruAr_O1cjerFdeHsE')"></div>
+<span class="text-slate-600 dark:text-slate-300">monalisa</span>
+</div>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$12.00</td>
+<td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 text-sm">2 hours ago</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">apparel</span>
+</div>
+<span class="font-medium">GitHub Hoodie</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Buyer avatar tiny" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnyABtKuj0JI9dY2SY-5CVESbXV3vGF1oV4MMORmsord0iw5qiKoFg3128M9bxaNrbKSZONKlHPtsOj42Tg3Bx0Mtyheb93SUUI3cWtJkt3_ObohTERn79bAAo3GwQzHg2qeU3nvsYZMOBr8FuELrO0AUsSTIiCyQd-qK7NOSKyOfFedlXjEoWdwYI0V0l3g4bGFEnDIYEK6qIMiS4xkrJ23_V3jepS31Yu8n7mQW12yfuvHH9zSQpbDdEfc3MXEiQyeIyYOBs7Xk')"></div>
+<span class="text-slate-600 dark:text-slate-300">defunkt</span>
+</div>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$45.00</td>
+<td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 text-sm">5 hours ago</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">coffee</span>
+</div>
+<span class="font-medium">Coding Mug</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Buyer avatar tiny" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8rQ9RuccpQVgiCcE6eZposUHY6uFJ_tWKlf6niH8Q5uW3F7YyaKrDyt3khbCuj4eM2YFCgU6q-W0EoXV9E54jvZACWcSZjZCY6dyAyoud5RKyUD-98AKAiRTN6u9qiVlmvG7Y_X15ur1I9MeFQjGz08OP9gbUhuDkW7vQDxF_j1kls50mzM1TnKykJ2s5X59h5vd4TSxrioH_zj1p62-2adVzEI0n0g_prVOaj2WNsf9AMJ4oCiFRkl0KjnJX0N0iAwGHwXi9tEM')"></div>
+<span class="text-slate-600 dark:text-slate-300">pjhyett</span>
+</div>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$15.00</td>
+<td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 text-sm">Yesterday</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">description</span>
+</div>
+<span class="font-medium">Git Cheat Sheet</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="Buyer avatar tiny" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB88BDPmWMMpHLC1-rCaJa67GSHtzlXyMHlQB8Ks_TPn-y8K8I95NYL6ch54Urp7cgnNGIbz3xW4NJcfQQi_3Io7B4JLWhTEQOG--vfcH947D_u9bBn38ywM8MY-S2VNmtPQpt23wlp-E9r6yIzvgRNY4pYFftSOC3Y0VR43Nts8A0X3Tjcg_LdjeKQAw1w6wBotcZhrmkJeP3RwCXVk1W-0Ye4q8nXbwusNMYaB-iN50ib6LVvC2qJffAQAriqrmMlGsEsmK890k8')"></div>
+<span class="text-slate-600 dark:text-slate-300">tpope</span>
+</div>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$5.00</td>
+<td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 text-sm">2 days ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto px-8 py-6 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                © 2024 GitHub Shopper. Designed for global commerce.
+            </p>
+</footer>
+</main>
+</body></html>

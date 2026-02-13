@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Products - GitHub Shoppers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0da6f2",
+            "background-light": "#f5f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-[240px] flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-none">GitHub Shoppers</h1>
+<p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider font-semibold">Seller Console</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-primary rounded-lg shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+          My Products
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+          Orders
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+          Analytics
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+          Settings
+        </a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="size-8 rounded-full bg-slate-300 dark:bg-slate-700 bg-cover bg-center" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCSBsZt2j8PuQ3ic9EktoAPIoeJpU_QyI5W6lj33VgZEWSctMGpQiqPEiIpy7wCQbMTJY_lg4_TYNug_ZuVoeOGdZ7V6A9jXyOB9XT8rNZoOQzGBwF5wsBnv-QnLDi-bXrrZVcXuLVvrwbS4hezggqM78KZpkLlWdzY0T2nixAZLifDFjkkQovF3uVOEAD6a7tm7kWosBnY5lGSwyDf3g3sId2e21V-T85Mi40J8ZsP4Vk-aVylG3j0AwzjxP9zMAzwfkiZPsXCvLY')"></div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-semibold truncate">Octo Cat</p>
+<p class="text-[10px] text-slate-500 truncate">octocat@github.com</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50 dark:bg-[#0c151a]">
+<!-- Top Header -->
+<header class="h-16 flex-shrink-0 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 bg-background-light dark:bg-background-dark">
+<div class="max-w-md w-full relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-slate-500" placeholder="Search inventory..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Content -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-hide">
+<!-- Page Title & Action -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">My Products</h2>
+<p class="text-sm text-slate-500 mt-1">Manage your inventory and product listings.</p>
+</div>
+<button class="h-10 px-5 bg-primary hover:bg-primary/90 text-white font-semibold text-sm rounded-lg flex items-center gap-2 transition-all shadow-lg shadow-primary/25">
+<span class="material-symbols-outlined">add</span>
+            Add Product
+          </button>
+</div>
+<!-- Stats Grid (Optional but provides context) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Products</p>
+<p class="text-2xl font-bold mt-1">24</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Active Listings</p>
+<p class="text-2xl font-bold mt-1 text-primary">22</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Out of Stock</p>
+<p class="text-2xl font-bold mt-1 text-red-500">2</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Inventory</p>
+<p class="text-2xl font-bold mt-1">680</p>
+</div>
+</div>
+<!-- Product Table -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Name</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Price</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Quantity</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Created At</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Octocat hoodie product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5xiKvY32U3TKSrXll6PslGBjEphY_BzcKO4x3rN_sl-MdSnXExaosWc19Vh56H-fv7w45trwVW-LsX6mXxPByMoOZ5-cwxL-oCrT3KMQMbhDgJfWQyfzCO_o1ztyAh49EhJB8pFUsOBog74KtciIuzB93jIgvtjItOZZo-cg6GV_VPy610l-004prLF2EGVjuPTg-QTYBicLXUITfLlO_jEtfVvJInlIKChu0FkDcYOzrBgbCegWpYroH5_wEycvauPC1cT8Yqjw"/>
+</div>
+<span class="font-medium text-slate-900 dark:text-white">GitHub Octocat Hoodie</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm">$55.00</td>
+<td class="px-6 py-5 text-sm">120</td>
+<td class="px-6 py-5 text-sm text-slate-500">Oct 12, 2023</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      In Stock
+                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Share">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 hover:text-red-500 transition-colors text-slate-400" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Git branch mug product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG99mgPsGbcKPkZPFXlHKcyEdTBzQ1KYNSaZBO1hbm1u13E0S0jnxS-GVDo71rgOjy9Qi6aluQ0ZyVTXsIo5KB6V_T6SOA40gfVO8ysoYDS9vLhYzkwtEPZYXljwMM_NOs5LtzEVwRJ4bE0F64v3cZ_79nII8vrh8nzOystzj7RR7oSiLzkHQgyYS5nsvIZ_bAjW3E2410b968v0HU6d8Mc9z883nOjnTFm4DFSqx2fQj5QMXcs7dcLsHJ-ax5Np9wCu7nUpEqaB8"/>
+</div>
+<span class="font-medium text-slate-900 dark:text-white">Git Branch Mug</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm">$15.00</td>
+<td class="px-6 py-5 text-sm">45</td>
+<td class="px-6 py-5 text-sm text-slate-500">Nov 05, 2023</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      In Stock
+                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Share">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 hover:text-red-500 transition-colors text-slate-400" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Commit history poster product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAanFMgb9iHsQbJLXgC6bBRqEXMgrfOPJfWRwIZ6Hw4SHGIpVitGjyzWMpLtqGRzn1VXMzF9BPMD31lZgY_1Q-eL4jULyUcuAPEiWxf3gf9wqcvUSL7vPHO6l_dFO4rhtCYZnk8Jl4Zfm_HfE4quNVsoE5ewJ-NXAhiLIDFEgqMmJre0zU43BzlaTNY1lcw3UjM3VKZYo-3IaGhTFnqZFPAAR8uanEq4wgSGAuU3pZItsUi1Pz41U_FBCSxDA-FZ72ncvrUtftEUWE"/>
+</div>
+<span class="font-medium text-slate-900 dark:text-white">Commit History Poster</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm">$25.00</td>
+<td class="px-6 py-5 text-sm text-red-500 font-semibold">0</td>
+<td class="px-6 py-5 text-sm text-slate-500">Nov 20, 2023</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-400">
+                      Out of Stock
+                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Share">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 hover:text-red-500 transition-colors text-slate-400" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pull request stickers product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnmMmITaxJy4hXkYaQL34FMKmqlLKGUzbYGr2-LXfVqoIrnX4hosR9n7oJobo0lv_CV5XyOR4bxMZNklOih5YGVW9_jzGf1yujRdc8P6LZArFvFJD_6rrbBzLPBkVzvbBp530U814Y2ge0kperLNMy71ZNZ5vJjjgixlPpUz5hH2I1DfnBKHVLUxK6wiPkALHSnJrm1EDCUi97TW9umTqdtoRt02sAfuhL-O_B_WCQNEyFL_itdQzpxivF3juZsOXRKUfHzy0rxsU"/>
+</div>
+<span class="font-medium text-slate-900 dark:text-white">Pull Request Stickers</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm">$5.00</td>
+<td class="px-6 py-5 text-sm">500</td>
+<td class="px-6 py-5 text-sm text-slate-500">Dec 01, 2023</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      In Stock
+                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Share">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 hover:text-red-500 transition-colors text-slate-400" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Terminal dark cap product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLIHZ_20QcS2Qd54RQWRO36wR4UBz7Q1o5rLJlha4dLjS-WbJQrE3DrKttDjQoUT-7RZ0ijc4hs5HedM7zX7XtolPQFuxd4sQfmNOSNNCYX-2ozee--UjaO6YbTpLjGBTdmrr5eAlwnX6F2PziB8JYZ_RnaofX6A-30rs3KM2Hop4jA8nRaeWCZRdPQwpCXvWrX_To2_8DUGCeL71JUvLmObGR5nXUQxFd89yZhhrvzB75Kcf3Knktgr9sz6FfpYL-qWlZ0-UI0mA"/>
+</div>
+<span class="font-medium text-slate-900 dark:text-white">Terminal Dark Cap</span>
+</div>
+</td>
+<td class="px-6 py-5 text-sm">$30.00</td>
+<td class="px-6 py-5 text-sm">15</td>
+<td class="px-6 py-5 text-sm text-slate-500">Dec 15, 2023</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+                      In Stock
+                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-primary/10 hover:text-primary transition-colors text-slate-400" title="Share">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 hover:text-red-500 transition-colors text-slate-400" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<span class="text-xs text-slate-500 font-medium">Showing 1-5 of 24 products</span>
+<div class="flex items-center gap-2">
+<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

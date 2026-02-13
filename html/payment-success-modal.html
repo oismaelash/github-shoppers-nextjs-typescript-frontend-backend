@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketplace - Payment Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display">
+<!-- Background Marketplace Screen -->
+<div class="relative flex h-screen w-full flex-col bg-background-dark overflow-hidden">
+<!-- Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 bg-background-dark/80 backdrop-blur-md px-10 py-3 z-0">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined text-3xl">storefront</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Marketplace</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-primary/60 flex border-none bg-primary/10 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-primary/10 focus:border-none h-full placeholder:text-primary/40 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search components..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 bg-primary/10 text-white px-3 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-primary/20">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="User avatar for octocat profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC38aajHIbDigvI86ile7ygTm6oVrUc9YXnTJIeDkhTjBdzLYLfU4h8oyTYOYtYkKHY6Ber3XUeDgMIUckMXXyWRlvtoGnQU5CmrcfV3LV4VNrWQfa6xezqmjQv4UGyn5cm1hZYg2j00i_UEFg0YdnTx2B6lZBkrzwfleJ0oMmV0PtQD5jgynqmOsoM5Y2Pbl-8yqMGoXfGD8sTRQVoTbQc75sdN2fkOT80zz72MJd7eKZ1O_SZo9gOJaKIdVw8zaBvx7nFpf-uy0Q");'></div>
+<span class="text-sm font-medium">octocat</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area (Background) -->
+<main class="flex-1 overflow-y-auto px-10 py-8">
+<div class="max-w-6xl mx-auto">
+<!-- Filters -->
+<div class="flex gap-3 mb-8">
+<div class="flex h-9 items-center justify-center rounded-lg bg-primary text-white px-4 text-sm font-medium">All</div>
+<div class="flex h-9 items-center justify-center rounded-lg bg-primary/10 text-white px-4 text-sm font-medium hover:bg-primary/20 cursor-pointer">UI Kits</div>
+<div class="flex h-9 items-center justify-center rounded-lg bg-primary/10 text-white px-4 text-sm font-medium hover:bg-primary/20 cursor-pointer">Components</div>
+<div class="flex h-9 items-center justify-center rounded-lg bg-primary/10 text-white px-4 text-sm font-medium hover:bg-primary/20 cursor-pointer">Templates</div>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="flex flex-col gap-3 group">
+<div class="w-full aspect-video bg-primary/5 rounded-xl border border-primary/10 overflow-hidden relative group-hover:border-primary/40 transition-all">
+<div class="absolute inset-0 bg-center bg-cover" data-alt="Dashboard UI kit preview image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAsHkxfLohsMK0XwB7rTCrrlqDYFsqC4-hCXc3tkq5y51GLWgan_08zrKF2RKAOyCNMZMyd7hQ83NNu4vihYXo0MPJfRiPXFI176VgbGLp04LdgGT9aekrlj90hUN-soXyp6m5BCxDfpEAiLcM4zugCcZpM3-hSlGbbv19euCTyhOPKhESZWMQZz9scUMmSxX402i45cTFHFdxRgtRxv5bxOhPpPARW2icA9kqP8PYHM1a-JSkdYuZGCHmHVhRynC-SuXnOeepS-1Q");'></div>
+</div>
+<div>
+<p class="text-white text-base font-semibold">React Admin Dashboard</p>
+<p class="text-primary/60 text-sm">$59.00</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col gap-3 group">
+<div class="w-full aspect-video bg-primary/5 rounded-xl border border-primary/10 overflow-hidden relative group-hover:border-primary/40 transition-all">
+<div class="absolute inset-0 bg-center bg-cover" data-alt="Ecommerce website UI kit preview" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDA29NUdppqBLx-gbUxRhckXkfv8YITICTrR595JKcTWrSvKD8InJE9vxE-qS3NHelviKlWgyqK3amrNqNQBjHUqL4ByXqZjmlOsXHYFMNPcC8WjHK-PI3SGD9G2gOILNRo1Gua8_1-hewR8O7mt5t9QcwvwoTiS9laY9vDA0XsGZI5a5OVizfNhmeHjlvWmKQN3KblvjBxP6h98_pkRWGKF1bQ4I2ZvV4ZrWhbdP0ohZ90ZxO5dfqAvCJ1A0VreuS8kC-5YyUVefw");'></div>
+</div>
+<div>
+<p class="text-white text-base font-semibold">Vue E-commerce UI</p>
+<p class="text-primary/60 text-sm">$39.00</p>
+</div>
+</div>
+<!-- Card 3 (Purchased one) -->
+<div class="flex flex-col gap-3 group">
+<div class="w-full aspect-video bg-primary/5 rounded-xl border border-primary/40 overflow-hidden relative">
+<div class="absolute inset-0 bg-center bg-cover" data-alt="Tailwind CSS React component library" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPb7qAP6C5WPDjcmve7S9UXiNIZQD9RY6NtclhGQdqmvheFakI4uNeoVqDszVbwRFxZGmX2DT83IsAeAH2UqxfJFO5wTFqcAsuiYsLkn4Wc8T1rqet-X9d4L56SFbVlI0E2f6vdovN1Mfk4GE20zR51wo6FJXHnRfWN2NZKrEozempjF88MHJd7mR4XZFdrKwVB57yqWy5UvlYjcLJfgTpiFp6TpkfXkvRg1Fbhpgd5LCizPhqnPVjqAc2EGGbDwuLEOjDBY0ZN4U");'></div>
+</div>
+<div>
+<p class="text-white text-base font-semibold">React Component Kit</p>
+<p class="text-primary/60 text-sm">$49.00</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Payment Success Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+<!-- Modal Container -->
+<div class="w-full max-w-md bg-[#16252d] border border-primary/20 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- Success Content -->
+<div class="p-8 flex flex-col items-center text-center">
+<!-- Success Icon -->
+<div class="mb-6 flex items-center justify-center size-20 rounded-full bg-green-500/20 text-green-500 ring-8 ring-green-500/5">
+<span class="material-symbols-outlined text-5xl">check_circle</span>
+</div>
+<h2 class="text-2xl font-bold text-white mb-3">Payment Successful!</h2>
+<p class="text-primary/70 text-sm leading-relaxed mb-8">
+                    The product <span class="text-white font-medium">"React Component Kit"</span> has been successfully associated with your GitHub identity <span class="text-primary font-semibold">@octocat</span>.
+                </p>
+<!-- Transaction Details Box -->
+<div class="w-full bg-background-dark/50 border border-primary/10 rounded-lg p-4 mb-8">
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs">
+<span class="text-primary/50 uppercase tracking-wider font-semibold">Transaction ID</span>
+<span class="text-white font-mono">#TXN-99201-88</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-primary/50 uppercase tracking-wider font-semibold">Date</span>
+<span class="text-white">October 24, 2023</span>
+</div>
+<div class="h-px bg-primary/10 my-2"></div>
+<div class="flex justify-between items-center">
+<span class="text-primary/50 text-xs uppercase tracking-wider font-semibold">Total Amount</span>
+<span class="text-white text-lg font-bold">$49.00</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col w-full gap-3">
+<button class="w-full h-12 flex items-center justify-center rounded-lg bg-primary hover:bg-primary/90 text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-primary/20">
+                        View in Purchase History
+                    </button>
+<button class="w-full h-12 flex items-center justify-center rounded-lg border border-primary/20 hover:bg-primary/5 text-white font-medium text-sm transition-all">
+                        Back to Marketplace
+                    </button>
+</div>
+</div>
+<!-- Footer / Support -->
+<div class="px-8 py-4 bg-background-dark/30 border-t border-primary/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary/40 text-sm">help_outline</span>
+<span class="text-xs text-primary/40">Need help? Contact support</span>
+</div>
+</div>
+</div>
+</body></html>
