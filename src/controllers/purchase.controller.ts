@@ -27,14 +27,14 @@ export class PurchaseController {
 
       const purchase = await this.purchaseService.createPurchase(validation.data);
       return NextResponse.json(purchase, { status: 201 });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Create Purchase Error:", error);
 
-      if (error.message === "Item out of stock") {
+      if (error instanceof Error && error.message === "Item out of stock") {
         return NextResponse.json({ error: "Item out of stock" }, { status: 409 });
       }
 
-      if (error.message === "Item not found") {
+      if (error instanceof Error && error.message === "Item not found") {
         return NextResponse.json({ error: "Item not found" }, { status: 404 });
       }
 
@@ -55,6 +55,21 @@ export class PurchaseController {
     } catch (error) {
         console.error("List Purchases Error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+  }
+
+  async listMine(req: NextRequest) {
+    try {
+      const session = await getAuthSession();
+      if (!session?.user?.id) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+
+      const purchases = await this.purchaseService.getMyPurchases(session.user.id);
+      return NextResponse.json(purchases, { status: 200 });
+    } catch (error) {
+      console.error("List My Purchases Error:", error);
+      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
   }
 }

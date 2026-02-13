@@ -13,7 +13,9 @@ export class ItemService {
     this.shareContentAdapter = new ShareContentAdapter();
   }
 
-  async createItem(data: CreateItemDTO): Promise<ItemResponseDTO> {
+  async createItem(
+    data: CreateItemDTO & { userId?: string | null }
+  ): Promise<ItemResponseDTO> {
     const item = await this.itemRepository.create(data);
 
     // Track Event
@@ -43,6 +45,25 @@ export class ItemService {
 
   async getAllItems(): Promise<ItemResponseDTO[]> {
     return await this.itemRepository.findAll();
+  }
+
+  async getMyItems(userId: string): Promise<ItemResponseDTO[]> {
+    return await this.itemRepository.findByUserId(userId);
+  }
+
+  async getItemById(id: string): Promise<ItemResponseDTO | null> {
+    return await this.itemRepository.findById(id);
+  }
+
+  async updateItem(
+    id: string,
+    data: Partial<Pick<CreateItemDTO, "name" | "description" | "price" | "quantity">>
+  ): Promise<ItemResponseDTO> {
+    return await this.itemRepository.update(id, data);
+  }
+
+  async deleteItem(id: string): Promise<void> {
+    await this.itemRepository.delete(id);
   }
 
   private async generateShareLink(itemId: string, itemName: string) {

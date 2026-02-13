@@ -84,4 +84,30 @@ describe('PurchaseController Integration Tests', () => {
     
     expect(res.status).toBe(401);
   });
+
+  it('should return 404 if item is not found', async () => {
+    (getAuthSession as any).mockResolvedValue({ user: { email: 'test@example.com', id: 'u1' } });
+    mockCreatePurchase.mockRejectedValue(new Error('Item not found'));
+
+    const req = new NextRequest('http://localhost/api/purchases', {
+      method: 'POST',
+      body: JSON.stringify({ itemId: 'item-123' }),
+    });
+
+    const res = await controller.create(req);
+    expect(res.status).toBe(404);
+  });
+
+  it('should return 500 on unexpected error', async () => {
+    (getAuthSession as any).mockResolvedValue({ user: { email: 'test@example.com', id: 'u1' } });
+    mockCreatePurchase.mockRejectedValue(new Error('Boom'));
+
+    const req = new NextRequest('http://localhost/api/purchases', {
+      method: 'POST',
+      body: JSON.stringify({ itemId: 'item-123' }),
+    });
+
+    const res = await controller.create(req);
+    expect(res.status).toBe(500);
+  });
 });

@@ -10,8 +10,9 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: "en",
 });
 
-const authMiddleware = withAuth(
-  function onSuccess(req) {
+type NextMiddlewareHandler = (req: NextRequest) => NextResponse | Promise<NextResponse>;
+const authMiddleware: NextMiddlewareHandler = withAuth(
+  function onSuccess(req: NextRequest) {
     return intlMiddleware(req);
   },
   {
@@ -22,7 +23,7 @@ const authMiddleware = withAuth(
       signIn: "/auth/signin",
     },
   }
-);
+) as unknown as NextMiddlewareHandler;
 
 export default function proxy(req: NextRequest) {
   if (req.nextUrl.pathname === "/") {
@@ -39,7 +40,7 @@ export default function proxy(req: NextRequest) {
     return intlMiddleware(req);
   }
 
-  return (authMiddleware as any)(req);
+  return authMiddleware(req);
 }
 
 export const config = {

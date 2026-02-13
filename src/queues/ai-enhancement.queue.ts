@@ -6,5 +6,5 @@ const connection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', 
 });
 
 export const aiEnhancementQueue = new Queue('AIEnhancementQueue', {
-  connection: connection as any,
+  connection,
 });

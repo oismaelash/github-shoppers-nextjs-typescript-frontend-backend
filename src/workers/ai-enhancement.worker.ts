@@ -7,9 +7,15 @@ const connection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', 
   maxRetriesPerRequest: null,
 });
 
-export const aiEnhancementWorker = new Worker(
+type AIEnhancementJob = {
+  itemId: string;
+  name: string;
+  description: string;
+};
+
+export const aiEnhancementWorker = new Worker<AIEnhancementJob>(
   'AIEnhancementQueue',
-  async (job: Job) => {
+  async (job: Job<AIEnhancementJob>) => {
     console.log(`Processing job ${job.id} for item ${job.data.itemId}`);
     
     const { itemId, name, description } = job.data;
@@ -33,5 +39,5 @@ export const aiEnhancementWorker = new Worker(
       throw error;
     }
   },
-  { connection: connection as any }
+  { connection }
 );

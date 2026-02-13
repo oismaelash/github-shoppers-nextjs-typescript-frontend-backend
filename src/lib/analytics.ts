@@ -4,7 +4,7 @@ export class AnalyticsService {
   private readonly UMAMI_API_URL = process.env.UMAMI_API_URL || 'https://analytics.umami.is/api/send';
   private readonly WEBSITE_ID = process.env.UMAMI_WEBSITE_ID;
 
-  async trackEvent(eventName: string, data: Record<string, any> = {}) {
+  async trackEvent(eventName: string, data: Record<string, unknown> = {}) {
     if (!this.WEBSITE_ID) {
       console.warn('UMAMI_WEBSITE_ID not set, skipping analytics');
       return;

@@ -3,9 +3,12 @@ import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
 import { Prisma } from "@prisma/client";
 
 export class ItemRepository {
-  async create(data: CreateItemDTO): Promise<ItemResponseDTO> {
+  async create(
+    data: CreateItemDTO & { userId?: string | null }
+  ): Promise<ItemResponseDTO> {
     const item = await prisma.item.create({
       data: {
+        userId: data.userId ?? null,
         name: data.name,
         description: data.description,
         price: data.price,
@@ -22,6 +25,9 @@ export class ItemRepository {
 
   async findAll(): Promise<ItemResponseDTO[]> {
     const items = await prisma.item.findMany({
+      include: {
+        user: { select: { githubLogin: true } },
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -29,6 +35,7 @@ export class ItemRepository {
 
     return items.map(item => ({
       ...item,
+      sellerGithubLogin: item.user?.githubLogin ?? null,
       price: Number(item.price)
     }));
   }
@@ -37,12 +44,14 @@ export class ItemRepository {
     const client = tx || prisma;
     const item = await client.item.findUnique({
       where: { id },
+      include: { user: { select: { githubLogin: true } } },
     });
 
     if (!item) return null;
 
     return {
       ...item,
+      sellerGithubLogin: item.user?.githubLogin ?? null,
       price: Number(item.price)
     };
   }
@@ -53,18 +62,30 @@ export class ItemRepository {
     // but for PostgreSQL, we can use $queryRaw if needed, or rely on update atomic operations.
     // However, the requirement is "Lock item row (SELECT FOR UPDATE)".
     // The most robust way in Prisma for this specific "Read then Update" pattern is often raw query for the lock.
-    
-    const items = await tx.$queryRaw<any[]>`SELECT * FROM "items" WHERE "id" = ${id} FOR UPDATE`;
+    type ItemRow = {
+      id: string;
+      user_id: string | null;
+      name: string;
+      description: string;
+      price: Prisma.Decimal | number | string;
+      quantity: number;
+      share_link: string | null;
+      created_at: string | Date;
+      updated_at: string | Date;
+    };
+    const items = await tx.$queryRaw<ItemRow[]>`SELECT * FROM "items" WHERE "id" = ${id} FOR UPDATE`;
     
     if (items.length === 0) return null;
     const item = items[0];
 
     return {
         id: item.id,
+        userId: item.user_id ?? null,
         name: item.name,
         description: item.description,
         price: Number(item.price),
         quantity: item.quantity,
+        shareLink: item.share_link ?? null,
         createdAt: new Date(item.created_at),
         updatedAt: new Date(item.updated_at)
     };
@@ -94,5 +115,38 @@ export class ItemRepository {
         shareLink,
       },
     });
+  }
+
+  async findByUserId(userId: string): Promise<ItemResponseDTO[]> {
+    const items = await prisma.item.findMany({
+      where: { userId },
+      include: { user: { select: { githubLogin: true } } },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return items.map((item) => ({
+      ...item,
+      sellerGithubLogin: item.user?.githubLogin ?? null,
+      price: Number(item.price),
+    }));
+  }
+
+  async update(
+    id: string,
+    data: Partial<Pick<CreateItemDTO, "name" | "description" | "price" | "quantity">>
+  ): Promise<ItemResponseDTO> {
+    const item = await prisma.item.update({
+      where: { id },
+      data,
+    });
+
+    return {
+      ...item,
+      price: Number(item.price),
+    };
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.item.delete({ where: { id } });
   }
 }

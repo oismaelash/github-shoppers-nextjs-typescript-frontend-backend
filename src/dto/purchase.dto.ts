@@ -19,6 +19,7 @@ export const PurchaseListResponseSchema = z.object({
     id: z.string(),
     githubLogin: z.string(),
     createdAt: z.date(),
+    sellerGithubLogin: z.string().nullable().optional(),
     item: z.object({
         name: z.string(),
         price: z.number(),

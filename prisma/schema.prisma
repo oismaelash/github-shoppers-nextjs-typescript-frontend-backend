@@ -13,10 +13,13 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  githubLogin   String?   @unique @map("github_login")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
   sessions      Session[]
+  items         Item[]
+  purchases     Purchase[] @relation("buyer_purchases")
 
   @@map("users")
 }
@@ -64,6 +67,7 @@ model VerificationToken {
 
 model Item {
   id          String     @id @default(cuid())
+  userId      String?    @map("user_id")
   name        String
   description String
   price       Decimal    @db.Decimal(10, 2)
@@ -72,17 +76,36 @@ model Item {
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
   purchases   Purchase[]
+  user        User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("items")
+}
+
+enum PurchaseStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  CANCELED
+}
+
+enum PaymentMethod {
+  PIX
 }
 
 model Purchase {
   id          String   @id @default(cuid())
   itemId      String   @map("item_id")
+  buyerUserId String?  @map("buyer_user_id")
   githubLogin String   @map("github_login")
+  sellerGithubLogin String? @map("seller_github_login")
+  pricePaid   Decimal? @map("price_paid") @db.Decimal(10, 2)
+  status      PurchaseStatus @default(CONFIRMED)
+  paymentMethod PaymentMethod? @map("payment_method")
+  paymentReference String? @map("payment_reference")
   createdAt   DateTime @default(now()) @map("created_at")
 
   item Item @relation(fields: [itemId], references: [id])
+  buyer User? @relation("buyer_purchases", fields: [buyerUserId], references: [id], onDelete: SetNull)
 
   @@map("purchases")
 }

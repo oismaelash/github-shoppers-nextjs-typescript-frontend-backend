@@ -8,7 +8,7 @@ export interface EmailPayload {
 
 export interface EmailResponse {
   success: boolean;
-  error?: any;
+  error?: unknown;
 }
 
 export class ResendAdapter {
@@ -25,7 +25,7 @@ export class ResendAdapter {
           return { success: true }; // Treat as success in dev/test without key
       }
 
-      const { data, error } = await this.resend.emails.send({
+      const { error } = await this.resend.emails.send({
         from: 'Acme <onboarding@resend.dev>', // Default Resend sender for testing
         to: [payload.to],
         subject: 'Purchase Confirmation - GitHub Shoppers',
