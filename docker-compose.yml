@@ -1,17 +1,83 @@
 version: '3.8'
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: github-shoppers:latest
+    container_name: github-shoppers-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
+      - REDIS_URL=redis://redis:6379
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - GITHUB_ID=${GITHUB_ID}
+      - GITHUB_SECRET=${GITHUB_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - SHARE_CONTENT_API_KEY=${SHARE_CONTENT_API_KEY}
+      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID}
+      - UMAMI_API_URL=${UMAMI_API_URL}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - shoppers-network
+
   postgres:
     image: postgres:15-alpine
-    container_name: github_shoppers_db
+    container_name: github-shoppers-postgres
+    restart: always
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: github_shoppers
-    ports:
-      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - shoppers-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: github-shoppers-redis
+    restart: always
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - shoppers-network
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: github-shoppers:latest
+    container_name: github-shoppers-worker
+    restart: always
+    command: ["npx", "tsx", "src/workers/ai-enhancement.worker.ts"]
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
+      - REDIS_URL=redis://redis:6379
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - shoppers-network
+
+networks:
+  shoppers-network:
+    driver: bridge
 
 volumes:
   postgres_data:
+  redis_data:
