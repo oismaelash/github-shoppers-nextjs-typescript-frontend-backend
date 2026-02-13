@@ -1,12 +1,15 @@
 import { ItemRepository } from "@/repositories/item.repository";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
 import { aiEnhancementQueue } from "@/queues/ai-enhancement.queue";
+import { ShareContentAdapter } from "@/adapters/share-content.adapter";
 
 export class ItemService {
   private itemRepository: ItemRepository;
+  private shareContentAdapter: ShareContentAdapter;
 
   constructor() {
     this.itemRepository = new ItemRepository();
+    this.shareContentAdapter = new ShareContentAdapter();
   }
 
   async createItem(data: CreateItemDTO): Promise<ItemResponseDTO> {
@@ -24,10 +27,29 @@ export class ItemService {
         // We don't block the response if queue fails
     }
 
+    // Generate Shareable Link (Async)
+    this.generateShareLink(item.id, item.name);
+
     return item;
   }
 
   async getAllItems(): Promise<ItemResponseDTO[]> {
     return await this.itemRepository.findAll();
+  }
+
+  private async generateShareLink(itemId: string, itemName: string) {
+      try {
+          // Construct the full product URL (assuming a frontend route /items/:id)
+          const productUrl = `${process.env.NEXTAUTH_URL}/items/${itemId}`;
+          
+          const shortUrl = await this.shareContentAdapter.generateShareLink(productUrl);
+
+          if (shortUrl) {
+              await this.itemRepository.updateShareLink(itemId, shortUrl);
+          }
+      } catch (error) {
+          console.error("Failed to generate share link:", error);
+          // Suppress error so we don't affect the HTTP response or other flows
+      }
   }
 }

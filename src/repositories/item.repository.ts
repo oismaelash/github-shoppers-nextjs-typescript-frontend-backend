@@ -86,4 +86,13 @@ export class ItemRepository {
       },
     });
   }
+
+  async updateShareLink(id: string, shareLink: string): Promise<void> {
+    await prisma.item.update({
+      where: { id },
+      data: {
+        shareLink,
+      },
+    });
+  }
 }
