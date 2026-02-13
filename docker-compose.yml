@@ -5,15 +5,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     image: github-shoppers:latest
     container_name: github-shoppers-app
     restart: always
     ports:
       - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
       - REDIS_URL=redis://redis:6379
       - NEXTAUTH_URL=http://localhost:3000
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - GITHUB_ID=${GITHUB_ID}
       - GITHUB_SECRET=${GITHUB_SECRET}
@@ -60,14 +67,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     image: github-shoppers:latest
     container_name: github-shoppers-worker
     restart: always
-    command: ["npx", "tsx", "src/workers/ai-enhancement.worker.ts"]
+    command: ["sh", "-c", "npx prisma generate && npx tsx watch src/workers/ai-enhancement.worker.ts"]
+    volumes:
+      - ./:/app
+      - /app/node_modules
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
       - REDIS_URL=redis://redis:6379
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=1000
     depends_on:
       - postgres
       - redis
