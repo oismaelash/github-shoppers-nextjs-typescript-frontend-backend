@@ -2,6 +2,7 @@ import { ItemRepository } from "@/repositories/item.repository";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
 import { aiEnhancementQueue } from "@/queues/ai-enhancement.queue";
 import { ShareContentAdapter } from "@/adapters/share-content.adapter";
+import { analytics } from "@/lib/analytics";
 
 export class ItemService {
   private itemRepository: ItemRepository;
@@ -14,6 +15,13 @@ export class ItemService {
 
   async createItem(data: CreateItemDTO): Promise<ItemResponseDTO> {
     const item = await this.itemRepository.create(data);
+
+    // Track Event
+    analytics.trackEvent('item_created', {
+        itemId: item.id,
+        name: item.name,
+        price: item.price
+    });
 
     // Enqueue job for AI enhancement
     try {

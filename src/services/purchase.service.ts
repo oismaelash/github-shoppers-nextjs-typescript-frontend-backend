@@ -5,6 +5,7 @@ import { GitHubUserAdapter } from "@/adapters/github-user.adapter";
 import { ResendAdapter } from "@/adapters/resend.adapter";
 import { CreatePurchaseDTO, PurchaseResponseDTO, PurchaseListResponseDTO } from "@/dto/purchase.dto";
 import { getAuthSession } from "@/lib/auth/utils";
+import { analytics } from "@/lib/analytics";
 
 export class PurchaseService {
   private itemRepository: ItemRepository;
@@ -60,7 +61,14 @@ export class PurchaseService {
       };
     });
 
-    // 7. Send Email Confirmation (Post-Transaction)
+    // 7. Track Analytics (Post-Transaction)
+    analytics.trackEvent('purchase_completed', {
+        purchaseId: purchaseResult.dto.id,
+        itemId: purchaseResult.dto.itemId,
+        githubLogin: purchaseResult.dto.githubLogin
+    });
+
+    // 8. Send Email Confirmation (Post-Transaction)
     // We do this outside the transaction so email failures don't rollback the purchase
     this.sendConfirmationEmail(purchaseResult.dto.githubLogin, purchaseResult.itemName);
 
