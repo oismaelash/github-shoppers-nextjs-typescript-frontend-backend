@@ -8,6 +8,7 @@ services:
       target: dev
     container_name: github-shoppers-app
     restart: always
+    command: ["sh", "-c", "npx prisma migrate deploy && npx prisma generate && npm run dev -- --webpack -H 0.0.0.0 -p 3000"]
     ports:
       - "3000:3000"
     volumes:
@@ -32,8 +33,16 @@ services:
       - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID}
       - UMAMI_API_URL=${UMAMI_API_URL}
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     networks:
       - shoppers-network
 
@@ -48,7 +57,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d github_shoppers"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - shoppers-network
 
@@ -82,8 +96,8 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - CHOKIDAR_INTERVAL=1000
     depends_on:
-      - postgres
-      - redis
+      app:
+        condition: service_healthy
     networks:
       - shoppers-network
 

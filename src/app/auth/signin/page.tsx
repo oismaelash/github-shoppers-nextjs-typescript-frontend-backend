@@ -1,10 +1,11 @@
 import { SignInPage } from "@/components/pages/auth/SignInPage";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams?: { callbackUrl?: string };
+  searchParams?: Promise<{ callbackUrl?: string }>;
 }) {
-  return <SignInPage callbackUrl={searchParams?.callbackUrl} />;
+  const params = await searchParams;
+  return <SignInPage callbackUrl={params?.callbackUrl} />;
 }
 

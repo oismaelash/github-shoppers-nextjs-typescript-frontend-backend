@@ -20,7 +20,7 @@ export function SignInPage({ callbackUrl }: { callbackUrl?: string }) {
             type="button"
             className="w-full"
             leftIcon={<Icon name="code" className="text-[18px]" />}
-            onClick={() => signIn("github", { callbackUrl })}
+            onClick={() => signIn("github", { callbackUrl: callbackUrl || "/dashboard" })}
           >
             Continue with GitHub
           </Button>
@@ -29,7 +29,7 @@ export function SignInPage({ callbackUrl }: { callbackUrl?: string }) {
             variant="secondary"
             className="w-full"
             leftIcon={<Icon name="account_circle" className="text-[18px]" />}
-            onClick={() => signIn("google", { callbackUrl })}
+            onClick={() => signIn("google", { callbackUrl: callbackUrl || "/dashboard" })}
           >
             Continue with Google
           </Button>

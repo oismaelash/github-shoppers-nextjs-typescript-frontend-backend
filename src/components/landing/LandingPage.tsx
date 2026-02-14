@@ -652,7 +652,7 @@ function GithubAuthCta({ variant }: { variant: "nav" | "hero" | "cta" }) {
 
   return (
     <button
-      onClick={() => signIn("github")}
+      onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
       className={[base, variantClassName].join(" ")}
     >
       <Icon
