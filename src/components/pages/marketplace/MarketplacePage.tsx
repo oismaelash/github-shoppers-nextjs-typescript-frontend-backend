@@ -33,17 +33,16 @@ type PurchaseResponse = {
 type StatusFilter = "all" | "in_stock" | "out_of_stock";
 type SortOption = "newest" | "price_asc" | "price_desc" | "qty_left";
 
-export function MarketplacePage({ locale }: { locale: string }) {
-  const base = `/${locale}`;
+export function MarketplacePage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
-      { label: "Dashboard", href: base, icon: "dashboard" },
-      { label: "Products", href: `${base}/products`, icon: "inventory_2" },
-      { label: "Create Product", href: `${base}/products/new`, icon: "add_box" },
-      { label: "Marketplace", href: `${base}/marketplace`, icon: "storefront" },
-      { label: "Purchase History", href: `${base}/purchase-history`, icon: "history" },
+      { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+      { label: "Products", href: "/products", icon: "inventory_2" },
+      { label: "Create Product", href: "/products/new", icon: "add_box" },
+      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
+      { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
-    [base]
+    []
   );
 
   const [query, setQuery] = useState("");
@@ -123,7 +122,7 @@ export function MarketplacePage({ locale }: { locale: string }) {
 
   return (
     <AppShell
-      activeHref={`${base}/marketplace`}
+      activeHref="/marketplace"
       sidebarTitle="Seller Console"
       sidebarItems={sidebarItems}
       searchPlaceholder="Search marketplace..."
@@ -182,7 +181,7 @@ export function MarketplacePage({ locale }: { locale: string }) {
         purchase={success}
         onClose={() => setSuccess(null)}
         onViewHistory={() => {
-          window.location.href = `${base}/purchase-history`;
+          window.location.href = "/purchase-history";
         }}
         onBackToMarketplace={() => setSuccess(null)}
       />

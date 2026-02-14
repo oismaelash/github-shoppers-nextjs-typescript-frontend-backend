@@ -64,7 +64,7 @@ export function PublicLedgerPage() {
             <ButtonLink href="/api/auth/signin" variant="secondary" size="md">
               Sign In
             </ButtonLink>
-            <ButtonLink href="/en" size="md">
+            <ButtonLink href="/" size="md">
               Get Started
             </ButtonLink>
           </div>
@@ -105,7 +105,7 @@ export function PublicLedgerPage() {
                   type="button"
                   variant="secondary"
                   leftIcon={<Icon name="filter_alt" className="text-[18px]" />}
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Filter
                 </Button>

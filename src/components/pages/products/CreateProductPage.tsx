@@ -13,17 +13,16 @@ type EnhanceResponse = {
   improvedDescription: string;
 };
 
-export function CreateProductPage({ locale }: { locale: string }) {
-  const base = `/${locale}`;
+export function CreateProductPage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
-      { label: "Dashboard", href: base, icon: "dashboard" },
-      { label: "My Products", href: `${base}/products`, icon: "inventory_2" },
-      { label: "Create Product", href: `${base}/products/new`, icon: "add_box" },
-      { label: "Marketplace", href: `${base}/marketplace`, icon: "storefront" },
-      { label: "Purchase History", href: `${base}/purchase-history`, icon: "history" },
+      { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+      { label: "My Products", href: "/products", icon: "inventory_2" },
+      { label: "Create Product", href: "/products/new", icon: "add_box" },
+      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
+      { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
-    [base]
+    []
   );
 
   const [name, setName] = useState("");
@@ -79,7 +78,7 @@ export function CreateProductPage({ locale }: { locale: string }) {
         }),
       });
 
-      window.location.href = `${base}/products`;
+      window.location.href = "/products";
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to create product");
     } finally {
@@ -89,7 +88,7 @@ export function CreateProductPage({ locale }: { locale: string }) {
 
   return (
     <AppShell
-      activeHref={`${base}/products/new`}
+      activeHref="/products/new"
       sidebarTitle="Seller Console"
       sidebarItems={sidebarItems}
       searchPlaceholder="Search inventory..."
@@ -178,7 +177,7 @@ export function CreateProductPage({ locale }: { locale: string }) {
             <Button
               type="button"
               variant="secondary"
-              onClick={() => (window.location.href = `${base}/products`)}
+              onClick={() => (window.location.href = "/products")}
             >
               Cancel
             </Button>

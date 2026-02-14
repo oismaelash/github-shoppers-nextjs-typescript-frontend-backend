@@ -311,7 +311,7 @@ function HeroCopy() {
 function ExploreMarketplaceCta() {
   return (
     <Link
-      href="/en/marketplace"
+      href="/marketplace"
       className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-lg font-bold transition-all border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-primary/40 text-white"
     >
       <Icon name="explore" className="material-symbols-outlined" />

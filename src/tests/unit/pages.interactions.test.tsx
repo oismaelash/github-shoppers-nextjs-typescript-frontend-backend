@@ -53,7 +53,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<MarketplacePage locale="en" />);
+    render(<MarketplacePage />);
     fireEvent.click(await screen.findByText("Buy Now"));
     fireEvent.click(await screen.findByText("Verify Payment"));
     expect(await screen.findByText("Payment Successful!")).toBeInTheDocument();
@@ -91,7 +91,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<MarketplacePage locale="en" />);
+    render(<MarketplacePage />);
     expect(await screen.findByText("Alpha")).toBeInTheDocument();
     expect(await screen.findByText("Beta")).toBeInTheDocument();
 
@@ -139,7 +139,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<MarketplacePage locale="en" />);
+    render(<MarketplacePage />);
     expect(await screen.findByText("In Stock")).toBeInTheDocument();
 
     const buyButtons = screen.getAllByRole("button", { name: /Buy Now/ });
@@ -172,7 +172,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify({}) };
     });
 
-    render(<CreateProductPage locale="en" />);
+    render(<CreateProductPage />);
     fireEvent.change(screen.getByPlaceholderText("e.g. React Component Kit"), {
       target: { value: "Old title" },
     });
@@ -192,7 +192,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify({}) };
     });
 
-    render(<CreateProductPage locale="en" />);
+    render(<CreateProductPage />);
     fireEvent.change(screen.getByPlaceholderText("e.g. React Component Kit"), {
       target: { value: "Title" },
     });
@@ -219,7 +219,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify({}) };
     });
 
-    render(<CreateProductPage locale="en" />);
+    render(<CreateProductPage />);
     fireEvent.change(screen.getByPlaceholderText("e.g. React Component Kit"), {
       target: { value: "Title" },
     });
@@ -255,7 +255,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify({}) };
     });
 
-    render(<EditProductPage locale="en" id="i1" />);
+    render(<EditProductPage id="i1" />);
     const nameInput = await screen.findByPlaceholderText("e.g. React Component Kit");
     const priceInput = screen.getByPlaceholderText("49.00");
     const descTextarea = screen.getByPlaceholderText("Write a detailed description (Markdown supported).");
@@ -302,7 +302,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<MyProductsPage locale="en" />);
+    render(<MyProductsPage />);
     fireEvent.click(await screen.findByText("Delete"));
     expect(screen.queryByText("Item A")).not.toBeNull();
   });
@@ -329,13 +329,13 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<PurchaseHistoryPage locale="en" />);
+    render(<PurchaseHistoryPage />);
     fireEvent.click(await screen.findByText("View Invoice"));
     expect(open).toHaveBeenCalled();
   });
 
   it("Purchase History: mostra toast quando success=1 e fecha", async () => {
-    window.history.pushState({}, "", "/en/purchase-history?success=1");
+    window.history.pushState({}, "", "/purchase-history?success=1");
     mockFetch((url) => {
       if (url.includes("/api/me/purchases")) {
         return { ok: true, status: 200, text: async () => JSON.stringify([]) };
@@ -343,7 +343,7 @@ describe("Page interactions", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify([]) };
     });
 
-    render(<PurchaseHistoryPage locale="en" />);
+    render(<PurchaseHistoryPage />);
     expect(await screen.findByText("Purchase Success")).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText("Close toast"));
     expect(screen.queryByText("Purchase Success")).toBeNull();
@@ -365,7 +365,7 @@ describe("Page interactions", () => {
 
   it("SignIn: clicar botões chama signIn", async () => {
     const { signIn } = await import("next-auth/react");
-    render(<SignInPage callbackUrl="/en" />);
+    render(<SignInPage callbackUrl="/" />);
     fireEvent.click(screen.getByText("Continue with GitHub"));
     fireEvent.click(screen.getByText("Continue with Google"));
     expect(signIn).toHaveBeenCalled();

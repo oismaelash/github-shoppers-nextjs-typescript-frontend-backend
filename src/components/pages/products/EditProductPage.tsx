@@ -16,17 +16,16 @@ type ItemDTO = {
   quantity: number;
 };
 
-export function EditProductPage({ locale, id }: { locale: string; id: string }) {
-  const base = `/${locale}`;
+export function EditProductPage({ id }: { id: string }) {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
-      { label: "Dashboard", href: base, icon: "dashboard" },
-      { label: "My Products", href: `${base}/products`, icon: "inventory_2" },
-      { label: "Create Product", href: `${base}/products/new`, icon: "add_box" },
-      { label: "Marketplace", href: `${base}/marketplace`, icon: "storefront" },
-      { label: "Purchase History", href: `${base}/purchase-history`, icon: "history" },
+      { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+      { label: "My Products", href: "/products", icon: "inventory_2" },
+      { label: "Create Product", href: "/products/new", icon: "add_box" },
+      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
+      { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
-    [base]
+    []
   );
 
   const [loading, setLoading] = useState(true);
@@ -70,7 +69,7 @@ export function EditProductPage({ locale, id }: { locale: string; id: string }) 
           quantity: Number(quantity),
         }),
       });
-      window.location.href = `${base}/products`;
+      window.location.href = "/products";
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to save changes");
     } finally {
@@ -80,7 +79,7 @@ export function EditProductPage({ locale, id }: { locale: string; id: string }) 
 
   return (
     <AppShell
-      activeHref={`${base}/products`}
+      activeHref="/products"
       sidebarTitle="Seller Console"
       sidebarItems={sidebarItems}
       searchPlaceholder="Search inventory..."
@@ -146,7 +145,7 @@ export function EditProductPage({ locale, id }: { locale: string; id: string }) 
                 <Button
                   type="button"
                   variant="secondary"
-                  onClick={() => (window.location.href = `${base}/products`)}
+                  onClick={() => (window.location.href = "/products")}
                 >
                   Cancel
                 </Button>

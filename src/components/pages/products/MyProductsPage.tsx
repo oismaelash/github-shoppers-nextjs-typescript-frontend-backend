@@ -33,17 +33,16 @@ type SalesSummary = {
   sales: SaleRow[];
 };
 
-export function MyProductsPage({ locale }: { locale: string }) {
-  const base = `/${locale}`;
+export function MyProductsPage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
-      { label: "Dashboard", href: base, icon: "dashboard" },
-      { label: "My Products", href: `${base}/products`, icon: "inventory_2" },
-      { label: "Create Product", href: `${base}/products/new`, icon: "add_box" },
-      { label: "Marketplace", href: `${base}/marketplace`, icon: "storefront" },
-      { label: "Purchase History", href: `${base}/purchase-history`, icon: "history" },
+      { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+      { label: "My Products", href: "/products", icon: "inventory_2" },
+      { label: "Create Product", href: "/products/new", icon: "add_box" },
+      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
+      { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
-    [base]
+    []
   );
 
   const [products, setProducts] = useState<ProductRow[]>([]);
@@ -92,7 +91,7 @@ export function MyProductsPage({ locale }: { locale: string }) {
   async function deleteProduct(p: ProductRow) {
     const ok = window.confirm(`Delete "${p.name}"?`);
     if (!ok) return;
-    await apiFetch(`/api/items/${p.id}`, { method: "DELETE" }).catch(() => {});
+    await apiFetch(`/api/items/${p.id}`, { method: "DELETE" }).catch(() => { });
     setProducts((prev) => prev.filter((x) => x.id !== p.id));
   }
 
@@ -103,7 +102,7 @@ export function MyProductsPage({ locale }: { locale: string }) {
 
   return (
     <AppShell
-      activeHref={`${base}/products`}
+      activeHref="/products"
       sidebarTitle="Seller Console"
       sidebarItems={sidebarItems}
       searchPlaceholder="Search inventory..."
@@ -111,7 +110,7 @@ export function MyProductsPage({ locale }: { locale: string }) {
       <div className="flex items-center justify-between gap-4">
         <div className="text-white font-black text-2xl">My Products</div>
         <ButtonLink
-          href={`${base}/products/new`}
+          href="/products/new"
           leftIcon={<Icon name="add" className="text-[18px]" />}
         >
           Add Product
@@ -178,7 +177,7 @@ export function MyProductsPage({ locale }: { locale: string }) {
                           Sales
                         </Button>
                         <ButtonLink
-                          href={`${base}/products/${p.id}/edit`}
+                          href={`/products/${p.id}/edit`}
                           variant="ghost"
                           size="sm"
                           leftIcon={<Icon name="edit" className="text-[18px]" />}

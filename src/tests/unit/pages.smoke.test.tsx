@@ -33,31 +33,31 @@ describe("Pages smoke", () => {
       (url) =>
         url.includes("/api/purchases")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([
-                  {
-                    id: "p1",
-                    githubLogin: "buyer",
-                    createdAt: new Date().toISOString(),
-                    item: { name: "Item A", price: 10 },
-                  },
-                ]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([
+                {
+                  id: "p1",
+                  githubLogin: "buyer",
+                  createdAt: new Date().toISOString(),
+                  item: { name: "Item A", price: 10 },
+                },
+              ]),
+          }
           : null,
       (url) =>
         url.includes("/api/items")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([{ id: "i1", quantity: 2, createdAt: new Date().toISOString() }]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([{ id: "i1", quantity: 2, createdAt: new Date().toISOString() }]),
+          }
           : null,
     ]);
 
-    render(<DashboardPage locale="en" />);
+    render(<DashboardPage />);
     expect(await screen.findByText("Recent Purchases")).toBeInTheDocument();
     expect(await screen.findByText("Item A")).toBeInTheDocument();
   });
@@ -67,39 +67,39 @@ describe("Pages smoke", () => {
       (url) =>
         url.includes("/api/items")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([
-                  {
-                    id: "i1",
-                    name: "Item A",
-                    description: "Desc",
-                    price: 10,
-                    quantity: 1,
-                    createdAt: new Date().toISOString(),
-                    sellerGithubLogin: "seller1",
-                  },
-                ]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([
+                {
+                  id: "i1",
+                  name: "Item A",
+                  description: "Desc",
+                  price: 10,
+                  quantity: 1,
+                  createdAt: new Date().toISOString(),
+                  sellerGithubLogin: "seller1",
+                },
+              ]),
+          }
           : null,
       (url) =>
         url.includes("/api/purchases")
           ? {
-              ok: true,
-              status: 201,
-              text: async () =>
-                JSON.stringify({
-                  id: "p1",
-                  itemId: "i1",
-                  githubLogin: "buyer1",
-                  createdAt: new Date().toISOString(),
-                }),
-            }
+            ok: true,
+            status: 201,
+            text: async () =>
+              JSON.stringify({
+                id: "p1",
+                itemId: "i1",
+                githubLogin: "buyer1",
+                createdAt: new Date().toISOString(),
+              }),
+          }
           : null,
     ]);
 
-    render(<MarketplacePage locale="en" />);
+    render(<MarketplacePage />);
     expect(await screen.findByText("Item A")).toBeInTheDocument();
     fireEvent.click(await screen.findByText("Buy Now"));
     expect(await screen.findByText("Complete Your Purchase")).toBeInTheDocument();
@@ -110,45 +110,45 @@ describe("Pages smoke", () => {
       (url) =>
         url.includes("/api/me/items")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([
-                  {
-                    id: "i1",
-                    name: "Item A",
-                    price: 10,
-                    quantity: 2,
-                    createdAt: new Date().toISOString(),
-                    shareLink: null,
-                  },
-                ]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([
+                {
+                  id: "i1",
+                  name: "Item A",
+                  price: 10,
+                  quantity: 2,
+                  createdAt: new Date().toISOString(),
+                  shareLink: null,
+                },
+              ]),
+          }
           : null,
       (url) =>
         url.includes("/api/items/i1/sales")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify({
-                  totalSales: 1,
-                  revenue: 10,
-                  sales: [
-                    {
-                      id: "p1",
-                      buyer: "buyer1",
-                      pricePaid: 10,
-                      createdAt: new Date().toISOString(),
-                      status: "CONFIRMED",
-                    },
-                  ],
-                }),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify({
+                totalSales: 1,
+                revenue: 10,
+                sales: [
+                  {
+                    id: "p1",
+                    buyer: "buyer1",
+                    pricePaid: 10,
+                    createdAt: new Date().toISOString(),
+                    status: "CONFIRMED",
+                  },
+                ],
+              }),
+          }
           : null,
     ]);
 
-    render(<MyProductsPage locale="en" />);
+    render(<MyProductsPage />);
     expect((await screen.findAllByText("My Products")).length).toBeGreaterThan(0);
     fireEvent.click(await screen.findByText("Sales"));
     expect(await screen.findByText(/Sales History:/)).toBeInTheDocument();
@@ -159,25 +159,25 @@ describe("Pages smoke", () => {
       (url) =>
         url.endsWith("/api/items/i1")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify({
-                  id: "i1",
-                  name: "Item A",
-                  description: "Desc",
-                  price: 10,
-                  quantity: 2,
-                }),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify({
+                id: "i1",
+                name: "Item A",
+                description: "Desc",
+                price: 10,
+                quantity: 2,
+              }),
+          }
           : null,
     ]);
-    render(<EditProductPage locale="en" id="i1" />);
+    render(<EditProductPage id="i1" />);
     expect(await screen.findByDisplayValue("Item A")).toBeInTheDocument();
   });
 
   it("renderiza Create Product", async () => {
-    render(<CreateProductPage locale="en" />);
+    render(<CreateProductPage />);
     expect(screen.getAllByText("Create Product").length).toBeGreaterThan(0);
     expect(screen.getByText("Product Name")).toBeInTheDocument();
   });
@@ -187,23 +187,23 @@ describe("Pages smoke", () => {
       (url) =>
         url.includes("/api/me/purchases")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([
-                  {
-                    id: "p1",
-                    githubLogin: "buyer1",
-                    sellerGithubLogin: "seller1",
-                    createdAt: new Date().toISOString(),
-                    item: { name: "Item A", price: 10 },
-                  },
-                ]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([
+                {
+                  id: "p1",
+                  githubLogin: "buyer1",
+                  sellerGithubLogin: "seller1",
+                  createdAt: new Date().toISOString(),
+                  item: { name: "Item A", price: 10 },
+                },
+              ]),
+          }
           : null,
     ]);
 
-    render(<PurchaseHistoryPage locale="en" />);
+    render(<PurchaseHistoryPage />);
     expect((await screen.findAllByText("Purchase History")).length).toBeGreaterThan(0);
     expect(await screen.findByText(/seller1/)).toBeInTheDocument();
   });
@@ -217,7 +217,7 @@ describe("Pages smoke", () => {
         text: async () => JSON.stringify({ error: "Unauthorized" }),
       }))
     );
-    render(<PurchaseHistoryPage locale="en" />);
+    render(<PurchaseHistoryPage />);
     expect((await screen.findAllByText("Purchase History")).length).toBeGreaterThan(0);
     expect(await screen.findByText("You must be signed in to view your purchase history.")).toBeInTheDocument();
   });
@@ -231,7 +231,7 @@ describe("Pages smoke", () => {
         text: async () => JSON.stringify({ error: "Unauthorized" }),
       }))
     );
-    render(<MyProductsPage locale="en" />);
+    render(<MyProductsPage />);
     expect((await screen.findAllByText("My Products")).length).toBeGreaterThan(0);
     expect(await screen.findByText("You must be signed in to view your products.")).toBeInTheDocument();
   });
@@ -241,21 +241,21 @@ describe("Pages smoke", () => {
       (url) =>
         url.includes("/api/ledger")
           ? {
-              ok: true,
-              status: 200,
-              text: async () =>
-                JSON.stringify([
-                  {
-                    id: "l1",
-                    product: "Item A",
-                    seller: "seller1",
-                    buyer: "buyer1",
-                    price: 10,
-                    createdAt: new Date().toISOString(),
-                    status: "VERIFIED",
-                  },
-                ]),
-            }
+            ok: true,
+            status: 200,
+            text: async () =>
+              JSON.stringify([
+                {
+                  id: "l1",
+                  product: "Item A",
+                  seller: "seller1",
+                  buyer: "buyer1",
+                  price: 10,
+                  createdAt: new Date().toISOString(),
+                  status: "VERIFIED",
+                },
+              ]),
+          }
           : null,
     ]);
 

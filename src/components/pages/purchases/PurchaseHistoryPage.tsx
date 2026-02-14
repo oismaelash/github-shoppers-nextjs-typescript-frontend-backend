@@ -18,17 +18,16 @@ type PurchaseRow = {
   item: { id?: string; name: string; price: string | number };
 };
 
-export function PurchaseHistoryPage({ locale }: { locale: string }) {
-  const base = `/${locale}`;
+export function PurchaseHistoryPage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
-      { label: "Dashboard", href: base, icon: "dashboard" },
-      { label: "Products", href: `${base}/products`, icon: "inventory_2" },
-      { label: "Create Product", href: `${base}/products/new`, icon: "add_box" },
-      { label: "Marketplace", href: `${base}/marketplace`, icon: "storefront" },
-      { label: "Purchase History", href: `${base}/purchase-history`, icon: "history" },
+      { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+      { label: "Products", href: "/products", icon: "inventory_2" },
+      { label: "Create Product", href: "/products/new", icon: "add_box" },
+      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
+      { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
-    [base]
+    []
   );
 
   const [page, setPage] = useState(1);
@@ -70,7 +69,7 @@ export function PurchaseHistoryPage({ locale }: { locale: string }) {
 
   return (
     <AppShell
-      activeHref={`${base}/purchase-history`}
+      activeHref="/purchase-history"
       sidebarTitle="Seller Console"
       sidebarItems={sidebarItems}
       searchPlaceholder="Search purchases..."
