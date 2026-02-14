@@ -4,6 +4,9 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
+import { Navbar } from "@/components/layout/Navbar";
+import { Icon } from "@/components/ui/Icon";
+import { LogoMark } from "@/components/ui/Logo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,10 +51,11 @@ type ProductMock = {
 
 const navItems: NavItem[] = [
   { label: "Marketplace", href: "/marketplace" },
-  { label: "Features", href: "#features" },
-  { label: "Documentation", href: "#documentation" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Features", href: "/#features" },
+  { label: "Documentation", href: "/#documentation" },
+  { label: "Pricing", href: "/#pricing" },
 ];
+
 
 const productMocks: ProductMock[] = [
   {
@@ -220,7 +224,7 @@ export function LandingPage() {
         "selection:bg-primary/30",
       ].join(" ")}
     >
-      <TopNavigation />
+      <Navbar />
       <main>
         <HeroSection />
         <SocialProofBar />
@@ -234,46 +238,6 @@ export function LandingPage() {
   );
 }
 
-function TopNavigation() {
-  return (
-    <nav className="sticky top-0 z-50 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
-      <SectionContainer className="h-16 flex items-center justify-between">
-        <Brand />
-        <DesktopNav />
-        <div className="flex items-center gap-4">
-          <GithubAuthCta variant="nav" />
-        </div>
-      </SectionContainer>
-    </nav>
-  );
-}
-
-function Brand() {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="bg-primary p-1.5 rounded-lg">
-        <LogoMark className="w-5 h-5 text-white" />
-      </div>
-      <span className="font-bold text-lg tracking-tight">GitHub Shoppers</span>
-    </div>
-  );
-}
-
-function DesktopNav() {
-  return (
-    <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-      {navItems.map((item) => (
-        <a
-          key={item.label}
-          className="hover:text-primary transition-colors"
-          href={item.href}
-        >
-          {item.label}
-        </a>
-      ))}
-    </div>
-  );
-}
 
 function HeroSection() {
   return (
@@ -645,9 +609,6 @@ function GithubAuthCta({ variant }: { variant: "nav" | "hero" | "cta" }) {
         ? "px-8 py-4 bg-primary hover:bg-primary/90 rounded-xl text-lg shadow-xl shadow-primary/20"
         : "px-10 py-5 bg-primary hover:bg-primary/90 rounded-2xl text-xl shadow-2xl shadow-primary/30 transform hover:scale-105 active:scale-95";
 
-  const iconSizeClassName =
-    variant === "nav" ? "text-[18px]" : variant === "cta" ? "text-2xl" : "";
-
   const iconName = variant === "nav" ? "login" : "account_circle";
 
   return (
@@ -657,7 +618,7 @@ function GithubAuthCta({ variant }: { variant: "nav" | "hero" | "cta" }) {
     >
       <Icon
         name={iconName}
-        className={[iconSizeClassName, "material-symbols-outlined"].join(" ")}
+        className="material-symbols-outlined"
       />
       Continue with GitHub
     </button>
@@ -675,26 +636,5 @@ function SectionContainer({
     <div className={["max-w-7xl mx-auto px-6", className ?? ""].join(" ")}>
       {children}
     </div>
-  );
-}
-
-function Icon({ name, className }: { name: string; className?: string }) {
-  return <span className={className}>{name}</span>;
-}
-
-function LogoMark({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 6H42L36 24L42 42H6L12 24L6 6Z"
-        fill="currentColor"
-      />
-    </svg>
   );
 }

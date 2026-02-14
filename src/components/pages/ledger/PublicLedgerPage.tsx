@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { apiFetch } from "@/lib/api-fetch";
+import { Navbar } from "@/components/layout/Navbar";
 
 type LedgerRow = {
   id: string;
@@ -41,35 +42,7 @@ export function PublicLedgerPage() {
 
   return (
     <div className="min-h-screen bg-background-dark text-slate-100">
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary p-1.5 rounded-lg">
-              <Icon name="shopping_bag" className="text-white" />
-            </div>
-            <span className="font-bold text-lg tracking-tight">GitHub Shoppers</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-            <Link className="hover:text-primary transition-colors" href="/#marketplace">
-              Marketplace
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/#features">
-              Features
-            </Link>
-            <Link className="hover:text-primary transition-colors" href="/#documentation">
-              Documentation
-            </Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <ButtonLink href="/api/auth/signin" variant="secondary" size="md">
-              Sign In
-            </ButtonLink>
-            <ButtonLink href="/" size="md">
-              Get Started
-            </ButtonLink>
-          </div>
-        </div>
-      </nav>
+      <Navbar activeHref="/ledger" />
 
       <section className="relative pt-20 pb-10 overflow-hidden grid-pattern">
         <div className="absolute inset-0 hero-glow pointer-events-none" />

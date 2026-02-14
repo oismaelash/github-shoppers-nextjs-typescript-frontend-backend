@@ -21,12 +21,12 @@ export class ResendAdapter {
   async sendPurchaseConfirmation(payload: EmailPayload): Promise<EmailResponse> {
     try {
       if (!process.env.RESEND_API_KEY) {
-          console.warn("RESEND_API_KEY not set, skipping email");
-          return { success: true }; // Treat as success in dev/test without key
+        console.warn("RESEND_API_KEY not set, skipping email");
+        return { success: true }; // Treat as success in dev/test without key
       }
 
       const { error } = await this.resend.emails.send({
-        from: 'Acme <onboarding@resend.dev>', // Default Resend sender for testing
+        from: 'Github Shoppers <onboarding@resend.dev>', // Default Resend sender for testing
         to: [payload.to],
         subject: 'Purchase Confirmation - GitHub Shoppers',
         html: `

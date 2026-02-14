@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 import { apiFetch } from "@/lib/api-fetch";
 import { cn } from "@/lib/cn";
+import { Navbar } from "@/components/layout/Navbar";
 
 type MarketplaceItem = {
     id: string;
@@ -103,41 +104,7 @@ export function PublicMarketplacePage() {
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
             {/* Top Navigation Bar */}
-            <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="bg-primary p-1.5 rounded-lg flex items-center justify-center text-white">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
-                                </svg>
-                            </div>
-                            <span className="text-xl font-bold tracking-tight text-white">GitHub Shoppers</span>
-                        </Link>
-                        <nav className="hidden md:flex items-center space-x-8">
-                            <Link href="/marketplace" className="text-sm font-medium text-primary border-b-2 border-primary pb-1">Marketplace</Link>
-                            <Link href="/#features" className="text-sm font-medium text-slate-400 hover:text-primary transition-colors">Features</Link>
-                            <Link href="/#documentation" className="text-sm font-medium text-slate-400 hover:text-primary transition-colors">Documentation</Link>
-                            <Link href="/#pricing" className="text-sm font-medium text-slate-400 hover:text-primary transition-colors">Pricing</Link>
-                        </nav>
-                        <div className="flex items-center gap-3">
-                            <button
-                                onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-                                className="hidden sm:flex text-sm font-semibold px-4 py-2 text-slate-200 hover:text-primary transition-colors"
-                            >
-                                Sign In
-                            </button>
-                            <Button
-                                onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-                                size="sm"
-                                leftIcon={<Icon name="login" className="text-[20px]" />}
-                            >
-                                Continue with GitHub
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <Navbar activeHref="/marketplace" />
 
             <main className="flex-grow">
                 {/* Hero Header */}
