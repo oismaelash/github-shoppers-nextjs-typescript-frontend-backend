@@ -35,7 +35,7 @@ export function AppShell({
             />
           </aside>
           <div className="min-w-0 space-y-8">
-            <TopBar searchPlaceholder={searchPlaceholder} />
+            {/* <TopBar searchPlaceholder={searchPlaceholder} /> */}
             {children}
           </div>
         </div>
