@@ -6,7 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
-    image: github-shoppers:latest
     container_name: github-shoppers-app
     restart: always
     ports:
@@ -69,7 +68,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
-    image: github-shoppers:latest
     container_name: github-shoppers-worker
     restart: always
     command: ["sh", "-c", "npx prisma generate && npx tsx watch src/workers/ai-enhancement.worker.ts"]
