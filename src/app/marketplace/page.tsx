@@ -1,6 +1,6 @@
-import { MarketplacePage } from "@/components/pages/marketplace/MarketplacePage";
+import { PublicMarketplacePage } from "@/components/pages/marketplace/PublicMarketplacePage";
 
 export default async function Page() {
-  return <MarketplacePage />;
+  return <PublicMarketplacePage />;
 }
 

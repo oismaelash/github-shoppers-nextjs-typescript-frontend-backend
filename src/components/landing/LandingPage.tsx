@@ -47,7 +47,7 @@ type ProductMock = {
 };
 
 const navItems: NavItem[] = [
-  { label: "Marketplace", href: "#marketplace" },
+  { label: "Marketplace", href: "/marketplace" },
   { label: "Features", href: "#features" },
   { label: "Documentation", href: "#documentation" },
   { label: "Pricing", href: "#pricing" },

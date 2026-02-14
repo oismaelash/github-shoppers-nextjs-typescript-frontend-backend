@@ -39,7 +39,6 @@ export function MyProductsPage() {
       { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
       { label: "My Products", href: "/products", icon: "inventory_2" },
       { label: "Create Product", href: "/products/new", icon: "add_box" },
-      { label: "Marketplace", href: "/marketplace", icon: "storefront" },
       { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
     []
