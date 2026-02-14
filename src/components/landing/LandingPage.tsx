@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 
@@ -648,13 +651,16 @@ function GithubAuthCta({ variant }: { variant: "nav" | "hero" | "cta" }) {
   const iconName = variant === "nav" ? "login" : "account_circle";
 
   return (
-    <Link href="/api/auth/signin" className={[base, variantClassName].join(" ")}>
+    <button
+      onClick={() => signIn("github")}
+      className={[base, variantClassName].join(" ")}
+    >
       <Icon
         name={iconName}
         className={[iconSizeClassName, "material-symbols-outlined"].join(" ")}
       />
       Continue with GitHub
-    </Link>
+    </button>
   );
 }
 
