@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { apiFetch } from "@/lib/api-fetch";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 type LedgerRow = {
   id: string;
@@ -158,6 +159,8 @@ export function PublicLedgerPage() {
           </Card>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

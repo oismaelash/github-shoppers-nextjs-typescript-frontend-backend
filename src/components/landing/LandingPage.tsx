@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { Icon } from "@/components/ui/Icon";
 import { LogoMark } from "@/components/ui/Logo";
 
@@ -233,7 +234,7 @@ export function LandingPage() {
         <UseCasesSection />
         <FinalCtaSection />
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
@@ -556,32 +557,6 @@ function FinalCtaSection() {
   );
 }
 
-function SiteFooter() {
-  return (
-    <footer className="border-t border-white/5 py-12 bg-background-dark text-slate-500 text-sm">
-      <SectionContainer className="flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center gap-2">
-          <div className="bg-primary/10 p-1 rounded-md">
-            <LogoMark className="w-4 h-4 text-primary" />
-          </div>
-          <span className="font-bold text-white">GitHub Shoppers</span>
-        </div>
-        <div className="flex gap-8">
-          {footerLinks.map((link) => (
-            <a
-              key={link.label}
-              className="hover:text-primary transition-colors"
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-        <p>© 2024 GitHub Shoppers. Not affiliated with GitHub, Inc.</p>
-      </SectionContainer>
-    </footer>
-  );
-}
 
 function SectionHeading({
   title,

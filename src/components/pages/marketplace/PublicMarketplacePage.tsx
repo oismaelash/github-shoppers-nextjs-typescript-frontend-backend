@@ -11,6 +11,7 @@ import { Modal } from "@/components/ui/Modal";
 import { apiFetch } from "@/lib/api-fetch";
 import { cn } from "@/lib/cn";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 type MarketplaceItem = {
     id: string;
@@ -169,71 +170,7 @@ export function PublicMarketplacePage() {
             </main>
 
             {/* Footer */}
-            <footer className="bg-[#0b1419] border-t border-white/5 py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                        <div className="col-span-2">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="bg-primary p-1 rounded flex items-center justify-center text-white">
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
-                                    </svg>
-                                </div>
-                                <span className="text-lg font-bold text-white tracking-tight">GitHub Shoppers</span>
-                            </div>
-                            <p className="text-slate-400 text-sm max-w-xs mb-6">
-                                The definitive marketplace for developers, by developers. Built with trust and identity at the core.
-                            </p>
-                            <div className="flex gap-4">
-                                <a className="text-slate-400 hover:text-primary transition-colors" href="#">
-                                    <Icon name="alternate_email" />
-                                </a>
-                                <a className="text-slate-400 hover:text-primary transition-colors" href="#">
-                                    <Icon name="share" />
-                                </a>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Marketplace</h4>
-                            <ul className="space-y-2 text-sm text-slate-400">
-                                <li><a className="hover:text-primary" href="#">Featured Tools</a></li>
-                                <li><a className="hover:text-primary" href="#">New Assets</a></li>
-                                <li><a className="hover:text-primary" href="#">Trending</a></li>
-                                <li><a className="hover:text-primary" href="#">Verified Sellers</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Resources</h4>
-                            <ul className="space-y-2 text-sm text-slate-400">
-                                <li><a className="hover:text-primary" href="#">Documentation</a></li>
-                                <li><a className="hover:text-primary" href="#">Help Center</a></li>
-                                <li><a className="hover:text-primary" href="#">API Reference</a></li>
-                                <li><a className="hover:text-primary" href="#">Community</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Company</h4>
-                            <ul className="space-y-2 text-sm text-slate-400">
-                                <li><a className="hover:text-primary" href="#">About</a></li>
-                                <li><a className="hover:text-primary" href="#">Blog</a></li>
-                                <li><a className="hover:text-primary" href="#">Privacy Policy</a></li>
-                                <li><a className="hover:text-primary" href="#">Terms of Service</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-slate-500">
-                            © 2024 GitHub Shoppers Inc. All rights reserved. Not affiliated with GitHub, Inc.
-                        </p>
-                        <div className="flex gap-6">
-                            <span className="text-xs text-slate-500 flex items-center gap-1">
-                                <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                                All systems operational
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
 
             {/* Modals */}
             <PaymentModal
