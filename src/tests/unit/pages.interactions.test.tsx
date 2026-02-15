@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MarketplacePage } from "@/components/pages/marketplace/MarketplacePage";
+import { PublicMarketplacePage as MarketplacePage } from "@/components/pages/marketplace/PublicMarketplacePage";
 import { CreateProductPage } from "@/components/pages/products/CreateProductPage";
 import { MyProductsPage } from "@/components/pages/products/MyProductsPage";
 import { PurchaseHistoryPage } from "@/components/pages/purchases/PurchaseHistoryPage";

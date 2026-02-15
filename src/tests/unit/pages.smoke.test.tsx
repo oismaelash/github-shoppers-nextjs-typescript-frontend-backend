@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { DashboardPage } from "@/components/pages/dashboard/DashboardPage";
-import { MarketplacePage } from "@/components/pages/marketplace/MarketplacePage";
+import { PublicMarketplacePage as MarketplacePage } from "@/components/pages/marketplace/PublicMarketplacePage";
 import { MyProductsPage } from "@/components/pages/products/MyProductsPage";
 import { CreateProductPage } from "@/components/pages/products/CreateProductPage";
 import { EditProductPage } from "@/components/pages/products/EditProductPage";

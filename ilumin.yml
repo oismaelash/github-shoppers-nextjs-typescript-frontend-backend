@@ -1,0 +1,70 @@
+services:
+  app:
+    image: ghcr.io/oismaelash/github-shoppers:${APP_VERSION}
+    container_name: github-shoppers-app
+    restart: always
+    command: ["sh", "-c", "npx prisma migrate deploy && npx prisma generate && npm run dev -- --webpack -H 0.0.0.0 -p 3000"]
+    volumes:
+      - app_data:/app
+    environment:
+      - DATABASE_URL=postgresql://user:${DB_PASSWORD}@postgres:5432/github_shoppers?schema=public
+      - NEXTAUTH_URL=https://${BASE_DOMAIN}
+      - NODE_ENV=production
+      - WATCHPACK_POLLING=true
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - GITHUB_ID=${GITHUB_ID}
+      - GITHUB_SECRET=${GITHUB_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - SHARE_CONTENT_API_KEY=${SHARE_CONTENT_API_KEY}
+      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID}
+      - UMAMI_API_URL=${UMAMI_API_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - traefik
+      - internal
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.shoppersapp.rule=Host(`${BASE_DOMAIN}`)${CUSTOM_DOMAIN:+ || Host(`${CUSTOM_DOMAIN}`)}
+      - traefik.http.routers.shoppersapp.entrypoints=websecure
+      - traefik.http.routers.shoppersapp.tls=true
+      - traefik.http.routers.shoppersapp.tls.certresolver=letsencrypt
+      - traefik.http.services.shoppersapp.loadbalancer.server.port=3000
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: github-shoppers-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=github_shoppers
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d github_shoppers"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+volumes:
+  app_data:
+  postgres_data:
+
+networks:
+  traefik:
+    external: true
+  internal:
