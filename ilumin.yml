@@ -7,7 +7,7 @@ services:
     volumes:
       - app_data:/app
     environment:
-      - DATABASE_URL=postgresql://user:${DB_PASSWORD}@postgres:5432/github_shoppers?schema=public
+      - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
       - NEXTAUTH_URL=https://${BASE_DOMAIN}
       - NODE_ENV=production
       - WATCHPACK_POLLING=true
@@ -48,7 +48,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=github_shoppers
     volumes:
       - postgres_data:/var/lib/postgresql/data
