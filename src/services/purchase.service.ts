@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { ItemRepository } from "@/repositories/item.repository";
 import { PurchaseRepository } from "@/repositories/purchase.repository";
 import { ResendAdapter } from "@/adapters/resend.adapter";

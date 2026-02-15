@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
 
 export class ItemRepository {

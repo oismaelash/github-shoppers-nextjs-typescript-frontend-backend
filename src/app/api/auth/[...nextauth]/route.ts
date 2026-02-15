@@ -3,7 +3,7 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import type { JWT } from "next-auth/jwt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 
 type TokenWithGitHub = JWT & { githubLogin?: string | null }
 
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
           await prisma.user.update({
             where: { id: token.sub },
             data: { githubLogin },
-          }).catch(() => {});
+          }).catch(() => { });
         }
       }
       return token;
