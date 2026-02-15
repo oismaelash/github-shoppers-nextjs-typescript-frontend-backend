@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AppShell, SidebarItem } from "@/components/app/AppShell";
+import { DashboardHeader } from "@/components/layout/DashboardHeader";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { Button, ButtonLink } from "@/components/ui/Button";
@@ -100,139 +101,142 @@ export function MyProductsPage() {
   const totalInventory = products.reduce((acc, p) => acc + p.quantity, 0);
 
   return (
-    <AppShell
-      activeHref="/products"
-      sidebarTitle="Seller Console"
-      sidebarItems={sidebarItems}
-      searchPlaceholder="Search inventory..."
-    >
-      <div className="flex items-center justify-between gap-4">
-        <div className="text-white font-black text-2xl">My Products</div>
-        <ButtonLink
-          href="/products/new"
-          leftIcon={<Icon name="add" className="text-[18px]" />}
-        >
-          Add Product
-        </ButtonLink>
-      </div>
+    <>
+      <DashboardHeader />
+      <AppShell
+        activeHref="/products"
+        sidebarTitle="Seller Console"
+        sidebarItems={sidebarItems}
+        searchPlaceholder="Search inventory..."
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div className="text-white font-black text-2xl">My Products</div>
+          <ButtonLink
+            href="/products/new"
+            leftIcon={<Icon name="add" className="text-[18px]" />}
+          >
+            Add Product
+          </ButtonLink>
+        </div>
 
-      <div className="grid md:grid-cols-4 gap-6">
-        <StatCard title="Total Products" value={String(totalProducts)} />
-        <StatCard title="Active Listings" value={String(activeListings)} />
-        <StatCard title="Out of Stock" value={String(outOfStock)} />
-        <StatCard title="Total Inventory" value={String(totalInventory)} />
-      </div>
+        <div className="grid md:grid-cols-4 gap-6">
+          <StatCard title="Total Products" value={String(totalProducts)} />
+          <StatCard title="Active Listings" value={String(activeListings)} />
+          <StatCard title="Out of Stock" value={String(outOfStock)} />
+          <StatCard title="Total Inventory" value={String(totalInventory)} />
+        </div>
 
-      <Card>
-        <CardBody className="p-0">
-          <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
-            <div className="text-white font-bold">Inventory</div>
-          </div>
-          <Table className="rounded-none border-0">
-            <THead>
-              <tr>
-                <TH>Name</TH>
-                <TH>Price</TH>
-                <TH>Quantity</TH>
-                <TH>Created At</TH>
-                <TH>Status</TH>
-                <TH className="text-right">Actions</TH>
-              </tr>
-            </THead>
-            <TBody>
-              {unauthorized ? (
-                <TR>
-                  <TD colSpan={6} className="text-slate-500">
-                    You must be signed in to view your products.
-                  </TD>
-                </TR>
-              ) : null}
-              {products.map((p) => {
-                const inStock = p.quantity > 0;
-                return (
-                  <TR key={p.id}>
-                    <TD className="text-white font-semibold">{p.name}</TD>
-                    <TD className="text-primary font-mono font-bold">
-                      ${Number(p.price).toFixed(2)}
-                    </TD>
-                    <TD>{p.quantity}</TD>
-                    <TD className="text-slate-400">
-                      {new Date(p.createdAt).toLocaleDateString()}
-                    </TD>
-                    <TD>
-                      <Badge variant={inStock ? "success" : "warning"}>
-                        {inStock ? "Active" : "Out"}
-                      </Badge>
-                    </TD>
-                    <TD className="text-right">
-                      <div className="inline-flex items-center gap-2">
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => openSales(p)}
-                          leftIcon={<Icon name="history" className="text-[18px]" />}
-                        >
-                          Sales
-                        </Button>
-                        <ButtonLink
-                          href={`/products/${p.id}/edit`}
-                          variant="ghost"
-                          size="sm"
-                          leftIcon={<Icon name="edit" className="text-[18px]" />}
-                        >
-                          Edit
-                        </ButtonLink>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            p.shareLink
-                              ? window.open(p.shareLink, "_blank")
-                              : navigator.clipboard.writeText(window.location.href)
-                          }
-                          leftIcon={<Icon name="open_in_new" className="text-[18px]" />}
-                        >
-                          Share
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="danger"
-                          size="sm"
-                          onClick={() => deleteProduct(p)}
-                          leftIcon={<Icon name="delete" className="text-[18px]" />}
-                        >
-                          Delete
-                        </Button>
-                      </div>
+        <Card>
+          <CardBody className="p-0">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
+              <div className="text-white font-bold">Inventory</div>
+            </div>
+            <Table className="rounded-none border-0">
+              <THead>
+                <tr>
+                  <TH>Name</TH>
+                  <TH>Price</TH>
+                  <TH>Quantity</TH>
+                  <TH>Created At</TH>
+                  <TH>Status</TH>
+                  <TH className="text-right">Actions</TH>
+                </tr>
+              </THead>
+              <TBody>
+                {unauthorized ? (
+                  <TR>
+                    <TD colSpan={6} className="text-slate-500">
+                      You must be signed in to view your products.
                     </TD>
                   </TR>
-                );
-              })}
-              {products.length === 0 ? (
-                <TR>
-                  <TD colSpan={6} className="text-slate-500">
-                    {unauthorized ? " " : "No products yet."}
-                  </TD>
-                </TR>
-              ) : null}
-            </TBody>
-          </Table>
-        </CardBody>
-      </Card>
+                ) : null}
+                {products.map((p) => {
+                  const inStock = p.quantity > 0;
+                  return (
+                    <TR key={p.id}>
+                      <TD className="text-white font-semibold">{p.name}</TD>
+                      <TD className="text-primary font-mono font-bold">
+                        ${Number(p.price).toFixed(2)}
+                      </TD>
+                      <TD>{p.quantity}</TD>
+                      <TD className="text-slate-400">
+                        {new Date(p.createdAt).toLocaleDateString()}
+                      </TD>
+                      <TD>
+                        <Badge variant={inStock ? "success" : "warning"}>
+                          {inStock ? "Active" : "Out"}
+                        </Badge>
+                      </TD>
+                      <TD className="text-right">
+                        <div className="inline-flex items-center gap-2">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => openSales(p)}
+                            leftIcon={<Icon name="history" className="text-[18px]" />}
+                          >
+                            Sales
+                          </Button>
+                          <ButtonLink
+                            href={`/products/${p.id}/edit`}
+                            variant="ghost"
+                            size="sm"
+                            leftIcon={<Icon name="edit" className="text-[18px]" />}
+                          >
+                            Edit
+                          </ButtonLink>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              p.shareLink
+                                ? window.open(p.shareLink, "_blank")
+                                : navigator.clipboard.writeText(window.location.href)
+                            }
+                            leftIcon={<Icon name="open_in_new" className="text-[18px]" />}
+                          >
+                            Share
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="danger"
+                            size="sm"
+                            onClick={() => deleteProduct(p)}
+                            leftIcon={<Icon name="delete" className="text-[18px]" />}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </TD>
+                    </TR>
+                  );
+                })}
+                {products.length === 0 ? (
+                  <TR>
+                    <TD colSpan={6} className="text-slate-500">
+                      {unauthorized ? " " : "No products yet."}
+                    </TD>
+                  </TR>
+                ) : null}
+              </TBody>
+            </Table>
+          </CardBody>
+        </Card>
 
-      <SalesHistoryModal
-        open={!!salesFor}
-        product={salesFor}
-        sales={sales}
-        loading={loadingSales}
-        onClose={() => {
-          setSalesFor(null);
-          setSales(null);
-        }}
-      />
-    </AppShell>
+        <SalesHistoryModal
+          open={!!salesFor}
+          product={salesFor}
+          sales={sales}
+          loading={loadingSales}
+          onClose={() => {
+            setSalesFor(null);
+            setSales(null);
+          }}
+        />
+      </AppShell>
+    </>
   );
 }
 
