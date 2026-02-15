@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: github-shoppers-prod
+    restart: always
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - GITHUB_ID=${GITHUB_ID}
+      - GITHUB_SECRET=${GITHUB_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - SHARE_CONTENT_API_KEY=${SHARE_CONTENT_API_KEY}
+      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID}
+      - UMAMI_API_URL=${UMAMI_API_URL}
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - shoppers-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: github-shoppers-postgres-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-github_shoppers}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-github_shoppers}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shoppers-network
+
+networks:
+  shoppers-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
