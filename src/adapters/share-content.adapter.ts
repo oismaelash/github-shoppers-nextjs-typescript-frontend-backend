@@ -1,17 +1,11 @@
-import axios, { AxiosInstance } from 'axios';
+import ShareContent from '@sharecontent/sdk';
 
 export class ShareContentAdapter {
-  private readonly API_URL = 'https://api.sharecontent.com/v1/shorten';
-  private client: AxiosInstance;
+  private client: ShareContent;
 
   constructor() {
-    this.client = axios.create({
-      baseURL: this.API_URL,
-      timeout: 5000,
-      headers: {
-        'Authorization': process.env.SHARE_CONTENT_API_KEY ? `Bearer ${process.env.SHARE_CONTENT_API_KEY}` : undefined,
-        'Content-Type': 'application/json'
-      }
+    this.client = new ShareContent({
+      token: process.env.SHARE_CONTENT_API_KEY || '',
     });
   }
 
@@ -23,13 +17,13 @@ export class ShareContentAdapter {
         return `https://share.me/${Math.random().toString(36).substring(7)}`;
       }
 
-      const response = await this.client.post('', {
-        url: itemUrl
+      const response = await this.client.shortLinks.create({
+        url: itemUrl,
       });
 
-      return response.data.shortUrl;
+      return response.short_url || null;
     } catch (error) {
-      console.error('ShareContent API Error:', error);
+      console.error('ShareContent SDK Error:', error);
       return null;
     }
   }
