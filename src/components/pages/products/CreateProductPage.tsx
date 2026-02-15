@@ -13,6 +13,20 @@ type EnhanceResponse = {
   improvedDescription: string;
 };
 
+function formatError(error: any): string {
+  if (typeof error === "string") return error;
+  if (error?.error?._errors) {
+    const zodError = error.error;
+    const messages: string[] = [];
+    if (zodError.name?._errors?.[0]) messages.push(`Name: ${zodError.name._errors[0]}`);
+    if (zodError.description?._errors?.[0]) messages.push(`Description: ${zodError.description._errors[0]}`);
+    if (zodError.price?._errors?.[0]) messages.push(`Price: ${zodError.price._errors[0]}`);
+    if (zodError.quantity?._errors?.[0]) messages.push(`Quantity: ${zodError.quantity._errors[0]}`);
+    return messages.join(", ") || "Validation failed";
+  }
+  return error?.message || "An unexpected error occurred";
+}
+
 export function CreateProductPage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
@@ -28,7 +42,6 @@ export function CreateProductPage() {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("1");
   const [description, setDescription] = useState("");
-  const [seo, setSeo] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [enhancing, setEnhancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,8 +56,8 @@ export function CreateProductPage() {
       });
       setName(res.improvedTitle);
       setDescription(res.improvedDescription);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to enhance");
+    } catch (e: any) {
+      setError(formatError(e));
     } finally {
       setEnhancing(false);
     }
@@ -54,24 +67,11 @@ export function CreateProductPage() {
     setSubmitting(true);
     setError(null);
     try {
-      let finalName = name;
-      let finalDescription = description;
-      if (seo) {
-        const res = await apiFetch<EnhanceResponse>("/api/ai/enhance", {
-          method: "POST",
-          body: JSON.stringify({ title: name, description }),
-        }).catch(() => null);
-        if (res) {
-          finalName = res.improvedTitle;
-          finalDescription = res.improvedDescription;
-        }
-      }
-
       await apiFetch("/api/items", {
         method: "POST",
         body: JSON.stringify({
-          name: finalName,
-          description: finalDescription,
+          name,
+          description,
           price: Number(price),
           quantity: Number(quantity),
         }),
@@ -79,7 +79,7 @@ export function CreateProductPage() {
 
       window.location.href = "/products";
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to create product");
+      setError(formatError(e));
     } finally {
       setSubmitting(false);
     }
@@ -104,23 +104,11 @@ export function CreateProductPage() {
 
           <div className="space-y-2">
             <div className="text-sm font-bold text-white">Product Name</div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. React Component Kit"
-              />
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={enhance}
-                disabled={enhancing || (!name && !description)}
-                leftIcon={<Icon name="auto_awesome" className="text-[18px]" />}
-                className="shrink-0"
-              >
-                {enhancing ? "Enhancing..." : "Enhance with AI"}
-              </Button>
-            </div>
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. React Component Kit"
+            />
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -146,31 +134,29 @@ export function CreateProductPage() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <div className="text-sm font-bold text-white">Description</div>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={6}
-              className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-primary/40"
-              placeholder="Write a detailed description (Markdown supported)."
-            />
-          </div>
-
-          <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-4">
-            <input
-              type="checkbox"
-              checked={seo}
-              onChange={(e) => setSeo(e.target.checked)}
-              className="h-4 w-4 accent-primary"
-            />
-            <div>
-              <div className="text-white font-bold">SEO Optimization</div>
-              <div className="text-sm text-slate-500">
-                Enhance title and description with AI before publishing.
-              </div>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="text-sm font-bold text-white">Description</div>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={6}
+                className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-primary/40"
+                placeholder="Write a detailed description (Markdown supported)."
+              />
             </div>
-          </label>
+
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={enhance}
+              disabled={enhancing || !description.trim()}
+              leftIcon={<Icon name="auto_awesome" className="text-[18px]" />}
+              className="w-full sm:w-auto"
+            >
+              {enhancing ? "Enhancing..." : "Enhance with AI"}
+            </Button>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-end gap-3 pt-2">
             <Button
