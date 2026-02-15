@@ -23,7 +23,7 @@ export function DashboardPage() {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
       { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-      { label: "Products", href: "/products", icon: "inventory_2" },
+      { label: "My Products", href: "/products", icon: "inventory_2" },
       { label: "Create Product", href: "/products/new", icon: "add_box" },
       { label: "Purchase History", href: "/purchase-history", icon: "history" },
     ],
