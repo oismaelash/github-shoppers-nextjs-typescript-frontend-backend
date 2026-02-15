@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Icon } from "@/components/ui/Icon";
 import { Button, ButtonLink } from "@/components/ui/Button";
@@ -35,6 +36,16 @@ type PurchaseResponse = {
 type SortOption = "newest" | "price_asc" | "price_desc";
 
 export function PublicMarketplacePage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#0a1114] flex items-center justify-center text-slate-500">Loading marketplace...</div>}>
+            <MarketplaceContent />
+        </Suspense>
+    );
+}
+
+function MarketplaceContent() {
+    const searchParams = useSearchParams();
+    const buyId = searchParams.get("buy");
     const [query, setQuery] = useState("");
     const [sort, setSort] = useState<SortOption>("newest");
     const [items, setItems] = useState<MarketplaceItem[]>([]);
@@ -57,6 +68,15 @@ export function PublicMarketplacePage() {
             cancelled = true;
         };
     }, []);
+
+    useEffect(() => {
+        if (items.length > 0 && buyId && !selected) {
+            const item = items.find((i) => i.id === buyId);
+            if (item) {
+                setSelected(item);
+            }
+        }
+    }, [items, buyId, selected]);
 
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();

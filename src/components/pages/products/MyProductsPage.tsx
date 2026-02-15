@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AppShell, SidebarItem } from "@/components/app/AppShell";
+import { cn } from "@/lib/cn";
 import { DashboardHeader } from "@/components/layout/DashboardHeader";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
@@ -50,6 +51,7 @@ export function MyProductsPage() {
   const [sales, setSales] = useState<SalesSummary | null>(null);
   const [loadingSales, setLoadingSales] = useState(false);
   const [unauthorized, setUnauthorized] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -190,14 +192,25 @@ export function MyProductsPage() {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            onClick={() =>
-                              p.shareLink
-                                ? window.open(p.shareLink, "_blank")
-                                : navigator.clipboard.writeText(window.location.href)
+                            onClick={async () => {
+                              const link = p.shareLink || `${window.location.origin}/items/${p.id}`;
+                              try {
+                                await navigator.clipboard.writeText(link);
+                                setCopiedId(p.id);
+                                setTimeout(() => setCopiedId(null), 2000);
+                              } catch (err) {
+                                console.error("Failed to copy:", err);
+                                window.open(link, "_blank");
+                              }
+                            }}
+                            leftIcon={
+                              <Icon
+                                name={copiedId === p.id ? "check" : "open_in_new"}
+                                className={cn("text-[18px]", copiedId === p.id && "text-green-400")}
+                              />
                             }
-                            leftIcon={<Icon name="open_in_new" className="text-[18px]" />}
                           >
-                            Share
+                            {copiedId === p.id ? "Copied!" : "Share"}
                           </Button>
                           <Button
                             type="button"
