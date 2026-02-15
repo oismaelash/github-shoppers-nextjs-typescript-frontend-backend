@@ -64,6 +64,22 @@ export class PurchaseRepository {
     });
   }
 
+  async findBySellerUserId(sellerId: string) {
+    return await prisma.purchase.findMany({
+      where: {
+        item: {
+          userId: sellerId,
+        },
+      },
+      include: {
+        item: {
+          select: { id: true, name: true, price: true },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
   async findById(id: string) {
     return await prisma.purchase.findUnique({
       where: { id },

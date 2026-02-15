@@ -44,17 +44,17 @@ export class PurchaseController {
 
   async list(req: NextRequest) {
     try {
-        // Auth check
-        const session = await getAuthSession();
-        if (!session) {
-          return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+      // Auth check
+      const session = await getAuthSession();
+      if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
 
-        const purchases = await this.purchaseService.getAllPurchases();
-        return NextResponse.json(purchases, { status: 200 });
+      const purchases = await this.purchaseService.getAllPurchases();
+      return NextResponse.json(purchases, { status: 200 });
     } catch (error) {
-        console.error("List Purchases Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+      console.error("List Purchases Error:", error);
+      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
   }
 
@@ -69,6 +69,21 @@ export class PurchaseController {
       return NextResponse.json(purchases, { status: 200 });
     } catch (error) {
       console.error("List My Purchases Error:", error);
+      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+  }
+
+  async listSellerSales(req: NextRequest) {
+    try {
+      const session = await getAuthSession();
+      if (!session?.user?.id) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+
+      const purchases = await this.purchaseService.getSalesForSeller(session.user.id);
+      return NextResponse.json(purchases, { status: 200 });
+    } catch (error) {
+      console.error("List Seller Sales Error:", error);
       return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
   }

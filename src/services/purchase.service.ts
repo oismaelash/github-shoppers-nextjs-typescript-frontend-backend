@@ -50,9 +50,9 @@ export class PurchaseService {
       const seller =
         item.userId
           ? await tx.user.findUnique({
-              where: { id: item.userId },
-              select: { githubLogin: true, name: true, email: true },
-            })
+            where: { id: item.userId },
+            select: { githubLogin: true, name: true, email: true },
+          })
           : null;
 
       // 6. Save purchase
@@ -74,10 +74,10 @@ export class PurchaseService {
       // Return both purchase and item name for email
       return {
         dto: {
-            id: purchase.id,
-            itemId: purchase.itemId,
-            githubLogin: purchase.githubLogin,
-            createdAt: purchase.createdAt
+          id: purchase.id,
+          itemId: purchase.itemId,
+          githubLogin: purchase.githubLogin,
+          createdAt: purchase.createdAt
         },
         itemName: item.name
       };
@@ -85,9 +85,9 @@ export class PurchaseService {
 
     // 7. Track Analytics (Post-Transaction)
     analytics.trackEvent('purchase_completed', {
-        purchaseId: purchaseResult.dto.id,
-        itemId: purchaseResult.dto.itemId,
-        githubLogin: purchaseResult.dto.githubLogin
+      purchaseId: purchaseResult.dto.id,
+      itemId: purchaseResult.dto.itemId,
+      githubLogin: purchaseResult.dto.githubLogin
     });
 
     // 8. Send Email Confirmation (Post-Transaction)
@@ -125,22 +125,36 @@ export class PurchaseService {
     }));
   }
 
-  private async sendConfirmationEmail(githubLogin: string, itemName: string) {
-      try {
-          const session = await getAuthSession();
-          const userEmail = session?.user?.email;
+  async getSalesForSeller(sellerId: string): Promise<PurchaseListResponseDTO[]> {
+    const purchases = await this.purchaseRepository.findBySellerUserId(sellerId);
+    return purchases.map((p) => ({
+      id: p.id,
+      githubLogin: p.githubLogin,
+      sellerGithubLogin: p.sellerGithubLogin ?? null,
+      createdAt: p.createdAt,
+      item: {
+        name: p.item.name,
+        price: Number(p.item.price),
+      },
+    }));
+  }
 
-          if (userEmail) {
-              await this.resendAdapter.sendPurchaseConfirmation({
-                  to: userEmail,
-                  itemName: itemName,
-                  githubLogin: githubLogin
-              });
-          }
-      } catch (error) {
-          console.error("Failed to send confirmation email:", error);
-          // Suppress error so we don't affect the HTTP response
+  private async sendConfirmationEmail(githubLogin: string, itemName: string) {
+    try {
+      const session = await getAuthSession();
+      const userEmail = session?.user?.email;
+
+      if (userEmail) {
+        await this.resendAdapter.sendPurchaseConfirmation({
+          to: userEmail,
+          itemName: itemName,
+          githubLogin: githubLogin
+        });
       }
+    } catch (error) {
+      console.error("Failed to send confirmation email:", error);
+      // Suppress error so we don't affect the HTTP response
+    }
   }
 }
 

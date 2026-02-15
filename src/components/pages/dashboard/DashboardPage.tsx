@@ -35,8 +35,8 @@ export function DashboardPage() {
   useEffect(() => {
     let cancelled = false;
     Promise.all([
-      apiFetch<DashboardPurchaseRow[]>("/api/purchases").catch(() => []),
-      apiFetch<ItemRow[]>("/api/items").catch(() => []),
+      apiFetch<DashboardPurchaseRow[]>("/api/me/sales").catch(() => []),
+      apiFetch<ItemRow[]>("/api/me/items").catch(() => []),
     ]).then(([p, i]) => {
       if (cancelled) return;
       setPurchases(p);
@@ -48,7 +48,7 @@ export function DashboardPage() {
   }, []);
 
   const totalProducts = items.length;
-  const totalPurchases = purchases.length;
+  const totalSales = purchases.length;
   const lowStock = items.filter((i) => i.quantity > 0 && i.quantity <= 3).length;
 
   return (
@@ -60,14 +60,14 @@ export function DashboardPage() {
     >
       <div className="grid md:grid-cols-3 gap-6">
         <StatCard title="Total Products" value={String(totalProducts)} />
-        <StatCard title="Total Purchases" value={String(totalPurchases)} />
+        <StatCard title="Total Sales" value={String(totalSales)} />
         <StatCard title="Low Stock" value={String(lowStock)} />
       </div>
 
       <Card>
         <CardBody className="p-0">
           <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
-            <div className="text-white font-bold">Recent Purchases</div>
+            <div className="text-white font-bold">Recent Sales</div>
             <div className="text-sm text-slate-400">View All</div>
           </div>
           <Table className="rounded-none border-0">
