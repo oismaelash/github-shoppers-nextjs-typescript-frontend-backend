@@ -10,6 +10,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Pagination } from "@/components/ui/Pagination";
 import { Toast } from "@/components/ui/Toast";
 import { apiFetch } from "@/lib/api-fetch";
+import { InvoiceModal } from "./InvoiceModal";
 
 type PurchaseRow = {
   id: string;
@@ -33,6 +34,7 @@ export function PurchaseHistoryPage() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const [rows, setRows] = useState<PurchaseRow[]>([]);
+  const [selectedPurchaseId, setSelectedPurchaseId] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(() => {
     try {
       const u = new URL(window.location.href);
@@ -116,7 +118,7 @@ export function PurchaseHistoryPage() {
                         type="button"
                         variant="secondary"
                         size="sm"
-                        onClick={() => window.open(`/api/purchases/${p.id}/invoice`, "_blank")}
+                        onClick={() => setSelectedPurchaseId(p.id)}
                         leftIcon={<Icon name="receipt_long" className="text-[18px]" />}
                       >
                         View Invoice
@@ -148,6 +150,12 @@ export function PurchaseHistoryPage() {
           title="Purchase Success"
           message="Your purchase was completed successfully."
           onClose={() => setShowToast(false)}
+        />
+
+        <InvoiceModal
+          open={!!selectedPurchaseId}
+          purchaseId={selectedPurchaseId}
+          onClose={() => setSelectedPurchaseId(null)}
         />
       </AppShell>
     </>
