@@ -75,14 +75,14 @@ export function PublicLedgerPage() {
                 />
               </div>
               <div className="flex items-center gap-3">
-                <Button
+                {/* <Button
                   type="button"
                   variant="secondary"
                   leftIcon={<Icon name="filter_alt" className="text-[18px]" />}
                   onClick={() => { }}
                 >
                   Filter
-                </Button>
+                </Button> */}
                 <Button
                   type="button"
                   variant="secondary"

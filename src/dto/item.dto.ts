@@ -16,6 +16,7 @@ export const ItemResponseSchema = CreateItemSchema.extend({
   shareLink: z.string().nullable().optional(),
   userId: z.string().nullable().optional(),
   sellerGithubLogin: z.string().nullable().optional(),
+  sellerImage: z.string().nullable().optional(),
 });
 
 export type ItemResponseDTO = z.infer<typeof ItemResponseSchema>;

@@ -17,6 +17,25 @@ type ItemDTO = {
   quantity: number;
 };
 
+type EnhanceResponse = {
+  improvedTitle: string;
+  improvedDescription: string;
+};
+
+function formatError(error: any): string {
+  if (typeof error === "string") return error;
+  if (error?.error?._errors) {
+    const zodError = error.error;
+    const messages: string[] = [];
+    if (zodError.name?._errors?.[0]) messages.push(`Name: ${zodError.name._errors[0]}`);
+    if (zodError.description?._errors?.[0]) messages.push(`Description: ${zodError.description._errors[0]}`);
+    if (zodError.price?._errors?.[0]) messages.push(`Price: ${zodError.price._errors[0]}`);
+    if (zodError.quantity?._errors?.[0]) messages.push(`Quantity: ${zodError.quantity._errors[0]}`);
+    return messages.join(", ") || "Validation failed";
+  }
+  return error?.message || "An unexpected error occurred";
+}
+
 export function EditProductPage({ id }: { id: string }) {
   const sidebarItems: SidebarItem[] = useMemo(
     () => [
@@ -36,6 +55,7 @@ export function EditProductPage({ id }: { id: string }) {
   const [quantity, setQuantity] = useState("1");
   const [description, setDescription] = useState("");
   const [saving, setSaving] = useState(false);
+  const [enhancing, setEnhancing] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -48,14 +68,31 @@ export function EditProductPage({ id }: { id: string }) {
         setPrice(String(item.price));
         setQuantity(String(item.quantity));
       })
-      .catch((e) => {
-        setError(e instanceof Error ? e.message : "Failed to load product");
+      .catch((e: any) => {
+        setError(formatError(e));
       })
       .finally(() => setLoading(false));
     return () => {
       cancelled = true;
     };
   }, [id]);
+
+  async function enhance() {
+    setEnhancing(true);
+    setError(null);
+    try {
+      const res = await apiFetch<EnhanceResponse>("/api/ai/enhance", {
+        method: "POST",
+        body: JSON.stringify({ title: name, description }),
+      });
+      setName(res.improvedTitle);
+      setDescription(res.improvedDescription);
+    } catch (e: any) {
+      setError(formatError(e));
+    } finally {
+      setEnhancing(false);
+    }
+  }
 
   async function save() {
     setSaving(true);
@@ -72,7 +109,7 @@ export function EditProductPage({ id }: { id: string }) {
       });
       window.location.href = "/products";
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to save changes");
+      setError(formatError(e));
     } finally {
       setSaving(false);
     }
@@ -133,15 +170,28 @@ export function EditProductPage({ id }: { id: string }) {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="text-sm font-bold text-white">Description</div>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    rows={6}
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-primary/40"
-                    placeholder="Write a detailed description (Markdown supported)."
-                  />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="text-sm font-bold text-white">Description</div>
+                    <textarea
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      rows={6}
+                      className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-primary/40"
+                      placeholder="Write a detailed description (Markdown supported)."
+                    />
+                  </div>
+
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={enhance}
+                    disabled={enhancing || !description.trim()}
+                    leftIcon={<Icon name="auto_awesome" className="text-[18px]" />}
+                    className="w-full sm:w-auto"
+                  >
+                    {enhancing ? "Enhancing..." : "Enhance with AI"}
+                  </Button>
                 </div>
 
                 <div className="flex flex-col sm:flex-row justify-end gap-3 pt-2">

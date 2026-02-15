@@ -22,6 +22,7 @@ type MarketplaceItem = {
     createdAt: string;
     shareLink?: string | null;
     sellerGithubLogin?: string | null;
+    sellerImage?: string | null;
 };
 
 type PurchaseResponse = {
@@ -127,12 +128,12 @@ export function PublicMarketplacePage() {
                         <Input
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search tools, assets, and libraries..."
+                            placeholder="Search any product..."
                             leftSlot={<Icon name="search" className="text-xl" />}
                             className="w-full"
                         />
                         {/* Filters */}
-                        <div className="flex flex-wrap gap-2">
+                        {/* <div className="flex flex-wrap gap-2">
                             <FilterButton label="All Categories" />
                             <FilterDropdown
                                 label={sort === "newest" ? "Newest" : sort === "price_asc" ? "Price: Low to High" : "Price: High to Low"}
@@ -149,7 +150,7 @@ export function PublicMarketplacePage() {
                             <div className="ml-auto hidden lg:flex items-center gap-2 text-sm text-slate-500">
                                 <span>Showing {filtered.length} results</span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
 
@@ -257,8 +258,12 @@ function PublicProductCard({ item, onBuy }: { item: MarketplaceItem; onBuy: () =
                 <h3 className="font-bold text-lg text-white mb-2 truncate">{item.name}</h3>
                 <p className="text-slate-500 text-xs mb-4 line-clamp-2">{item.description}</p>
                 <div className="flex items-center gap-2 mb-4">
-                    <div className="w-6 h-6 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center">
-                        <Icon name="person" className="text-[16px] text-slate-500" />
+                    <div className="w-6 h-6 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center overflow-hidden">
+                        {item.sellerImage ? (
+                            <img src={item.sellerImage} alt={item.sellerGithubLogin ?? "seller"} className="w-full h-full object-cover" />
+                        ) : (
+                            <Icon name="person" className="text-[16px] text-slate-500" />
+                        )}
                     </div>
                     <span className="text-xs text-slate-400 truncate">
                         Sold by <span className="text-primary font-medium">@{item.sellerGithubLogin ?? "dev"}</span>

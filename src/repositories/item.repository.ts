@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
-import { Prisma } from "@prisma/client";
 
 export class ItemRepository {
   async create(
@@ -15,7 +14,7 @@ export class ItemRepository {
         quantity: data.quantity,
       },
     });
-    
+
     // Convert Decimal to number for DTO compatibility
     return {
       ...item,
@@ -26,16 +25,17 @@ export class ItemRepository {
   async findAll(): Promise<ItemResponseDTO[]> {
     const items = await prisma.item.findMany({
       include: {
-        user: { select: { githubLogin: true } },
+        user: { select: { githubLogin: true, image: true } },
       },
       orderBy: {
         createdAt: 'desc',
       },
     });
 
-    return items.map(item => ({
+    return items.map((item: any) => ({
       ...item,
       sellerGithubLogin: item.user?.githubLogin ?? null,
+      sellerImage: item.user?.image ?? null,
       price: Number(item.price)
     }));
   }
@@ -44,7 +44,7 @@ export class ItemRepository {
     const client = tx || prisma;
     const item = await client.item.findUnique({
       where: { id },
-      include: { user: { select: { githubLogin: true } } },
+      include: { user: { select: { githubLogin: true, image: true } } },
     });
 
     if (!item) return null;
@@ -52,6 +52,7 @@ export class ItemRepository {
     return {
       ...item,
       sellerGithubLogin: item.user?.githubLogin ?? null,
+      sellerImage: item.user?.image ?? null,
       price: Number(item.price)
     };
   }
@@ -74,20 +75,20 @@ export class ItemRepository {
       updated_at: string | Date;
     };
     const items = await tx.$queryRaw<ItemRow[]>`SELECT * FROM "items" WHERE "id" = ${id} FOR UPDATE`;
-    
+
     if (items.length === 0) return null;
     const item = items[0];
 
     return {
-        id: item.id,
-        userId: item.user_id ?? null,
-        name: item.name,
-        description: item.description,
-        price: Number(item.price),
-        quantity: item.quantity,
-        shareLink: item.share_link ?? null,
-        createdAt: new Date(item.created_at),
-        updatedAt: new Date(item.updated_at)
+      id: item.id,
+      userId: item.user_id ?? null,
+      name: item.name,
+      description: item.description,
+      price: Number(item.price),
+      quantity: item.quantity,
+      shareLink: item.share_link ?? null,
+      createdAt: new Date(item.created_at),
+      updatedAt: new Date(item.updated_at)
     };
   }
 
@@ -124,9 +125,10 @@ export class ItemRepository {
       orderBy: { createdAt: "desc" },
     });
 
-    return items.map((item) => ({
+    return items.map((item: any) => ({
       ...item,
       sellerGithubLogin: item.user?.githubLogin ?? null,
+      sellerImage: item.user?.image ?? null,
       price: Number(item.price),
     }));
   }
