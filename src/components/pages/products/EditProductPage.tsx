@@ -22,6 +22,8 @@ type EnhanceResponse = {
   improvedDescription: string;
 };
 
+
+
 function formatError(error: any): string {
   if (typeof error === "string") return error;
   if (error?.error?._errors) {
@@ -92,6 +94,8 @@ export function EditProductPage({ id }: { id: string }) {
       setEnhancing(false);
     }
   }
+
+
 
   async function save() {
     setSaving(true);
@@ -176,7 +180,6 @@ export function EditProductPage({ id }: { id: string }) {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       rows={6}
-                      className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-primary/40"
                       placeholder="Write a detailed description (Markdown supported)."
                     />
                   </div>

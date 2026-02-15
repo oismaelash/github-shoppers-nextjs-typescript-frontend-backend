@@ -204,6 +204,8 @@ describe("Page interactions", () => {
     expect(await screen.findByText(/fail|Failed to enhance/)).toBeInTheDocument();
   });
 
+
+
   it("Create Product: submit chama /api/items e redireciona", async () => {
     mockFetch((url, init) => {
       if (url.includes("/api/items") && init?.method === "POST") {

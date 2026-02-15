@@ -1,6 +1,5 @@
 import { ItemRepository } from "@/repositories/item.repository";
 import { CreateItemDTO, ItemResponseDTO } from "@/dto/item.dto";
-import { aiEnhancementQueue } from "@/queues/ai-enhancement.queue";
 import { ShareContentAdapter } from "@/adapters/share-content.adapter";
 import { analytics } from "@/lib/analytics";
 
@@ -20,22 +19,10 @@ export class ItemService {
 
     // Track Event
     analytics.trackEvent('item_created', {
-        itemId: item.id,
-        name: item.name,
-        price: item.price
+      itemId: item.id,
+      name: item.name,
+      price: item.price
     });
-
-    // Enqueue job for AI enhancement
-    try {
-        await aiEnhancementQueue.add('enhance-item', {
-            itemId: item.id,
-            name: item.name,
-            description: item.description
-        });
-    } catch (error) {
-        console.error("Failed to enqueue AI enhancement job:", error);
-        // We don't block the response if queue fails
-    }
 
     // Generate Shareable Link (Async)
     this.generateShareLink(item.id, item.name);
@@ -67,18 +54,18 @@ export class ItemService {
   }
 
   private async generateShareLink(itemId: string, itemName: string) {
-      try {
-          // Construct the full product URL (assuming a frontend route /items/:id)
-          const productUrl = `${process.env.NEXTAUTH_URL}/items/${itemId}`;
-          
-          const shortUrl = await this.shareContentAdapter.generateShareLink(productUrl);
+    try {
+      // Construct the full product URL (assuming a frontend route /items/:id)
+      const productUrl = `${process.env.NEXTAUTH_URL}/items/${itemId}`;
 
-          if (shortUrl) {
-              await this.itemRepository.updateShareLink(itemId, shortUrl);
-          }
-      } catch (error) {
-          console.error("Failed to generate share link:", error);
-          // Suppress error so we don't affect the HTTP response or other flows
+      const shortUrl = await this.shareContentAdapter.generateShareLink(productUrl);
+
+      if (shortUrl) {
+        await this.itemRepository.updateShareLink(itemId, shortUrl);
       }
+    } catch (error) {
+      console.error("Failed to generate share link:", error);
+      // Suppress error so we don't affect the HTTP response or other flows
+    }
   }
 }
