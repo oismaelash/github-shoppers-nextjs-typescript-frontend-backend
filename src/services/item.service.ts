@@ -46,11 +46,24 @@ export class ItemService {
     id: string,
     data: Partial<Pick<CreateItemDTO, "name" | "description" | "price" | "quantity">>
   ): Promise<ItemResponseDTO> {
-    return await this.itemRepository.update(id, data);
+    const item = await this.itemRepository.update(id, data);
+
+    // Track Event
+    analytics.trackEvent('item_updated', {
+      itemId: item.id,
+      updates: Object.keys(data)
+    });
+
+    return item;
   }
 
   async deleteItem(id: string): Promise<void> {
     await this.itemRepository.delete(id);
+
+    // Track Event
+    analytics.trackEvent('item_deleted', {
+      itemId: id
+    });
   }
 
   private async generateShareLink(itemId: string, itemName: string) {

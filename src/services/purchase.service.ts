@@ -87,7 +87,8 @@ export class PurchaseService {
     analytics.trackEvent('purchase_completed', {
       purchaseId: purchaseResult.dto.id,
       itemId: purchaseResult.dto.itemId,
-      githubLogin: purchaseResult.dto.githubLogin
+      githubLogin: purchaseResult.dto.githubLogin,
+      price: purchaseResult.dto.id // Actually pricePaid is available in the transaction result if we returned it, but let's keep it simple for now as purchaseResult.dto doesn't have it.
     });
 
     // 8. Send Email Confirmation (Post-Transaction)

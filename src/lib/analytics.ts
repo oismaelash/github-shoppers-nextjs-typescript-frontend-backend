@@ -1,8 +1,16 @@
 import axios from 'axios';
 
 export class AnalyticsService {
-  private readonly UMAMI_API_URL = process.env.UMAMI_API_URL || 'https://analytics.umami.is/api/send';
   private readonly WEBSITE_ID = process.env.UMAMI_WEBSITE_ID;
+
+  private getUmamiUrl(): string {
+    const rawUrl = process.env.UMAMI_API_URL || 'https://analytics.umami.is/api/send';
+    // If it's a script URL, convert it to the send API endpoint
+    if (rawUrl.endsWith('/script.js')) {
+      return rawUrl.replace('/script.js', '/api/send');
+    }
+    return rawUrl;
+  }
 
   async trackEvent(eventName: string, data: Record<string, unknown> = {}) {
     if (!this.WEBSITE_ID) {
@@ -10,16 +18,22 @@ export class AnalyticsService {
       return;
     }
 
+    const umamiUrl = this.getUmamiUrl();
+
     try {
       await axios.post(
-        this.UMAMI_API_URL,
+        umamiUrl,
         {
           type: 'event',
           payload: {
             website: this.WEBSITE_ID,
             name: eventName,
             data,
-            url: '/', // Default url context
+            url: '/', // Context URL
+            hostname: typeof window !== 'undefined' ? window.location.hostname : 'backend',
+            language: 'en-US',
+            screen: '1920x1080',
+            title: 'GitHub Shoppers',
           },
         },
         {
@@ -28,9 +42,11 @@ export class AnalyticsService {
           },
         }
       );
-    } catch (error) {
-      console.error('Analytics Error:', error);
-      // Fail silently to not disrupt business logic
+    } catch (error: any) {
+      // Detailed error in development, silent in production
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Analytics Error:', error.response?.data || error.message);
+      }
     }
   }
 }
