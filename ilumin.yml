@@ -4,8 +4,6 @@ services:
     container_name: github-shoppers-app
     restart: always
     command: ["sh", "-c", "npx prisma migrate deploy && npx prisma generate && npm run dev -- --webpack -H 0.0.0.0 -p 3000"]
-    volumes:
-      - app_data:/app
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/github_shoppers?schema=public
       - NEXTAUTH_URL=https://${BASE_DOMAIN}
@@ -61,7 +59,6 @@ services:
       - internal
 
 volumes:
-  app_data:
   postgres_data:
 
 networks:
