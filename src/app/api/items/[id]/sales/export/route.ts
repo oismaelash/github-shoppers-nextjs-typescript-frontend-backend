@@ -5,6 +5,35 @@ import { SalesService } from "@/services/sales.service";
 
 const salesService = new SalesService();
 
+/**
+ * @swagger
+ * /api/items/{id}/sales/export:
+ *   get:
+ *     summary: Export item sales as CSV
+ *     description: Downloads sales data for an item as CSV file. Only the item owner can export.
+ *     tags:
+ *       - Items
+ *       - Sales
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Item ID
+ *     responses:
+ *       200:
+ *         description: CSV file
+ *         content:
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *             example: "buyer,pricePaid,createdAt,status\noctocat,29.99,2025-02-16T12:00:00.000Z,CONFIRMED"
+ *       401:
+ *         description: Unauthorized
+ */
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

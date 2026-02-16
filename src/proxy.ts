@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
-const publicPages = ["/", "/auth/signin", "/marketplace"];
+const publicPages = ["/", "/auth/signin", "/marketplace", "/swagger"];
 
 type NextMiddlewareHandler = (req: NextRequest) => NextResponse | Promise<NextResponse>;
 

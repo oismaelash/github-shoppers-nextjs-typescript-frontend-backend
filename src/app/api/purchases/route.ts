@@ -11,20 +11,26 @@ const purchaseController = new PurchaseController();
  *     description: Executes a transactional purchase, decrements stock, assigns a GitHub user, and sends a confirmation email.
  *     tags:
  *       - Purchases
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - itemId
- *             properties:
- *               itemId:
- *                 type: string
+ *             $ref: '#/components/schemas/CreatePurchaseDTO'
  *     responses:
  *       201:
  *         description: Purchase successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PurchaseResponseDTO'
+ *             example:
+ *               id: "clx456def"
+ *               itemId: "clx123abc"
+ *               githubLogin: "octocat"
+ *               createdAt: "2025-02-16T12:00:00.000Z"
  *       400:
  *         description: Validation error
  *       401:
@@ -42,13 +48,21 @@ export async function POST(req: NextRequest) {
  * @swagger
  * /api/purchases:
  *   get:
- *     summary: List purchases
- *     description: Returns a history of purchases including item details and assigned GitHub users
+ *     summary: List all purchases
+ *     description: Returns a history of all purchases including item details and assigned GitHub users. Requires admin.
  *     tags:
  *       - Purchases
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of purchases
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/PurchaseListResponseDTO'
  *       401:
  *         description: Unauthorized
  */

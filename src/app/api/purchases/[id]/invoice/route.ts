@@ -5,6 +5,49 @@ import { PurchaseRepository } from "@/repositories/purchase.repository";
 
 const purchaseRepository = new PurchaseRepository();
 
+/**
+ * @swagger
+ * /api/purchases/{id}/invoice:
+ *   get:
+ *     summary: Get purchase invoice
+ *     description: Downloads a plain text invoice for a purchase. Only the buyer can access.
+ *     tags:
+ *       - Purchases
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Purchase ID
+ *     responses:
+ *       200:
+ *         description: Plain text invoice
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *             example: |
+ *               Invoice
+ *
+ *               Purchase ID: clx456def
+ *               Item: Premium Widget (clx123abc)
+ *               Amount: $29.99
+ *               Buyer: octocat
+ *               Seller: seller123
+ *               Date: 2025-02-16T12:00:00.000Z
+ *               Status: CONFIRMED
+ *
+ *               GitHub Shoppers
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - not the buyer
+ *       404:
+ *         description: Purchase not found
+ */
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

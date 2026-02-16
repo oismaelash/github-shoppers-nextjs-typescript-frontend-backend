@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export function ApiDocLightMode() {
+export function SwaggerLightMode() {
   useEffect(() => {
     const html = document.documentElement;
     const body = document.body;

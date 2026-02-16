@@ -174,7 +174,7 @@ Load tests use [k6](https://grafana.com/docs/k6/latest/) with real NextAuth data
 With the server running, open the interactive API documentation at:
 
 ```
-http://localhost:3000/api-doc
+http://localhost:3000/swagger
 ```
 
 ## 🚢 Deployment

@@ -6,6 +6,43 @@ import { DeepSeekAdapter } from "@/adapters/deepseek.adapter";
 
 const deepSeek = new DeepSeekAdapter();
 
+/**
+ * @swagger
+ * /api/ai/enhance:
+ *   post:
+ *     summary: AI enhance content
+ *     description: Uses AI to improve product title and description for better e-commerce copy
+ *     tags:
+ *       - AI
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/EnhanceDTO'
+ *     responses:
+ *       200:
+ *         description: Enhanced content
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EnhanceResponseDTO'
+ *             example:
+ *               improvedTitle: "[AI] Premium Cool Product"
+ *               improvedDescription: "[AI Enhanced] A refined product description..."
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
 export async function POST(req: NextRequest) {
     try {
         const session = await getAuthSession();
