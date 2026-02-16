@@ -328,10 +328,10 @@ function PublicProductCard({ item, onBuy }: { item: MarketplaceItem; onBuy: () =
 
 function LoginRequiredModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     return (
-        <Modal open={open} title="Login necessário" onClose={onClose} className="max-w-md">
+        <Modal open={open} title="Login required" onClose={onClose} className="max-w-md">
             <div className="p-6 space-y-6">
                 <p className="text-slate-400">
-                    Para comprar algum produto, é necessário estar logado. Faça login com sua conta GitHub para continuar.
+                    You need to be logged in to purchase a product. Sign in with your GitHub account to continue.
                 </p>
                 <div className="flex flex-col gap-3">
                     <Button
@@ -344,10 +344,10 @@ function LoginRequiredModal({ open, onClose }: { open: boolean; onClose: () => v
                             })
                         }
                     >
-                        Fazer login com GitHub
+                        Sign in with GitHub
                     </Button>
                     <Button type="button" variant="secondary" className="w-full" onClick={onClose}>
-                        Cancelar
+                        Cancel
                     </Button>
                 </div>
             </div>

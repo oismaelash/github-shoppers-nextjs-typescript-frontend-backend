@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { Icon } from "@/components/ui/Icon";
 import { LogoMark } from "@/components/ui/Logo";
 import Link from "next/link";
@@ -45,6 +45,15 @@ export function DashboardHeader() {
                             </span>
                         </div>
                     </div>
+                    <button
+                        type="button"
+                        onClick={() => signOut({ callbackUrl: "/" })}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg border border-white/10 transition-colors"
+                        aria-label="Sair"
+                    >
+                        <Icon name="logout" className="text-[18px]" />
+                        Logout
+                    </button>
                 </div>
             </div>
         </header>
