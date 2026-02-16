@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Icon } from "@/components/ui/Icon";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -44,6 +44,7 @@ export function PublicMarketplacePage() {
 }
 
 function MarketplaceContent() {
+    const { data: session } = useSession();
     const searchParams = useSearchParams();
     const buyId = searchParams.get("buy");
     const [query, setQuery] = useState("");
@@ -52,6 +53,7 @@ function MarketplaceContent() {
     const [selected, setSelected] = useState<MarketplaceItem | null>(null);
     const [success, setSuccess] = useState<PurchaseResponse | null>(null);
     const [isVerifying, setIsVerifying] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
 
     useEffect(() => {
         let cancelled = false;
@@ -73,10 +75,14 @@ function MarketplaceContent() {
         if (items.length > 0 && buyId && !selected) {
             const item = items.find((i) => i.id === buyId);
             if (item) {
-                setSelected(item);
+                if (session) {
+                    setSelected(item);
+                } else {
+                    setShowLoginModal(true);
+                }
             }
         }
-    }, [items, buyId, selected]);
+    }, [items, buyId, selected, session]);
 
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
@@ -178,7 +184,17 @@ function MarketplaceContent() {
                 <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filtered.map((item) => (
-                            <PublicProductCard key={item.id} item={item} onBuy={() => setSelected(item)} />
+                            <PublicProductCard
+                                key={item.id}
+                                item={item}
+                                onBuy={() => {
+                                    if (session) {
+                                        setSelected(item);
+                                    } else {
+                                        setShowLoginModal(true);
+                                    }
+                                }}
+                            />
                         ))}
                     </div>
                     {filtered.length === 0 && (
@@ -194,6 +210,10 @@ function MarketplaceContent() {
             <Footer />
 
             {/* Modals */}
+            <LoginRequiredModal
+                open={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
             <PaymentModal
                 open={!!selected}
                 item={selected}
@@ -303,6 +323,35 @@ function PublicProductCard({ item, onBuy }: { item: MarketplaceItem; onBuy: () =
                 </div>
             </div>
         </div>
+    );
+}
+
+function LoginRequiredModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+    return (
+        <Modal open={open} title="Login necessário" onClose={onClose} className="max-w-md">
+            <div className="p-6 space-y-6">
+                <p className="text-slate-400">
+                    Para comprar algum produto, é necessário estar logado. Faça login com sua conta GitHub para continuar.
+                </p>
+                <div className="flex flex-col gap-3">
+                    <Button
+                        type="button"
+                        className="w-full"
+                        leftIcon={<Icon name="code" className="text-[18px]" />}
+                        onClick={() =>
+                            signIn("github", {
+                                callbackUrl: typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "/marketplace",
+                            })
+                        }
+                    >
+                        Fazer login com GitHub
+                    </Button>
+                    <Button type="button" variant="secondary" className="w-full" onClick={onClose}>
+                        Cancelar
+                    </Button>
+                </div>
+            </div>
+        </Modal>
     );
 }
 
