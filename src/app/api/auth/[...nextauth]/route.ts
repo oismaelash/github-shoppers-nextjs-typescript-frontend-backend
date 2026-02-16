@@ -38,7 +38,8 @@ export const authOptions: NextAuthOptions = {
     async session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-        session.user.githubLogin = user.githubLogin ?? null;
+        session.user.githubLogin =
+          (user as { githubLogin?: string | null }).githubLogin ?? null;
       }
       return session;
     },
