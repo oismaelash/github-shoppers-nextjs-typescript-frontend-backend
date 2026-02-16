@@ -17,7 +17,7 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "npx prisma generate && npm run dev -- --webpack -H 0.0.0.0 -p 3000"]
+CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && npm run dev"]
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -72,4 +72,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
