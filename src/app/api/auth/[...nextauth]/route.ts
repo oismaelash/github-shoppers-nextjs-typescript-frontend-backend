@@ -1,11 +1,8 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import type { JWT } from "next-auth/jwt"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "@/lib/prisma"
-
-type TokenWithGitHub = JWT & { githubLogin?: string | null }
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -20,29 +17,28 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   callbacks: {
-    async jwt({ token, profile }) {
+    async signIn({ user, account, profile }) {
       const githubLogin =
-        profile && typeof (profile as { login?: unknown }).login === "string"
+        account?.provider === "github" &&
+        profile &&
+        typeof (profile as { login?: unknown }).login === "string"
           ? (profile as { login: string }).login
           : null;
-      if (githubLogin) {
-        (token as TokenWithGitHub).githubLogin = githubLogin;
-        if (token.sub) {
-          await prisma.user.update({
-            where: { id: token.sub },
-            data: { githubLogin },
-          }).catch(() => { });
-        }
+      if (githubLogin && user.id) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { githubLogin },
+        }).catch(() => {});
       }
-      return token;
+      return true;
     },
-    async session({ session, token }) {
+    async session({ session, user }) {
       if (session.user) {
-        session.user.id = token.sub!;
-        session.user.githubLogin = (token as TokenWithGitHub).githubLogin ?? null;
+        session.user.id = user.id;
+        session.user.githubLogin = user.githubLogin ?? null;
       }
       return session;
     },

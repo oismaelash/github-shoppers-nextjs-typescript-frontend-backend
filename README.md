@@ -17,7 +17,7 @@ GitHub Shoppers is a full-stack e-commerce application designed to demonstrate r
 - **Shareable Links**: Generates shortened shareable URLs for products (ShareContent).
 
 ### 🛡️ Security & Architecture
-- **Authentication**: OAuth (GitHub/Google) via NextAuth.js.
+- **Authentication**: OAuth (GitHub/Google) via NextAuth.js with database sessions.
 - **Role-Based Access**: Protected routes for authorized actions.
 - **Clean Architecture**: Follows MVC and Ports & Adapters patterns.
 - **Validation**: Strict input validation using Zod.
@@ -33,7 +33,7 @@ GitHub Shoppers is a full-stack e-commerce application designed to demonstrate r
 - **Database**: [PostgreSQL](https://www.postgresql.org/)
 - **ORM**: [Prisma](https://www.prisma.io/)
 - **Styling**: [Ant Design](https://ant.design/) & [Tailwind CSS](https://tailwindcss.com/)
-- **Testing**: [Vitest](https://vitest.dev/)
+- **Testing**: [Vitest](https://vitest.dev/), [k6](https://grafana.com/docs/k6/latest/) (load tests)
 - **Deployment**: Docker & Docker Compose
 
 ## 📂 Project Structure
@@ -50,6 +50,9 @@ src/
 ├── services/       # Business logic layer
 ├── types/          # TypeScript type definitions
 └── tests/          # Unit and integration tests
+
+tests/
+└── load/           # k6 load test scripts and seed output (sessions.json, product.json)
 ```
 
 ## 🚀 Getting Started
@@ -123,6 +126,48 @@ Run tests with coverage:
 ```bash
 npm run test:coverage
 ```
+
+### Load testing (k6)
+
+Load tests use [k6](https://grafana.com/docs/k6/latest/) with real NextAuth database sessions to validate transaction safety, row locking, and that stock is never oversold.
+
+1. **Seed load-test data** (50 users with sessions, 1 item with stock 10; writes `tests/load/sessions.json` and `tests/load/product.json`):
+
+   ```bash
+   npx prisma db seed
+   ```
+
+   If your `.env` uses host `postgres` (e.g. for Docker), the seed runs on your machine and cannot resolve that host. Use a URL with `localhost` so the DB is reachable (Postgres must be running and port 5432 published, e.g. `docker-compose up -d postgres`):
+
+   ```bash
+   DATABASE_URL="postgresql://user:password@localhost:5432/github_shoppers?schema=public" npx prisma db seed
+   ```
+
+   (Adjust user, password, and database name to match your setup.)
+
+2. **Start the application** (e.g. `npm run dev` or `docker-compose up`).
+
+3. **Run the purchase load test** (100 VUs for 10s, each VU uses a real session cookie):
+
+   ```bash
+   npm run load:test
+   ```
+
+4. **Optionally run the stock-integrity check** (GET item and assert `quantity >= 0`):
+
+   ```bash
+   npm run load:integrity
+   ```
+
+   - **With k6 installed** ([install guide](https://grafana.com/docs/k6/latest/set-up/install-k6/), e.g. `sudo apt install k6` or `brew install k6`): run `npm run load:test` and `npm run load:integrity`.
+   - **Without k6:** use the Docker-based scripts (app must be at `localhost:3000` on the host):
+
+   ```bash
+   npm run load:test:docker
+   npm run load:integrity:docker
+   ```
+
+   To target another host, set `BASE_URL` (e.g. `BASE_URL=http://localhost:3001 npm run load:test`).
 
 ## 📘 API Documentation
 
