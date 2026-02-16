@@ -9,12 +9,12 @@ GitHub Shoppers is a full-stack e-commerce application designed to demonstrate r
 - **Atomic Purchases**: Secure stock decrement using database row locking (`SELECT FOR UPDATE`).
 - **GitHub User Assignment**: Automatically assigns a random GitHub user to each purchase.
 - **Purchase History**: View detailed history of all transactions.
+- **Public Ledger**: Public, exportable ledger of transactions.
 
-### 🧠 AI & Automation
-- **AI Enhancement**: Uses DeepSeek API to automatically improve product titles and descriptions via a background worker.
-- **Queue System**: Powered by BullMQ and Redis to handle asynchronous tasks reliably.
+### 🧠 AI & Integrations
+- **AI Enhancement**: Uses DeepSeek API to improve product titles and descriptions on demand (API route).
 - **Email Notifications**: Sends purchase confirmations via Resend API.
-- **Shareable Links**: Generates shortened shareable URLs for products.
+- **Shareable Links**: Generates shortened shareable URLs for products (ShareContent).
 
 ### 🛡️ Security & Architecture
 - **Authentication**: OAuth (GitHub/Google) via NextAuth.js.
@@ -22,21 +22,17 @@ GitHub Shoppers is a full-stack e-commerce application designed to demonstrate r
 - **Clean Architecture**: Follows MVC and Ports & Adapters patterns.
 - **Validation**: Strict input validation using Zod.
 
-### 🌐 Internationalization
-- **i18n Support**: Full support for English and Portuguese (via `next-intl`).
-
 ### 📊 Analytics & Documentation
 - **Analytics**: Integration with Umami for tracking events.
 - **API Docs**: Interactive Swagger/OpenAPI documentation.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Database**: [PostgreSQL](https://www.postgresql.org/)
 - **ORM**: [Prisma](https://www.prisma.io/)
-- **Queue**: [BullMQ](https://docs.bullmq.io/) & [Redis](https://redis.io/)
-- **Styling**: [Ant Design](https://ant.design/)
+- **Styling**: [Ant Design](https://ant.design/) & [Tailwind CSS](https://tailwindcss.com/)
 - **Testing**: [Vitest](https://vitest.dev/)
 - **Deployment**: Docker & Docker Compose
 
@@ -44,25 +40,22 @@ GitHub Shoppers is a full-stack e-commerce application designed to demonstrate r
 
 ```
 src/
-├── adapters/       # External service integrations (GitHub, DeepSeek, Resend)
+├── adapters/       # External service integrations (GitHub, DeepSeek, Resend, ShareContent)
 ├── app/            # Next.js App Router pages and API routes
-├── config/         # Configuration files
+├── components/      # React components (layout, pages, ui, providers)
 ├── controllers/    # Request handlers
-├── domain/         # Business entities (if applicable)
-├── dto/            # Data Transfer Objects & Validation Schemas
+├── dto/            # Data Transfer Objects & validation schemas (Zod)
 ├── lib/            # Shared utilities (Prisma, Auth, Analytics)
-├── middleware/     # Next.js Middleware
-├── queues/         # Queue definitions
 ├── repositories/   # Database access layer
 ├── services/       # Business logic layer
-├── workers/        # Background job processors
-└── tests/          # Integration tests
+├── types/          # TypeScript type definitions
+└── tests/          # Unit and integration tests
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 18+ (20 recommended)
 - Docker & Docker Compose
 
 ### Environment Setup
@@ -73,19 +66,15 @@ src/
    cd github-shoppers
    ```
 
-2. Copy the example environment file:
+2. Copy the example environment file and fill in your values:
    ```bash
    cp .env.example .env
    ```
-
-3. Fill in the required environment variables in `.env`:
-   - Database credentials
-   - OAuth keys (GitHub/Google)
-   - API keys (DeepSeek, Resend, ShareContent, Umami)
+   Edit `.env` with your database URL, OAuth credentials (GitHub/Google), and optional API keys (DeepSeek, Resend, ShareContent, Umami). See `.env.example` for all variables.
 
 ### Running with Docker (Recommended)
 
-Start the entire stack (App, Worker, Postgres, Redis):
+Start the stack (App + Postgres):
 
 ```bash
 docker-compose up --build
@@ -100,9 +89,9 @@ The application will be available at `http://localhost:3000`.
    npm install
    ```
 
-2. Start infrastructure (Postgres & Redis):
+2. Start Postgres:
    ```bash
-   docker-compose up -d postgres redis
+   docker-compose up -d postgres
    ```
 
 3. Run database migrations:
@@ -115,22 +104,29 @@ The application will be available at `http://localhost:3000`.
    npm run dev
    ```
 
-5. Start the background worker (in a separate terminal):
-   ```bash
-   npx tsx src/workers/ai-enhancement.worker.ts
-   ```
-
 ## 🧪 Testing
 
-Run integration tests:
+Run tests:
 
 ```bash
 npm run test
 ```
 
+Run tests once (CI-style):
+
+```bash
+npm run test:run
+```
+
+Run tests with coverage:
+
+```bash
+npm run test:coverage
+```
+
 ## 📘 API Documentation
 
-Once the server is running, access the interactive API documentation at:
+With the server running, open the interactive API documentation at:
 
 ```
 http://localhost:3000/api-doc
@@ -138,12 +134,17 @@ http://localhost:3000/api-doc
 
 ## 🚢 Deployment
 
-The project is configured for easy deployment using Docker Compose.
+The project is ready for deployment with Docker Compose.
 
-1. Ensure your VPS has Docker and Docker Compose installed.
-2. Transfer the project files to your server.
-3. Set up your production `.env` file.
-4. Run `docker-compose up -d --build`.
+1. Ensure the host has Docker and Docker Compose installed.
+2. Copy the project to the server and set the production `.env`.
+3. Run:
+
+   ```bash
+   docker-compose up -d --build
+   ```
+
+A production-style image can be built using the multi-stage `Dockerfile` (see `Dockerfile` for the `builder` and runtime stages).
 
 ## 📄 License
 
