@@ -2,6 +2,9 @@
 
 GitHub Shoppers is a full-stack e-commerce application designed to demonstrate robust architectural patterns, AI integration, and secure stock management. It features a transactional purchase system, AI-enhanced content generation, and integration with multiple external services.
 
+## Demo on Youtube
+https://www.youtube.com/watch?v=025sou02IJk&t=5s
+
 ## 🚀 Features
 
 ### Core Functionality
